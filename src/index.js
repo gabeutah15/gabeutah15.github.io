@@ -6,8 +6,8 @@ import mario from "./assets/mario.png";
 const config = {
   type: Phaser.AUTO,
   parent: "phaser-example",
-  width: 500,
-  height: 888,
+  width: 720,
+  height: 1280,
     physics: {
         default: 'arcade',
         arcade: {
@@ -16,9 +16,10 @@ const config = {
         }
     },
     scene:{
-        preload: preload,//these are all the scene names here
+        preload: preload,//these are all the scene names here? or function names?
         create: create,
-        update: update
+        update: update,
+        input: input
     }
 };
 
@@ -31,13 +32,20 @@ function preload() {
     //this.load.image("player", 'src/assets/mariosmall.gif');
     this.load.image("enemy", 'src/assets/donkeykong.jpg'); 
     this.load.image("ground", 'src/assets/donkeykongplatform.jpg'); 
-    this.load.image("block", 'src/assets/singletilesprite.png'); 
+    this.load.image("block", 'src/assets/tile43.png'); 
 
 
 
-    this.load.spritesheet('player', 'src/assets/mariospritesheet.jpg', {
-        frameWidth: 180,
-        frameHeight: 220,
+    //this.load.spritesheet('player', 'src/assets/mariospritesheet.jpg', {
+    //    frameWidth: 180,
+    //    frameHeight: 220,
+    //    margin: 1,
+    //    spacing: 1
+    //});
+
+    this.load.spritesheet('player', 'src/assets/marioSmallspritesheet.png', {
+        frameWidth: 32,
+        frameHeight: 32,
         margin: 1,
         spacing: 1
     });
@@ -46,21 +54,14 @@ function preload() {
 
 }
 
+
+
 function create() {
-   // const logo = this.add.image(400, 150, "logo");
-   // const mario = this.add.image(100, 50, "mario");
-    //const background = this.add.image(100, 50, "background");
-    //let bg = this.add.sprite(0, 0, 'background');
-    //bg.image.sc
-   // bg.setOrigin(0, 0);
 
-    //these two are same as just config.heigth/width i think
-    //let gameWidth = this.sys.game.config.width;
-    //let gameHeight = this.sys.game.config.height;
-   
+    this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
 
-   // this.events.on('resize', this.parent.resize, this);
     this.bg = this.add.sprite(config.width / 2, config.height / 2, 'background');
     this.bg.setDisplaySize(config.width, config.height);
 
@@ -69,26 +70,19 @@ function create() {
     //player.depth = 1;//sprite layer
     //this.player.setScale(0.25, 0.25);
 
-    this.player = this.physics.add.sprite(150, 100, 'player');
-    this.player.body.allowGravity = true;
-    this.player.setScale(0.25);
+    this.platforms = this.add.group();
 
-    //add physics to existing sprite
-    //this.ground = this.add.sprite(190, 160, 'ground');
-    //this.ground.depth = 1;
-    //this.ground.setScale(0.3);
-    ////this.ground.setDisplaySize(30, 30);
-    //this.physics.add.existing(this.ground);
-    //this.ground.body.allowGravity = false;
-
-    //physics and sprite in one line
     let ground2 = this.physics.add.sprite(190, 160, 'ground', false);//last boolean true means will be static body
     ground2.body.allowGravity = false;
     ground2.setScale(0.3);
     ground2.body.immovable = true;//so the ground does not move when player falls on it
+    this.platforms.add(ground2);
 
-    let platform = this.add.tileSprite(400, 400, 320, 320, 'block');
-    platform.depth = 1;
+    //tiles platform of specified length
+    let platform = this.add.tileSprite(300, 100, 3 * 43, 43, 'block');
+    this.physics.add.existing(platform, true);
+    this.platforms.add(platform);
+
 
     //this is how to do static body but I can't get it to work with scaling
     //let ground1 = this.add.sprite(490, 160, 'ground');
@@ -96,7 +90,32 @@ function create() {
     ////set gravity false or immovable true, but also adding this way does not seem to scale the collider
     //ground1.setScale(0.3);
 
-    this.physics.add.collider(ground2, this.player);
+    this.player = this.physics.add.sprite(150, 100, 'player', 0);
+    this.anims.create({
+        key: 'walk',
+        repeat: -1,//infinite repeat
+        frameRate: 6,
+        frames: this.anims.generateFrameNames('player', {start:4,end:5})
+    });
+    this.anims.create({
+        key: 'jump',
+        repeat: -1,//infinite repeat
+        frameRate: 6,
+        frames: this.anims.generateFrameNames('player', { start: 1, end: 1 })
+    });
+    this.anims.create({
+        key: 'idle',
+        repeat: -1,//infinite repeat
+        frameRate: 6,
+        frames: this.anims.generateFrameNames('player', { start: 0, end: 0 })
+    });
+    this.player.play('walk');
+    //this.player.flipX = true;//works, so do that on input
+    this.player.body.allowGravity = true;
+    //this.player.setScale(0.25);
+
+    this.physics.add.collider(this.platforms, this.player);
+    //this.physics.add.collider(platform, this.player);
     //this.physics.add.collider(ground1, this.player);
 
 
@@ -123,6 +142,8 @@ function create() {
   //  yoyo: true,
   //  loop: -1
   //});
+
+
 }
 
 
@@ -135,14 +156,37 @@ function update() {
     //    this.player.scaleY += 0.005;
 
     //}
-   
+    if (this.keyA.isDown) {
+        console.log('A is pressed');
+        this.player.x -= 1;
+        this.player.flipX = true;
+    }
+    if (this.keyD.isDown) {
+        console.log('D is pressed');
+        this.player.x += 1;
+        this.player.flipX = false;
+
+
+    }
 
 
 }
 
-//function resize(width, height)
-//{
-//    this.cameras.resize(width, height);
-//    this.bg.setDisplaySize(width, height);
-//    // this.logo.setPosition(width / 2, height / 2);
-//}
+//this.input.keyboard.on('keydown_A', function (event) {
+//    console.log('Hello from the A Key!');
+//});
+
+function input() {
+    //this.right = this.scene.input.keyboard.addKey('D'); 
+    //this.left = this.scene.input.keyboard.addKey('A'); 
+
+    //var isDown = keyObj.isDown;
+    //var isUp = keyObj.isUp;
+
+    //this.keys = scene.input.keyboard.addKeys({
+    //    up: 'up',
+    //    down: 'down',
+    //    left: 'left',
+    //    right: 'right'
+    //}); 
+}
