@@ -60,6 +60,8 @@ function create() {
 
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
 
 
     this.bg = this.add.sprite(config.width / 2, config.height / 2, 'background');
@@ -109,7 +111,7 @@ function create() {
         frameRate: 6,
         frames: this.anims.generateFrameNames('player', { start: 0, end: 0 })
     });
-    this.player.play('walk');
+    this.player.play('idle');
     //this.player.flipX = true;//works, so do that on input
     this.player.body.allowGravity = true;
     //this.player.setScale(0.25);
@@ -156,19 +158,33 @@ function update() {
     //    this.player.scaleY += 0.005;
 
     //}
+     if (this.physics.collide(this.player, this.platforms)) {
+        //console.log('on ground');
+        if (this.keySpace.isDown) {
+            //console.log('s is pressed');
+            this.player.setVelocityY(-120);
+
+        }
+    } 
+    
+
     if (this.keyA.isDown) {
         console.log('A is pressed');
         this.player.x -= 1;
         this.player.flipX = true;
+        this.player.play('walk', true);
+
+       
     }
-    if (this.keyD.isDown) {
+    else if (this.keyD.isDown) {
         console.log('D is pressed');
         this.player.x += 1;
         this.player.flipX = false;
-
-
+        this.player.play('walk', true);
     }
-
+    else {
+        this.player.play('idle');
+    }
 
 }
 
