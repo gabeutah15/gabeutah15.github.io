@@ -125,6 +125,14 @@ function update() {
 	
 	this.player.setAngle(0);
 	
+	if(this.player.x <= 17){
+		this.player.x = 17;
+	}
+	
+	if(this.player.x >= 703){
+		this.player.x = 703;
+	}
+	
 	if (this.keySpace.isDown && (lastClick <= (Date.now() - delay))) {
         //console.log('s is pressed');
         this.player.setVelocityY(-7);
@@ -149,4 +157,5 @@ function update() {
         this.player.play('idle');
 		this.player.setVelocityX(0)
 	}
+	
 }
