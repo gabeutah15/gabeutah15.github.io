@@ -28,7 +28,7 @@ const game = new Phaser.Game(config);
 function preload() {
    // this.load.image("logo", logoImg);
   //  this.load.image("mario", mario); 
-    this.load.image("background", 'src/assets/donkeykongbackgrounddemo.png'); 
+    this.load.image("background", 'src/assets/waterbg.jpg'); 
     //this.load.image("player", 'src/assets/mariosmall.gif');
     this.load.image("enemy", 'src/assets/donkeykong.jpg'); 
     this.load.image("ground", 'src/assets/donkeykongplatform.jpg'); 
@@ -74,11 +74,25 @@ function create() {
 
     this.platforms = this.add.group();
 
-    let ground2 = this.physics.add.sprite(190, 160, 'ground', false);//last boolean true means will be static body
+    let ground1 = this.physics.add.sprite(360, 1200, 'ground', false);//last boolean true means will be static body
+    ground1.body.allowGravity = false;
+    ground1.setScale(2,.7);
+    ground1.body.immovable = true;//so the ground does not move when player falls on it
+    this.platforms.add(ground1);
+
+    let ground2 = this.physics.add.sprite(100, 1000, 'ground', false);//last boolean true means will be static body
     ground2.body.allowGravity = false;
-    ground2.setScale(0.3);
+    ground2.setScale(.5, 0.3);
     ground2.body.immovable = true;//so the ground does not move when player falls on it
     this.platforms.add(ground2);
+
+    let ground3 = this.physics.add.sprite(500, 900, 'ground', false);//last boolean true means will be static body
+    ground3.body.allowGravity = false;
+    ground3.setScale(.7, 0.3);
+    ground3.body.immovable = true;//so the ground does not move when player falls on it
+    this.platforms.add(ground3);
+
+
 
     //tiles platform of specified length
     let platform = this.add.tileSprite(300, 100, 3 * 43, 43, 'block');
@@ -158,14 +172,20 @@ function update() {
     //    this.player.scaleY += 0.005;
 
     //}
-     if (this.physics.collide(this.player, this.platforms)) {
-        //console.log('on ground');
-        if (this.keySpace.isDown) {
-            //console.log('s is pressed');
-            this.player.setVelocityY(-120);
+    // if (this.physics.collide(this.player, this.platforms)) {
+    //    //console.log('on ground');
+    //    if (this.keySpace.isDown) {
+    //        //console.log('s is pressed');
+    //        this.player.setVelocityY(-120);
 
-        }
-    } 
+    //    }
+    //} 
+
+    if (this.keySpace.isDown) {
+        //console.log('s is pressed');
+        this.player.setVelocityY(-120);
+
+    }
     
 
     if (this.keyA.isDown) {
