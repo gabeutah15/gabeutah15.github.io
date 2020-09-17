@@ -96,7 +96,7 @@ function create ()
     });
 	player.play('idle');
 
-    var ladder = this.matter.add.image(900, 1130, 'ladder', null, { isStatic: true });
+    var ladder = this.matter.add.image(950, 1100, 'ladder', null, { isStatic: true });
     ladder.setScale(.25, .25);
     ladder.setFriction(0);
 
@@ -203,15 +203,15 @@ function create ()
         playerTouchingGround = false;
     });
 
-    this.matter.world.on('collisionstart', function (event, ladder, player) {
-        playerTouchingLadder = true;
-        console.log("touching ladder");
-    });
+    //this.matter.world.on('collisionstart', function (event, ladder, player) {
+    //    playerTouchingLadder = true;
+    //    console.log("touching ladder");
+    //});
 
-    this.matter.world.on('collisionend', function (event, ladder, player) {
-        playerTouchingLadder = false;
-        console.log("NOT touching ladder");//
-    });
+    //this.matter.world.on('collisionend', function (event, ladder, player) {
+    //    playerTouchingLadder = false;
+    //    console.log("NOT touching ladder");//
+    //});
 
     //this.matter.world.on("collisionactive", (player, ground) => {
     //    playerTouchingGround = true;
