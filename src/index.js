@@ -9,8 +9,8 @@ const config = {
   width: 720,
   height: 1280,
     physics: {
-        default: 'arcade',
-        arcade: {
+        default: 'matter',
+        matter: {
             gravity: { y: 200 },
             debug: true
         }
@@ -64,8 +64,9 @@ function create() {
 
 
 
-    this.bg = this.add.sprite(config.width / 2, config.height / 2, 'background');
+    this.bg = this.matter.add.sprite(config.width / 2, config.height / 2, 'background');
     this.bg.setDisplaySize(config.width, config.height);
+    //this.bg.setCollideWorldBounds(true);
 
     //this.player = this.add.sprite(150, 116, 'player');
     //player.x = 200;//can move over
@@ -74,41 +75,49 @@ function create() {
 
     this.platforms = this.add.group();
 
-    let ground1 = this.physics.add.sprite(360, 1200, 'ground', false);//last boolean true means will be static body
+    let ground1 = this.matter.add.sprite(360, 1200, 'ground', false);//last boolean true means will be static body
     ground1.body.allowGravity = false;
     ground1.setScale(2,.7);
     ground1.body.immovable = true;//so the ground does not move when player falls on it
     this.platforms.add(ground1);
 
-    let ground2 = this.physics.add.sprite(100, 1000, 'ground', false);//last boolean true means will be static body
-    ground2.body.allowGravity = false;
-    ground2.setScale(.5, 0.3);
-    ground2.angle = 35;
-    ground2.body.angle = 35;
-    ground2.body.immovable = true;//so the ground does not move when player falls on it
-    this.platforms.add(ground2);
+    this.ground2 = this.matter.add.sprite(100, 1000, 'ground', false);//last boolean true means will be static body
+    this.ground2.body.allowGravity = false;
+    this.ground2.setScale(.5, 0.3);
+    this.ground2.angle = 35;
+    this.ground2.body.angle = 35;
+    //this.ground2.body.rotateLeft(35);
+    this.ground2.body.immovable = true;//so the ground does not move when player falls on it
+    this.platforms.add(this.ground2);
 
-    let ground3 = this.physics.add.sprite(500, 900, 'ground', false);//last boolean true means will be static body
+    let ground3 = this.matter.add.sprite(500, 900, 'ground', false);//last boolean true means will be static body
     ground3.body.allowGravity = false;
     ground3.setScale(.7, 0.3);
     ground3.body.immovable = true;//so the ground does not move when player falls on it
     this.platforms.add(ground3);
 
+    //this.ground5 = this.add.sprite(200, 200, 'ground')
+    //this.ground5.width = 300
+    //this.ground5.height = 10
+    //this.matter.enable([this.ground5, this.projectile, this.point], true);
+    //this.matter.createRevoluteConstraint(this.ground5, [0, 0], this.point, [0, 0]);
 
 
     //tiles platform of specified length
-    let platform = this.add.tileSprite(300, 100, 3 * 43, 43, 'block');
-    this.physics.add.existing(platform, true);
-    this.platforms.add(platform);
+    //let platform = this.add.tileSprite(300, 100, 3 * 43, 43, 'block');
+    //this.matter.add.existing(platform, true);
+    //this.platforms.add(platform);
 
 
     //this is how to do static body but I can't get it to work with scaling
-    //let ground1 = this.add.sprite(490, 160, 'ground');
-    //this.physics.add.existing(ground1, true);//last boolean true means will be static body, so no need to 
+    //let ground4 = this.add.sprite(500, 300, 'ground');
+    //this.matter.add.existing(ground4, true);//last boolean true means will be static body, so no need to 
     ////set gravity false or immovable true, but also adding this way does not seem to scale the collider
-    //ground1.setScale(0.3);
+    //ground4.setScale(0.3);
+    //ground4.angle = 35;
+    //ground4.body.angle = 35;
 
-    this.player = this.physics.add.sprite(150, 100, 'player', 0);
+    this.player = this.matter.add.sprite(150, 100, 'player', 0);
     this.anims.create({
         key: 'walk',
         repeat: -1,//infinite repeat
@@ -132,9 +141,9 @@ function create() {
     this.player.body.allowGravity = true;
     //this.player.setScale(0.25);
 
-    this.physics.add.collider(this.platforms, this.player);
-    //this.physics.add.collider(platform, this.player);
-    //this.physics.add.collider(ground1, this.player);
+    this.matter.add.collider(this.platforms, this.player);
+    //this.matter.add.collider(platform, this.player);
+    //this.matter.add.collider(ground1, this.player);
 
 
 
@@ -175,7 +184,7 @@ function update() {
     //    this.player.scaleY += 0.005;
 
     //}
-    // if (this.physics.collide(this.player, this.platforms)) {
+    // if (this.matter.collide(this.player, this.platforms)) {
     //    //console.log('on ground');
     //    if (this.keySpace.isDown) {
     //        //console.log('s is pressed');
@@ -183,8 +192,9 @@ function update() {
 
     //    }
     //} 
+    //this.ground2.body.angle += 1;
 
-   
+    //this.ground5.body.angle += 1;
   
 
     if (this.keySpace.isDown && (lastClick <= (Date.now() - delay))) {
