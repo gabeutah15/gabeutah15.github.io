@@ -11,8 +11,10 @@ var config = {
     physics: {
         default: 'matter',
         matter: {
-            debug: true
-        }
+            
+			gravity: { x:.5, y:.5 },
+			debug: true
+        },
     },
     scene: {
         preload: preload,
