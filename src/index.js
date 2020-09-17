@@ -4,15 +4,15 @@ import mario from "./assets/mario.png";
 
 var config = {
     type: Phaser.AUTO,
+	autoCenter: true,
     width: 720,
-    height: 1280,
+    height: 730,
     backgroundColor: '#1b1464',
     parent: 'phaser-example',
     physics: {
         default: 'matter',
         matter: {
-            
-			gravity: { x:.5, y:.5 },
+			gravity: { x: 0, y:1  },
 			debug: true
         },
     },
@@ -48,12 +48,16 @@ function create ()
     this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     
-	this.bg = this.add.sprite(config.width / 2, config.height / 2, 'background');
-    this.bg.setDisplaySize(config.width, config.height);
+	this.bg = this.add.sprite(0,0 , 'background');
+    this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
 	
 	this.player = this.matter.add.sprite(150, 100, 'player', 0);
-		this.player.setFriction(0);
-		
+		this.player.setFriction(10);
+
+	this.cameras.main.setSize(this.bg.width, 730);
+	this.cameras.main.setBounds(0, 0, this.bg.width, this.bg.height);
+	this.cameras.main.startFollow(this.player);
+	
 	this.anims.create({
         key: 'walk',
         repeat: -1,//infinite repeat
@@ -94,7 +98,8 @@ var lastClick = Date.now();
 function update() {
 	
 	this.player.setAngle(0);
-    if (this.keySpace.isDown && (lastClick <= (Date.now() - delay))) {
+	
+	if (this.keySpace.isDown && (lastClick <= (Date.now() - delay))) {
         //console.log('s is pressed');
         this.player.setVelocityY(-7);
         lastClick = Date.now();
