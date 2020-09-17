@@ -5,8 +5,8 @@ import mario from "./assets/mario.png";
 var config = {
     type: Phaser.AUTO,
 	autoCenter: true,
-    width: 720,
-    height: 730,
+    width: 1000,
+    height: 1280,
     backgroundColor: '#1b1464',
     parent: 'phaser-example',
     physics: {
@@ -25,6 +25,9 @@ var config = {
 
 var player;
 var ball;
+let playerTouchingGround = false;
+let playerTouchingLadder = false;
+
 var game = new Phaser.Game(config);
 
 function preload ()
@@ -34,6 +37,8 @@ function preload ()
     this.load.image("ground", 'src/assets/donkeykongplatform.jpg'); 
     this.load.image("block", 'src/assets/tile43.png'); 
     this.load.image('ball', 'src/assets/ball.png');
+    this.load.image('ladder', 'src/assets/ladder.png');
+
 
 	this.load.spritesheet('player', 'src/assets/marioSmallspritesheet.png', {
 		frameWidth: 32,
@@ -48,17 +53,28 @@ function create ()
 {
 	this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     
 	this.bg = this.add.sprite(0,0 , 'background');
-    this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
-	
-	this.player = this.matter.add.sprite(150, 100, 'player', 0);
-		this.player.setFriction(10);
+    //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
+    this.bg.setDisplaySize(1000, 1280);
+    this.bg.setScale(3,2);
 
-	this.cameras.main.setSize(this.bg.width, 730);
+    var cat1 = this.matter.world.nextCategory();
+    var cat2 = this.matter.world.nextCategory();
+	
+	player = this.matter.add.sprite(1000, 1150, 'player', 0);
+    player.setFriction(10);
+    player.setCollidesWith([cat1]);
+    player.sett
+    
+
+	//this.cameras.main.setSize(this.bg.width, 730);
+    this.cameras.main.setSize(1000,1280);
 	this.cameras.main.setBounds(0, 0, this.bg.width, this.bg.height);
-	this.cameras.main.startFollow(this.player);
+	//this.cameras.main.startFollow(this.player);
 	
 	this.anims.create({
         key: 'walk',
@@ -78,20 +94,62 @@ function create ()
         frameRate: 6,
         frames: this.anims.generateFrameNames('player', { start: 0, end: 0 })
     });
-	this.player.play('idle');
+	player.play('idle');
 
-	var ground = this.matter.add.image(360, 1200, 'ground', null, { isStatic: true });
-	    ground.setScale(2, 0.7);
-		ground.setFriction(0);
+    var ladder = this.matter.add.image(900, 1130, 'ladder', null, { isStatic: true });
+    ladder.setScale(.25, .25);
+    ladder.setFriction(0);
 
-    var ground2 = this.matter.add.image(100, 1000, 'ground', null, { isStatic: true });
-	    ground2.setScale(.5, 0.3);
-		ground2.setAngle(5);
-		ground2.setFriction(100000000000);		
+
+	var ground = this.matter.add.image(500, 1200, 'ground', null, { isStatic: true });
+	    ground.setScale(2.5, 0.7);
+    ground.setFriction(0);
+    
+
+    var ground2 = this.matter.add.image(450, 650, 'ground', null, { isStatic: true });
+	    ground2.setScale(1.8, 0.3);
+    ground2.setAngle(7);
+    
+
+    //ground2.setFriction(100000000000);	
+
+    var ground3 = this.matter.add.image(550, 850, 'ground', null, { isStatic: true });
+    ground3.setScale(1.8, 0.3);
+    ground3.setAngle(-7);
+    //ground3.setFriction(100000000000);	
+
+    var ground4 = this.matter.add.image(450, 1050, 'ground', null, { isStatic: true });
+    ground4.setScale(1.8, 0.3);
+    ground4.setAngle(7);
+    //ground4.setFriction(100000000000);	
 		
-	var ground3 = this.matter.add.image(400, 300, 'ground', null, { isStatic: true });
-	    ground3.setScale(.7, 0.3);
-    ground3.setFriction(0);
+	var ground5 = this.matter.add.image(400, 300, 'ground', null, { isStatic: true });
+	    ground5.setScale(.7, 0.3);
+    ground5.setFriction(0);
+
+    var ground6 = this.matter.add.image(1000, 720, 'ground', null, { isStatic: true });
+    ground6.setScale(.1, 2);
+    ground6.setFriction(0);
+
+    var ground7 = this.matter.add.image(10, 900, 'ground', null, { isStatic: true });
+    ground7.setScale(.1, 2);
+    ground7.setFriction(0);
+
+    //there has to be a smarter way to do this:
+    ground.setCollisionCategory(cat1);
+    ground2.setCollisionCategory(cat1);
+    ground3.setCollisionCategory(cat1);
+    ground4.setCollisionCategory(cat1);
+    ground5.setCollisionCategory(cat1);
+    ground6.setCollisionCategory(cat1);
+    ground7.setCollisionCategory(cat1);
+    ladder.setCollisionCategory(cat2);
+
+
+    //no tilesprite for matter?
+    //var platform = this.matter.add.tileSprite(800, 800, 43, 2 * 43, 'block');
+    //this.physics.add.existing(platform, true);
+    //this.platforms.add(platform);
 
     //this.matter.world.on('collisionstart', function (event, this.player, this.platforms) {
     //    if (this.keySpace.isDown) {
@@ -102,12 +160,62 @@ function create ()
     ball = this.matter.add.image(50, 50, 'ball');
     ball.setCircle();
     ball.setScale(.1);
-    ball.setFriction(.01);
-    ball.setBounce(0.3);
+    ball.setFriction(0);
+    ball.setBounce(0.01);
     ball.setVelocity(0, 0);
     ball.setVelocityX(0);
     ball.setVelocityY(0);
     ball.setAngularVelocity(0.15);
+    ball.setCollisionCategory(cat1);
+
+    //this doesn't work, but want something like it for 'ball' player collision to kill player
+    //this.player.setOnCollideWith(ball, pair => {
+    //    console.log("hit ball");
+    //});
+
+    //this.matter.world.on('collisionactive', function (event, ball/*, player*/) {
+    //    ball.gameObject.setTint(0x00ff00);//0xff0000
+    //    //player.gameObject.setTint(0x00ff00);//0x00ff00
+
+    //});
+
+    //this.matter.world.on('collisionstart', function (event, ball/*, player*/) {
+    //    ball.gameObject.setTint(0x00ff00);//0xff0000
+    //    //player.gameObject.setTint(0x00ff00);//0x00ff00
+
+    //});
+
+    //this.matter.world.on('collisionend', function (event, ball/*, player*/) {
+    //    ball.gameObject.setTint(0x00ff00);//0xff0000
+    //    //player.gameObject.setTint(0x00ff00);//0x00ff00
+
+    //});
+
+    //this.matter.world.on('collisionactive', function (event, ground, player) {
+    //    playerTouchingGround = true;
+    //});
+
+    this.matter.world.on('collisionstart', function (event, ground, player) {
+        playerTouchingGround = true;
+    });
+
+    this.matter.world.on('collisionend', function (event, ground, player) {
+        playerTouchingGround = false;
+    });
+
+    this.matter.world.on('collisionstart', function (event, ladder, player) {
+        playerTouchingLadder = true;
+        console.log("touching ladder");
+    });
+
+    this.matter.world.on('collisionend', function (event, ladder, player) {
+        playerTouchingLadder = false;
+        console.log("NOT touching ladder");//
+    });
+
+    //this.matter.world.on("collisionactive", (player, ground) => {
+    //    playerTouchingGround = true;
+    //});
     
 }	
 
@@ -123,39 +231,51 @@ function update() {
     //    }
     //}
 	
-	this.player.setAngle(0);
+	player.setAngle(0);
 	
-	if(this.player.x <= 17){
-		this.player.x = 17;
+	if(player.x <= 17){
+		player.x = 17;
 	}
 	
-	if(this.player.x >= 703){
-		this.player.x = 703;
+	if(player.x >= 980){
+		player.x = 980;
 	}
 	
-	if (this.keySpace.isDown && (lastClick <= (Date.now() - delay))) {
-        //console.log('s is pressed');
-        this.player.setVelocityY(-7);
+	//if (this.keySpace.isDown && (lastClick <= (Date.now() - delay))) {
+ //       //console.log('s is pressed');
+ //       this.player.setVelocityY(-7);
+ //       lastClick = Date.now();
+ //   }
+
+    if (this.keySpace.isDown && playerTouchingGround) {
+        player.setVelocityY(-7);
+        playerTouchingGround = false;
         lastClick = Date.now();
     }
-   
-    if (this.keyA.isDown) {
+
+    if (this.keyW.isDown && playerTouchingLadder) {
+        console.log('W is pressed');
+        player.setVelocityY(1);
+        //player.flipX = true;
+        player.play('idle', true);
+    }
+    else if (this.keyA.isDown) {
         console.log('A is pressed');
-        this.player.setVelocityX(-2);
-        this.player.flipX = true;
-        this.player.play('walk', true);
+        player.setVelocityX(-2);
+        player.flipX = true;
+        player.play('walk', true);
 
        
     }
     else if (this.keyD.isDown) {
         console.log('D is pressed');
-        this.player.setVelocityX(2);
-        this.player.flipX = false;
-        this.player.play('walk', true);
+        player.setVelocityX(2);
+        player.flipX = false;
+        player.play('walk', true);
     }
     else {
-        this.player.play('idle');
-		this.player.setVelocityX(0)
+        player.play('idle');
+		player.setVelocityX(0)
 	}
 	
 }
