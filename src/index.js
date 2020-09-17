@@ -83,6 +83,7 @@ function create() {
     let ground2 = this.physics.add.sprite(100, 1000, 'ground', false);//last boolean true means will be static body
     ground2.body.allowGravity = false;
     ground2.setScale(.5, 0.3);
+    ground2.angle = 35;
     ground2.body.immovable = true;//so the ground does not move when player falls on it
     this.platforms.add(ground2);
 
