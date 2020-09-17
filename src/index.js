@@ -84,6 +84,7 @@ function create() {
     ground2.body.allowGravity = false;
     ground2.setScale(.5, 0.3);
     ground2.angle = 35;
+    ground2.body.angle = 35;
     ground2.body.immovable = true;//so the ground does not move when player falls on it
     this.platforms.add(ground2);
 
@@ -162,7 +163,8 @@ function create() {
 
 
 }
-
+var delay = 1000;
+var lastClick = Date.now();
 
 function update() {
     //this.enemy.x += 0.4;
@@ -182,10 +184,13 @@ function update() {
     //    }
     //} 
 
-    if (this.keySpace.isDown) {
+   
+  
+
+    if (this.keySpace.isDown && (lastClick <= (Date.now() - delay))) {
         //console.log('s is pressed');
         this.player.setVelocityY(-120);
-
+        lastClick = Date.now();
     }
     
 
