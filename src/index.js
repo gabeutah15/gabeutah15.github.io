@@ -70,7 +70,6 @@ function create ()
         frameRate: 6,
         frames: this.anims.generateFrameNames('player', { start: 0, end: 0 })
     });
-    
 	this.player.play('idle');
 
 	var ground = this.matter.add.image(360, 1200, 'ground', null, { isStatic: true });
@@ -90,10 +89,10 @@ function create ()
 var delay = 1000;
 var lastClick = Date.now();
 
-function update ()
-{
+function update() {
+	
 	this.player.setAngle(0);
-	if (this.keySpace.isDown && (lastClick <= (Date.now() - delay))) {
+    if (this.keySpace.isDown && (lastClick <= (Date.now() - delay))) {
         //console.log('s is pressed');
         this.player.setVelocityY(-7);
         lastClick = Date.now();
