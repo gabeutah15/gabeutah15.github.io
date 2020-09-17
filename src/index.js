@@ -12,7 +12,7 @@ var config = {
         default: 'matter',
         matter: {
             
-			gravity: { x:.5, y:.5 },
+			gravity: { x:0, y:.5 },
 			debug: true
         },
     },
@@ -24,6 +24,7 @@ var config = {
 };
 
 var player;
+var ball;
 var game = new Phaser.Game(config);
 
 function preload ()
@@ -32,6 +33,7 @@ function preload ()
     this.load.image("enemy", 'src/assets/donkeykong.jpg'); 
     this.load.image("ground", 'src/assets/donkeykongplatform.jpg'); 
     this.load.image("block", 'src/assets/tile43.png'); 
+    this.load.image('ball', 'src/assets/ball.png');
 
 	this.load.spritesheet('player', 'src/assets/marioSmallspritesheet.png', {
 		frameWidth: 32,
@@ -83,17 +85,43 @@ function create ()
 		ground2.setAngle(5);
 		ground2.setFriction(100000000000);		
 		
-	var ground3 = this.matter.add.image(500, 900, 'ground', null, { isStatic: true });
+	var ground3 = this.matter.add.image(400, 300, 'ground', null, { isStatic: true });
 	    ground3.setScale(.7, 0.3);
-		ground3.setFriction(0);
+    ground3.setFriction(0);
+
+    //this.matter.world.on('collisionstart', function (event, this.player, this.platforms) {
+    //    if (this.keySpace.isDown) {
+    //        this.player.setVelocityY(-120);
+    //    }
+    //}
+
+    ball = this.matter.add.image(50, 50, 'ball');
+    ball.setCircle();
+    ball.setScale(.1);
+    ball.setFriction(.01);
+    ball.setBounce(0.3);
+    ball.setVelocity(0, 0);
+    ball.setVelocityX(0);
+    ball.setVelocityY(0);
+    ball.setAngularVelocity(0.15);
+    
 }	
 
 var delay = 1000;
 var lastClick = Date.now();
 
 function update() {
+
+    //what is physics equivalent of this:
+    //if (this.matter.collide(this.player, this.platforms)) {
+    //    if (this.keySpace.isDown) {
+    //        this.player.setVelocityY(-120);
+    //    }
+    //}
 	
-	this.player.setAngle(0);
+    this.player.setAngle(0);
+   
+
     if (this.keySpace.isDown && (lastClick <= (Date.now() - delay))) {
         //console.log('s is pressed');
         this.player.setVelocityY(-7);
