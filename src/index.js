@@ -301,7 +301,7 @@ function update() {
         //console.log('W is pressed');
         //player.setVelocityY(-2);
         player.y -= 1;
-        player.setVelocityX(0);
+        //player.setVelocityX(0);
         
         //player.flipX = true;
         player.play('idle', true);
@@ -309,7 +309,7 @@ function update() {
     else if (this.keyS.isDown && playerTouchingLadder) {
         //player.setVelocityY(2);
         player.y += 1;
-        player.setVelocityX(0);
+        //player.setVelocityX(0);
         
         //player.flipX = true;
         player.play('idle', true);
