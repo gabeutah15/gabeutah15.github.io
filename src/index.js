@@ -111,20 +111,24 @@ function create ()
     var ladder2 = this.matter.add.image(110, 950, 'ladder', null, { isStatic: true });
 		ladder2.setScale(.25, .4);
 		ladder2.setSensor(true);
-
-    var ladder3 = this.matter.add.image(890, 750, 'ladder', null, { isStatic: true });
-		ladder3.setScale(.25, .4);
+    //***
+    var ladder3 = this.matter.add.image(465, 720, 'ladder', null, { isStatic: true });
+		ladder3.setScale(.25, .55);
 		ladder3.setSensor(true);
-
+    //***
 	var ground = this.matter.add.image(500, 1200, 'ground', null, { isStatic: true });
 	    ground.setScale(2.5, 0.7);
 		ground.setFriction(0);
     
-    var ground2 = this.matter.add.image(450, 650, 'ground', null, { isStatic: true });
-	    ground2.setScale(1.8, 0.3);
+    var ground2 = this.matter.add.image(220, 620, 'ground', null, { isStatic: true });
+	    ground2.setScale(.9, 0.3);
 		ground2.setAngle(7);
-		//ground2.setFriction(100000000000);	
+		//ground2.setFriction(100000000000);
 
+    var ground2B = this.matter.add.image(690, 680, 'ground', null, { isStatic: true });
+        ground2B.setScale(.8, 0.3);
+        ground2B.setAngle(7);
+    
     var ground3 = this.matter.add.image(550, 850, 'ground', null, { isStatic: true });
 		ground3.setScale(1.8, 0.3);
 		ground3.setAngle(-7);
@@ -200,7 +204,7 @@ function create ()
             var r = Math.floor(Math.random() * 10);
 			//if(r > 4){
 				//ball.setVelocityY(0);
-            ball.setIgnoreGravity(true);
+            bodyB.gameObject.setIgnoreGravity(true);
 
 		//	}
             console.log("Ball hit ladder " + r);
@@ -219,7 +223,7 @@ function create ()
         }
 
         if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
-            ball.setIgnoreGravity(false);
+            bodyB.gameObject.setIgnoreGravity(false);
             console.log("ball stopped hitting ladder");
         }
     });
