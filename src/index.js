@@ -198,9 +198,11 @@ function create ()
         }
 		if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
             var r = Math.floor(Math.random() * 10);
-			if(r > 4){
-				ball.setVelocityY(-10);
-			}
+			//if(r > 4){
+				//ball.setVelocityY(0);
+            ball.setIgnoreGravity(true);
+
+		//	}
             console.log("Ball hit ladder " + r);
         }
 		
@@ -214,6 +216,11 @@ function create ()
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
             playerTouchingLadder = false;
             console.log("stopped overlap with ladder");
+        }
+
+        if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
+            ball.setIgnoreGravity(false);
+            console.log("ball stopped hitting ladder");
         }
     });
 
