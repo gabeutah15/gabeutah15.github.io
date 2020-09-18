@@ -32,9 +32,6 @@ let playerHitByBall = false;
 var game = new Phaser.Game(config);
 //game.scene.add();
 
-//var time_til_spawn = Math.random() * 3000 + 2000;  //Random time between 2 and 5 seconds.
-//var last_spawn_time = game.time.time;
-
 function preload ()
 {	 
     console.log(this);
@@ -55,17 +52,6 @@ function preload ()
     });
 
 }
-
-//class Ball extends Phaser.Matter.Arcade.Sprite {
-//    constructor(scene, x, y, key, type) {
-//        super(scene, x, y, key, type);
-//        this.scene = scene;
-//        this.x = x;
-//        this.y = y;
-
-//        ball = this.matter.add.image(50, 50, 'ball');
-//        //this.enemy = this.scene.physics.add.sprite(x, y, 'player2', 'tank1');
-//    }
 
 function create ()
 {
@@ -260,20 +246,10 @@ function create ()
     
 }	
 
-//function restart() {
-//    //this.registry.destroy();
-//    //this.events.off();
-//    //game.scene.restart();
-//    //this.scene.restart();
-//    console.log(game.scene.scenes[0]);
-//    //game.scene.scenes[0].start('game');
-//}
-
-
 var delay = 1000;
 var lastClick = Date.now();
 
-var delayBall = 4000;
+var delayBall = 4000;//spawn frequency of ball
 var lastBall = Date.now();
 
 function update() {
