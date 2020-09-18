@@ -35,7 +35,8 @@ var game = new Phaser.Game(config);
 function preload ()
 {	 
     console.log(this);
-    this.load.image("background", 'src/assets/waterbg.jpg'); 
+    this.load.image("background", 'src/assets/waterbg.jpg');
+	this.load.image("WinBox", 'src/assets/logo.png');	
     this.load.image("enemy", 'src/assets/donkeykong.jpg'); 
     this.load.image("ground", 'src/assets/donkeykongplatform.jpg'); 
     this.load.image("block", 'src/assets/tile43.png'); 
@@ -99,15 +100,26 @@ function create ()
     });
 	player.play('idle');
 
+    var WinBox = this.matter.add.image(110, 550, 'WinBox', null, { isStatic: true });
+		WinBox.setScale(.25, .25);
+		WinBox.setSensor(true);
+
     var ladder = this.matter.add.image(890, 1120, 'ladder', null, { isStatic: true });
 		ladder.setScale(.25, .25);
 		ladder.setSensor(true);
+
+    var ladder2 = this.matter.add.image(110, 950, 'ladder', null, { isStatic: true });
+		ladder2.setScale(.25, .4);
+		ladder2.setSensor(true);
+
+    var ladder3 = this.matter.add.image(890, 750, 'ladder', null, { isStatic: true });
+		ladder3.setScale(.25, .4);
+		ladder3.setSensor(true);
 
 	var ground = this.matter.add.image(500, 1200, 'ground', null, { isStatic: true });
 	    ground.setScale(2.5, 0.7);
 		ground.setFriction(0);
     
-
     var ground2 = this.matter.add.image(450, 650, 'ground', null, { isStatic: true });
 	    ground2.setScale(1.8, 0.3);
 		ground2.setAngle(7);
@@ -136,7 +148,8 @@ function create ()
 		ground7.setFriction(0);
 
     //there has to be a smarter way to do this:
-    ground.setCollisionCategory(cat1);
+    WinBox.setCollisionCategory(cat1);
+	ground.setCollisionCategory(cat1);
     ground2.setCollisionCategory(cat1);
     ground3.setCollisionCategory(cat1);
     ground4.setCollisionCategory(cat1);
@@ -144,6 +157,9 @@ function create ()
     ground6.setCollisionCategory(cat1);
     ground7.setCollisionCategory(cat1);
     ladder.setCollisionCategory(cat1);
+	ladder2.setCollisionCategory(cat1);
+	ladder3.setCollisionCategory(cat1);
+	
    
 
     ball = this.matter.add.image(50, 50, 'ball');
@@ -170,7 +186,12 @@ function create ()
 			alert("you lost!!!");
 			location.reload();
         }
-
+		
+		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
+			alert("YOU WIN!!!");
+			location.reload();
+        }
+		
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
             playerTouchingLadder = true;
             console.log("overlap with ladder");
@@ -217,9 +238,6 @@ function create ()
     //});
     
 }	
-
-
-
 
 //function restart() {
 //    //this.registry.destroy();
@@ -272,5 +290,4 @@ function update() {
         player.play('idle');
 		player.setVelocityX(0)
 	}
-	
 }
