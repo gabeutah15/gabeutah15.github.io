@@ -202,11 +202,11 @@ function create ()
         }
 		if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
             var r = Math.floor(Math.random() * 10);
-			//if(r > 4){
+			if(r > 4){
 				//ball.setVelocityY(0);
             bodyB.gameObject.setIgnoreGravity(true);
 
-		//	}
+			}
             console.log("Ball hit ladder " + r);
         }
 		
@@ -284,17 +284,40 @@ function update() {
         lastBall = Date.now();
     }
 
+    if (playerTouchingLadder) {
+        player.setIgnoreGravity(true);
+        player.setVelocityY(0);
+        player.setVelocityX(0);
+    }
+    else {
+        player.setIgnoreGravity(false);
+    }
+
     if (this.keySpace.isDown && playerTouchingGround && (lastClick <= (Date.now() - delay))) {
         player.setVelocityY(-7);
         lastClick = Date.now();
     }
     if (this.keyW.isDown && playerTouchingLadder) {
-        console.log('W is pressed');
-        player.setVelocityY(-2);
-		player.setVelocityX(0);
+        //console.log('W is pressed');
+        //player.setVelocityY(-2);
+        player.y -= 1;
+        player.setVelocityX(0);
+        
         //player.flipX = true;
         player.play('idle', true);
     }
+    else if (this.keyS.isDown && playerTouchingLadder) {
+        //player.setVelocityY(2);
+        player.y += 1;
+        player.setVelocityX(0);
+        
+        //player.flipX = true;
+        player.play('idle', true);
+    }
+    //else if (playerTouchingLadder) {
+    //    player.setVelocityY(0);
+    //    player.play('idle', true);
+    //}
     else if (this.keyA.isDown) {
         console.log('A is pressed');
         player.setVelocityX(-2);
