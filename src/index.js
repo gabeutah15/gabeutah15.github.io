@@ -32,6 +32,9 @@ let playerHitByBall = false;
 var game = new Phaser.Game(config);
 //game.scene.add();
 
+//var time_til_spawn = Math.random() * 3000 + 2000;  //Random time between 2 and 5 seconds.
+//var last_spawn_time = game.time.time;
+
 function preload ()
 {	 
     console.log(this);
@@ -53,6 +56,17 @@ function preload ()
 
 }
 
+//class Ball extends Phaser.Matter.Arcade.Sprite {
+//    constructor(scene, x, y, key, type) {
+//        super(scene, x, y, key, type);
+//        this.scene = scene;
+//        this.x = x;
+//        this.y = y;
+
+//        ball = this.matter.add.image(50, 50, 'ball');
+//        //this.enemy = this.scene.physics.add.sprite(x, y, 'player2', 'tank1');
+//    }
+
 function create ()
 {
 	this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -66,13 +80,13 @@ function create ()
     this.bg.setDisplaySize(1000, 1280);
     this.bg.setScale(3,2);
 
-    var cat1 = this.matter.world.nextCategory();
+    this.cat1 = this.matter.world.nextCategory();
     var cat2 = this.matter.world.nextCategory();
 	
     player = this.matter.add.sprite(1000, 1110, 'player', 0);
     player.label = "player1";
     player.setFriction(10);
-    player.setCollidesWith([cat1]);
+    player.setCollidesWith([this.cat1]);
     //player.setOverlapsWith([cat2]);    
 
 	//this.cameras.main.setSize(this.bg.width, 730);
@@ -148,17 +162,17 @@ function create ()
 		ground7.setFriction(0);
 
     //there has to be a smarter way to do this:
-    WinBox.setCollisionCategory(cat1);
-	ground.setCollisionCategory(cat1);
-    ground2.setCollisionCategory(cat1);
-    ground3.setCollisionCategory(cat1);
-    ground4.setCollisionCategory(cat1);
-    ground5.setCollisionCategory(cat1);
-    ground6.setCollisionCategory(cat1);
-    ground7.setCollisionCategory(cat1);
-    ladder.setCollisionCategory(cat1);
-	ladder2.setCollisionCategory(cat1);
-	ladder3.setCollisionCategory(cat1);
+    WinBox.setCollisionCategory(this.cat1);
+    ground.setCollisionCategory(this.cat1);
+    ground2.setCollisionCategory(this.cat1);
+    ground3.setCollisionCategory(this.cat1);
+    ground4.setCollisionCategory(this.cat1);
+    ground5.setCollisionCategory(this.cat1);
+    ground6.setCollisionCategory(this.cat1);
+    ground7.setCollisionCategory(this.cat1);
+    ladder.setCollisionCategory(this.cat1);
+    ladder2.setCollisionCategory(this.cat1);
+    ladder3.setCollisionCategory(this.cat1);
 	
    
 
@@ -171,7 +185,7 @@ function create ()
     ball.setVelocityX(0);
     ball.setVelocityY(0);
     ball.setAngularVelocity(0.15);
-    ball.setCollisionCategory(cat1);
+    ball.setCollisionCategory(this.cat1);
     ball.label = "ball";
 
     this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
@@ -259,6 +273,9 @@ function create ()
 var delay = 1000;
 var lastClick = Date.now();
 
+var delayBall = 4000;
+var lastBall = Date.now();
+
 function update() {
 	
 	player.setAngle(0);
@@ -268,7 +285,24 @@ function update() {
 	}
 	if(player.x >= 980){
 		player.x = 980;
-	}
+    }
+
+    if (lastBall <= (Date.now() - delayBall)) {
+
+        console.log("spawned ball");
+        ball = this.matter.add.image(50, 50, 'ball');
+        ball.setCircle();
+        ball.setScale(.1);
+        ball.setFriction(0);
+        ball.setBounce(0.01);
+        ball.setVelocity(0, 0);
+        ball.setVelocityX(0);
+        ball.setVelocityY(0);
+        ball.setAngularVelocity(0.15);
+        ball.setCollisionCategory(this.cat1);
+        ball.label = "ball";
+        lastBall = Date.now();
+    }
 
     if (this.keySpace.isDown && playerTouchingGround && (lastClick <= (Date.now() - delay))) {
         player.setVelocityY(-7);
