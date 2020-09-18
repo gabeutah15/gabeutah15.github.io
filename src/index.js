@@ -167,19 +167,8 @@ function create ()
         }
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
-
-            if (!playerHitByBall) {
-                //console.log(this);//this is Game here
-                //this.start('preload');
-                //restart();
-                //preload();
-                //this.scene.restart();
-                //game.restart();
-                
-            }
-            playerHitByBall = true;
-            //console.log(game);
-            //console.log(scene);
+			alert("you lost!!!");
+			location.reload();
         }
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
