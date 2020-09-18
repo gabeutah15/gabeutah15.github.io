@@ -102,6 +102,7 @@ function create ()
     //var ladder = this.add.image(890, 1120, 'ladder');
     var ladder = this.matter.add.image(890, 1120, 'ladder', null, { isStatic: true });
     ladder.setScale(.25, .25);
+    ladder.setSensor(true);
     //this.matter.add.overlap(player, ladder);
     //ladder.setFriction(0);
 
@@ -148,7 +149,7 @@ function create ()
     ground5.setCollisionCategory(cat1);
     ground6.setCollisionCategory(cat1);
     ground7.setCollisionCategory(cat1);
-    ladder.setCollisionCategory(cat2);
+    ladder.setCollisionCategory(cat1);
    
 
 
@@ -214,29 +215,39 @@ function create ()
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
             playerHitByBall = true;
         }
-    });
 
-    this.matter.world.on('collisionend', function (event, bodyA, bodyB) {
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
-            playerTouchingGround = false;
-        }
-    });
-
-    //dunno if overlap exists like this
-    this.matter.world.on('overlapstart', function (event, bodyA, bodyB) {
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
             playerTouchingLadder = true;
             console.log("overlap with ladder");
         }
     });
 
-    this.matter.world.on('overlapend', function (event, bodyA, bodyB) {
+    this.matter.world.on('collisionend', function (event, bodyA, bodyB) {
+        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
+            playerTouchingGround = false;
+        }
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
             playerTouchingLadder = false;
-            console.log("overlap with ladder end");
+            console.log("stopped overlap with ladder");
         }
     });
+
+    //dunno if overlap exists like this
+    //this.matter.world.on('collisionactive', function (event, bodyA, bodyB) {
+    //    if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
+    //        playerTouchingLadder = true;
+    //        console.log("overlap with ladder");
+    //    }
+    //});
+
+    //this.matter.world.on('overlapend', function (event, bodyA, bodyB) {
+
+    //    if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
+    //        playerTouchingLadder = false;
+    //        console.log("overlap with ladder end");
+    //    }
+    //});
     //this.matter.world.on('overlap', function (event, bodyA, bodyB) {
     //    console.log(bodyB.gameObject.texture.key);
     //    console.log(bodyA.gameObject.texture.key);
@@ -296,13 +307,13 @@ function update() {
         lastClick = Date.now();
     }
 
-    //if (this.keyW.isDown && playerTouchingLadder) {
-    //    console.log('W is pressed');
-    //    player.setVelocityY(1);
-    //    //player.flipX = true;
-    //    player.play('idle', true);
-    //}
-    if (this.keyA.isDown) {
+    if (this.keyW.isDown && playerTouchingLadder) {
+        console.log('W is pressed');
+        player.setVelocityY(-2);
+        //player.flipX = true;
+        player.play('idle', true);
+    }
+    else if (this.keyA.isDown) {
         console.log('A is pressed');
         player.setVelocityX(-2);
         player.flipX = true;
