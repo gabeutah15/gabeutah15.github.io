@@ -19,8 +19,7 @@ var config = {
     scene: {
         preload: preload,
         create: create,
-        update: update,
-        start: start
+        update: update
     }
 };
 
@@ -219,7 +218,8 @@ function create ()
 
             if (!playerHitByBall) {
                 //console.log(this);//this is Game here
-                restart();
+                //this.start('preload');
+                //restart();
                 //preload();
                 //this.scene.restart();
                 //game.restart();
