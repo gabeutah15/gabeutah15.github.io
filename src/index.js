@@ -19,7 +19,8 @@ var config = {
     scene: {
         preload: preload,
         create: create,
-        update: update
+        update: update,
+        start: start
     }
 };
 
@@ -30,9 +31,11 @@ let playerTouchingLadder = false;
 let playerHitByBall = false;
 
 var game = new Phaser.Game(config);
+//game.scene.add();
 
 function preload ()
 {	 
+    console.log(this);
     this.load.image("background", 'src/assets/waterbg.jpg'); 
     this.load.image("enemy", 'src/assets/donkeykong.jpg'); 
     this.load.image("ground", 'src/assets/donkeykongplatform.jpg'); 
@@ -213,7 +216,18 @@ function create ()
         }
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
+
+            if (!playerHitByBall) {
+                //console.log(this);//this is Game here
+                restart();
+                //preload();
+                //this.scene.restart();
+                //game.restart();
+                
+            }
             playerHitByBall = true;
+            //console.log(game);
+            //console.log(scene);
         }
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
@@ -280,6 +294,19 @@ function create ()
     //});
     
 }	
+
+
+
+
+//function restart() {
+//    //this.registry.destroy();
+//    //this.events.off();
+//    //game.scene.restart();
+//    //this.scene.restart();
+//    console.log(game.scene.scenes[0]);
+//    //game.scene.scenes[0].start('game');
+//}
+
 
 var delay = 1000;
 var lastClick = Date.now();
