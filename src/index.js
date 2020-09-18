@@ -301,9 +301,8 @@ function update() {
  //       lastClick = Date.now();
  //   }
 
-    if (this.keySpace.isDown && playerTouchingGround) {
+    if (this.keySpace.isDown && playerTouchingGround && (lastClick <= (Date.now() - delay))) {
         player.setVelocityY(-7);
-        //playerTouchingGround = false;
         lastClick = Date.now();
     }
 
