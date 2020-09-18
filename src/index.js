@@ -27,6 +27,7 @@ var player;
 var ball;
 let playerTouchingGround = false;
 let playerTouchingLadder = false;
+let playerHitByBall = false;
 
 var game = new Phaser.Game(config);
 
@@ -65,10 +66,12 @@ function create ()
     var cat1 = this.matter.world.nextCategory();
     var cat2 = this.matter.world.nextCategory();
 	
-	player = this.matter.add.sprite(1000, 1150, 'player', 0);
+    player = this.matter.add.sprite(1000, 1110, 'player', 0);
+    player.label = "player1";
     player.setFriction(10);
     player.setCollidesWith([cat1]);
-    player.sett
+    //player.setOverlapsWith([cat2]);
+    //player.sett
     
 
 	//this.cameras.main.setSize(this.bg.width, 730);
@@ -96,9 +99,11 @@ function create ()
     });
 	player.play('idle');
 
-    var ladder = this.matter.add.image(950, 1100, 'ladder', null, { isStatic: true });
+    //var ladder = this.add.image(890, 1120, 'ladder');
+    var ladder = this.matter.add.image(890, 1120, 'ladder', null, { isStatic: true });
     ladder.setScale(.25, .25);
-    ladder.setFriction(0);
+    //this.matter.add.overlap(player, ladder);
+    //ladder.setFriction(0);
 
 
 	var ground = this.matter.add.image(500, 1200, 'ground', null, { isStatic: true });
@@ -144,6 +149,7 @@ function create ()
     ground6.setCollisionCategory(cat1);
     ground7.setCollisionCategory(cat1);
     ladder.setCollisionCategory(cat2);
+   
 
 
     //no tilesprite for matter?
@@ -167,6 +173,8 @@ function create ()
     ball.setVelocityY(0);
     ball.setAngularVelocity(0.15);
     ball.setCollisionCategory(cat1);
+    ball.label = "ball";
+
 
     //this doesn't work, but want something like it for 'ball' player collision to kill player
     //this.player.setOnCollideWith(ball, pair => {
@@ -195,14 +203,49 @@ function create ()
     //    playerTouchingGround = true;
     //});
 
-    this.matter.world.on('collisionstart', function (event, ground, player) {
-        playerTouchingGround = true;
+    this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
+        //console.log(bodyB.gameObject.texture.key);
+        //console.log(bodyA.gameObject.texture.key);
+
+        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
+            playerTouchingGround = true;
+        }
+
+        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
+            playerHitByBall = true;
+        }
     });
 
-    this.matter.world.on('collisionend', function (event, ground, player) {
-        playerTouchingGround = false;
+    this.matter.world.on('collisionend', function (event, bodyA, bodyB) {
+        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
+            playerTouchingGround = false;
+        }
     });
 
+    //dunno if overlap exists like this
+    this.matter.world.on('overlapstart', function (event, bodyA, bodyB) {
+        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
+            playerTouchingLadder = true;
+            console.log("overlap with ladder");
+        }
+    });
+
+    this.matter.world.on('overlapend', function (event, bodyA, bodyB) {
+
+        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
+            playerTouchingLadder = false;
+            console.log("overlap with ladder end");
+        }
+    });
+    //this.matter.world.on('overlap', function (event, bodyA, bodyB) {
+    //    console.log(bodyB.gameObject.texture.key);
+    //    console.log(bodyA.gameObject.texture.key);
+
+    //    if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
+    //        playerTouchingLadder = true;
+    //    }
+    //});
+    //adfg
     //this.matter.world.on('collisionstart', function (event, ladder, player) {
     //    playerTouchingLadder = true;
     //    console.log("touching ladder");
@@ -249,17 +292,17 @@ function update() {
 
     if (this.keySpace.isDown && playerTouchingGround) {
         player.setVelocityY(-7);
-        playerTouchingGround = false;
+        //playerTouchingGround = false;
         lastClick = Date.now();
     }
 
-    if (this.keyW.isDown && playerTouchingLadder) {
-        console.log('W is pressed');
-        player.setVelocityY(1);
-        //player.flipX = true;
-        player.play('idle', true);
-    }
-    else if (this.keyA.isDown) {
+    //if (this.keyW.isDown && playerTouchingLadder) {
+    //    console.log('W is pressed');
+    //    player.setVelocityY(1);
+    //    //player.flipX = true;
+    //    player.play('idle', true);
+    //}
+    if (this.keyA.isDown) {
         console.log('A is pressed');
         player.setVelocityX(-2);
         player.flipX = true;
