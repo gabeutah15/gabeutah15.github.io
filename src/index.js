@@ -234,6 +234,14 @@ function create ()
             playerTouchingLadder = true;
             console.log("overlap with ladder");
         }
+		if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
+            var r = Math.floor(Math.random() * 10);
+			if(r < 4){
+				ball.setVelocityY(-10);
+			}
+            console.log("Ball hit ladder " + r);
+        }
+		
     });
 
     this.matter.world.on('collisionend', function (event, bodyA, bodyB) {
