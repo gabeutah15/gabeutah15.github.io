@@ -108,8 +108,8 @@ function create ()
 		ladder.setScale(.25, .25);
 		ladder.setSensor(true);
 
-    var ladder2 = this.matter.add.image(110, 950, 'ladder', null, { isStatic: true });
-		ladder2.setScale(.25, .4);
+    var ladder2 = this.matter.add.image(110, 920, 'ladder', null, { isStatic: true });
+		ladder2.setScale(.25, .25);
 		ladder2.setSensor(true);
     //***
     var ladder3 = this.matter.add.image(465, 720, 'ladder', null, { isStatic: true });
@@ -253,7 +253,8 @@ function create ()
 var delay = 1000;
 var lastClick = Date.now();
 
-var delayBall = 4000;//spawn frequency of ball
+var rand = Math.floor(Math.random() * 1000);
+var delayBall = 4000 + rand;//spawn frequency of ball
 var lastBall = Date.now();
 
 function update() {
