@@ -48,6 +48,8 @@ function preload() {
     this.load.image("block", 'src/assets/tile43.png');
     this.load.image('ball', 'src/assets/ball.png');
     this.load.image('ladder', 'src/assets/ladder.png');
+    this.load.image('firesprite', 'src/assets/smallfiresprite.png');
+
 
 
     this.load.spritesheet('player', 'src/assets/marioSmallspritesheet.png', {
@@ -272,14 +274,19 @@ function create() {
 
     //path
     this.graphics = this.add.graphics();
-    follower = { t: 0, vec: new Phaser.Math.Vector2() };
+
+    this.followers = this.add.group();
+    var fireSprite = this.followers.create(100, -30, 'firesprite');
+    fireSprite.setData('vector', new Phaser.Math.Vector2());
+
+    //follower = { t: 0, vec: new Phaser.Math.Vector2() };
     //  Path starts at 100x100
     path = new Phaser.Curves.Path(120, 1150);
     path.lineTo(900, 1150);
     path.lineTo(900, 1080);
     path.lineTo(100, 980);
     this.tweens.add({
-        targets: follower,
+        targets: fireSprite,
         t: 1,
         ease: 'Sine.easeInOut',
         duration: 20000,
@@ -380,10 +387,14 @@ function update() {
 
     if (spawnAFireMonster) {
         //this.graphics = this.add.graphics();
-        follower = { t: 0, vec: new Phaser.Math.Vector2() };
+        //follower = { t: 0, vec: new Phaser.Math.Vector2() };
+
+        var fireSprite = this.followers.create(0, -50, 'firesprite');
+        fireSprite.setData('vector', new Phaser.Math.Vector2());
+
         console.log("spawn fire monster");
         this.tweens.add({
-            targets: follower,
+            targets: fireSprite,
             t: 1,
             ease: 'Sine.easeInOut',
             duration: 20000,
@@ -396,8 +407,27 @@ function update() {
     this.graphics.clear();
     this.graphics.lineStyle(2, 0xffffff, 1);
     path.draw(this.graphics);
-    path.getPoint(follower.t, follower.vec);
-    this.graphics.fillStyle(0xff0000, 1);
-    this.graphics.fillCircle(follower.vec.x, follower.vec.y, 12);
+
+    //new
+    //it is successfylly spawning a new one on each dead ball but they aren't going anywhere
+    //looks like their path.getpoint never changes?
+    var fireSprite = this.followers.getChildren();
+    for (var i = 0; i < fireSprite.length; i++) {
+        var t = fireSprite[i].z;
+        var vec = fireSprite[i].getData('vector');
+
+        //  The vector is updated in-place
+        path.getPoint(t, vec);
+
+        fireSprite[i].setPosition(vec.x, vec.y);
+
+        fireSprite[i].setDepth(fireSprite[i].y);
+    }
+    //new
+
+
+   // path.getPoint(follower.t, follower.vec);
+   // this.graphics.fillStyle(0xff0000, 1);
+   // this.graphics.fillCircle(follower.vec.x, follower.vec.y, 12);
     //end path
 }
