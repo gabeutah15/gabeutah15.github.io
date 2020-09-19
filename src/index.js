@@ -4,7 +4,7 @@ import mario from "./assets/mario.png";
 
 var config = {
     type: Phaser.AUTO,
-	autoCenter: true,
+    autoCenter: true,
     width: 1000,
     height: 1280,
     backgroundColor: '#1b1464',
@@ -12,8 +12,8 @@ var config = {
     physics: {
         default: 'matter',
         matter: {
-			gravity: { x: 0, y:1  },
-			debug: true
+            gravity: { x: 0, y: 1 },
+            debug: true
         },
     },
     scene: {
@@ -28,63 +28,68 @@ var ball;
 let playerTouchingGround = false;
 let playerTouchingLadder = false;
 let playerHitByBall = false;
+let spawnAFireMonster = false;
+//path
+var follower;
+var path;
+var graphics;
+//end path
 
 var game = new Phaser.Game(config);
 //game.scene.add();
 
-function preload ()
-{	 
+function preload() {
     console.log(this);
     this.load.image("background", 'src/assets/waterbg.jpg');
-	this.load.image("WinBox", 'src/assets/logo.png');	
-    this.load.image("enemy", 'src/assets/donkeykong.jpg'); 
-    this.load.image("ground", 'src/assets/donkeykongplatform.jpg'); 
-    this.load.image("block", 'src/assets/tile43.png'); 
+    this.load.image("WinBox", 'src/assets/logo.png');
+    this.load.image("DestroyBallBox", 'src/assets/DestroyBallBox.png');
+    this.load.image("enemy", 'src/assets/donkeykong.jpg');
+    this.load.image("ground", 'src/assets/donkeykongplatform.jpg');
+    this.load.image("block", 'src/assets/tile43.png');
     this.load.image('ball', 'src/assets/ball.png');
     this.load.image('ladder', 'src/assets/ladder.png');
 
 
-	this.load.spritesheet('player', 'src/assets/marioSmallspritesheet.png', {
-		frameWidth: 32,
-		frameHeight: 32,
-		margin: 1,
-		spacing: 1
+    this.load.spritesheet('player', 'src/assets/marioSmallspritesheet.png', {
+        frameWidth: 32,
+        frameHeight: 32,
+        margin: 1,
+        spacing: 1
     });
 
 }
 
-function create ()
-{
-	this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+function create() {
+    this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    
-	this.bg = this.add.sprite(0,0 , 'background');
+
+    this.bg = this.add.sprite(0, 0, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
     this.bg.setDisplaySize(1000, 1280);
-    this.bg.setScale(3,2);
+    this.bg.setScale(3, 2);
 
     this.cat1 = this.matter.world.nextCategory();
     var cat2 = this.matter.world.nextCategory();
-	
-    player = this.matter.add.sprite(1000, 1110, 'player', 0);
+
+    player = this.matter.add.sprite(100, 1110, 'player', 0);
     player.label = "player1";
     player.setFriction(10);
     player.setCollidesWith([this.cat1]);
     //player.setOverlapsWith([cat2]);    
 
-	//this.cameras.main.setSize(this.bg.width, 730);
-    this.cameras.main.setSize(1000,1280);
-	this.cameras.main.setBounds(0, 0, this.bg.width, this.bg.height);
-	//this.cameras.main.startFollow(this.player);
-	
-	this.anims.create({
+    //this.cameras.main.setSize(this.bg.width, 730);
+    this.cameras.main.setSize(1000, 1280);
+    this.cameras.main.setBounds(0, 0, this.bg.width, this.bg.height);
+    //this.cameras.main.startFollow(this.player);
+
+    this.anims.create({
         key: 'walk',
         repeat: -1,//infinite repeat
         frameRate: 6,
-        frames: this.anims.generateFrameNames('player', {start:4,end:5})
+        frames: this.anims.generateFrameNames('player', { start: 4, end: 5 })
     });
     this.anims.create({
         key: 'jump',
@@ -98,61 +103,71 @@ function create ()
         frameRate: 6,
         frames: this.anims.generateFrameNames('player', { start: 0, end: 0 })
     });
-	player.play('idle');
+    player.play('idle');
 
     var WinBox = this.matter.add.image(110, 550, 'WinBox', null, { isStatic: true });
-		WinBox.setScale(.25, .25);
-		WinBox.setSensor(true);
+    WinBox.setScale(.25, .25);
+    WinBox.setSensor(true);
+
+    var DestroyBallBox = this.matter.add.image(50, 1150, 'DestroyBallBox', null, { isStatic: true });
+    DestroyBallBox.setScale(.2, .2);
+    DestroyBallBox.setSensor(true);
 
     var ladder = this.matter.add.image(890, 1120, 'ladder', null, { isStatic: true });
-		ladder.setScale(.25, .25);
-		ladder.setSensor(true);
+    ladder.setScale(.25, .25);
+    ladder.setSensor(true);
 
     var ladder2 = this.matter.add.image(110, 950, 'ladder', null, { isStatic: true });
-		ladder2.setScale(.25, .4);
-		ladder2.setSensor(true);
+    ladder2.setScale(.25, .4);
+    ladder2.setSensor(true);
     //***
     var ladder3 = this.matter.add.image(465, 720, 'ladder', null, { isStatic: true });
-		ladder3.setScale(.25, .55);
-		ladder3.setSensor(true);
+    ladder3.setScale(.25, .55);
+    ladder3.setSensor(true);
     //***
-	var ground = this.matter.add.image(500, 1200, 'ground', null, { isStatic: true });
-	    ground.setScale(2.5, 0.7);
-		ground.setFriction(0);
-    
+    var ground = this.matter.add.image(500, 1200, 'ground', null, { isStatic: true });
+    ground.setScale(2.5, 0.7);
+    ground.setAngle(-3);
+    ground.setFriction(0);
+
     var ground2 = this.matter.add.image(220, 620, 'ground', null, { isStatic: true });
-	    ground2.setScale(.9, 0.3);
-		ground2.setAngle(7);
-		//ground2.setFriction(100000000000);
+    ground2.setScale(.9, 0.3);
+    ground2.setAngle(7);
+    //ground2.setFriction(100000000000);
 
     var ground2B = this.matter.add.image(690, 680, 'ground', null, { isStatic: true });
-        ground2B.setScale(.8, 0.3);
-        ground2B.setAngle(7);
-    
+    ground2B.setScale(.8, 0.3);
+    ground2B.setAngle(7);
+
     var ground3 = this.matter.add.image(550, 850, 'ground', null, { isStatic: true });
-		ground3.setScale(1.8, 0.3);
-		ground3.setAngle(-7);
-		//ground3.setFriction(100000000000);	
+    ground3.setScale(1.8, 0.3);
+    ground3.setAngle(-7);
+    //ground3.setFriction(100000000000);	
 
     var ground4 = this.matter.add.image(450, 1050, 'ground', null, { isStatic: true });
-		ground4.setScale(1.8, 0.3);
-		ground4.setAngle(7);
-		//ground4.setFriction(100000000000);	
-		
-	var ground5 = this.matter.add.image(400, 300, 'ground', null, { isStatic: true });
-	    ground5.setScale(.7, 0.3);
-		ground5.setFriction(0);
+    ground4.setScale(1.8, 0.3);
+    ground4.setAngle(7);
+    //ground4.setFriction(100000000000);	
+
+    var ground5 = this.matter.add.image(400, 300, 'ground', null, { isStatic: true });
+    ground5.setScale(.7, 0.3);
+    ground5.setFriction(0);
 
     var ground6 = this.matter.add.image(1000, 720, 'ground', null, { isStatic: true });
-		ground6.setScale(.1, 2);
-		ground6.setFriction(0);
+    ground6.setScale(.1, 2);
+    ground6.setFriction(0);
 
     var ground7 = this.matter.add.image(10, 900, 'ground', null, { isStatic: true });
-		ground7.setScale(.1, 2);
-		ground7.setFriction(0);
+    ground7.setScale(.1, 2);
+    ground7.setFriction(0);
+
+    var ground7 = this.matter.add.image(1000, 1100, 'ground', null, { isStatic: true });
+    ground7.setScale(.1, 2);
+    ground7.setFriction(0);
 
     //there has to be a smarter way to do this:
     WinBox.setCollisionCategory(this.cat1);
+    DestroyBallBox.setCollisionCategory(this.cat1);
     ground.setCollisionCategory(this.cat1);
     ground2.setCollisionCategory(this.cat1);
     ground3.setCollisionCategory(this.cat1);
@@ -163,8 +178,8 @@ function create ()
     ladder.setCollisionCategory(this.cat1);
     ladder2.setCollisionCategory(this.cat1);
     ladder3.setCollisionCategory(this.cat1);
-	
-   
+
+
 
     ball = this.matter.add.image(50, 50, 'ball');
     ball.setCircle();
@@ -187,29 +202,36 @@ function create ()
         }
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
-			alert("you lost!!!");
-			location.reload();
+            alert("you lost!!!");
+            location.reload();
         }
-		
-		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
-			alert("YOU WIN!!!");
-			location.reload();
+
+        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
+            alert("YOU WIN!!!");
+            
+            location.reload();
         }
-		
+
+        if ((bodyA.gameObject.texture.key == 'DestroyBallBox') && (bodyB.gameObject.texture.key == 'ball')) {
+            //console.log("Ball Destroyed, fire monster spawned");
+            spawnAFireMonster = true;
+            bodyB.destroy();
+        }
+
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
             playerTouchingLadder = true;
             console.log("overlap with ladder");
         }
-		if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
+        if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
             var r = Math.floor(Math.random() * 10);
-			if(r > 4){
-				//ball.setVelocityY(0);
-            bodyB.gameObject.setIgnoreGravity(true);
+            if (r > 4) {
+                //ball.setVelocityY(0);
+                bodyB.gameObject.setIgnoreGravity(true);
 
-			}
+            }
             console.log("Ball hit ladder " + r);
         }
-		
+
     });
 
     this.matter.world.on('collisionend', function (event, bodyA, bodyB) {
@@ -247,8 +269,26 @@ function create ()
     //this.matter.world.on("collisionactive", (player, ground) => {
     //    playerTouchingGround = true;
     //});
-    
-}	
+
+    //path
+    this.graphics = this.add.graphics();
+    follower = { t: 0, vec: new Phaser.Math.Vector2() };
+    //  Path starts at 100x100
+    path = new Phaser.Curves.Path(120, 1150);
+    path.lineTo(900, 1150);
+    path.lineTo(900, 1080);
+    path.lineTo(100, 980);
+    this.tweens.add({
+        targets: follower,
+        t: 1,
+        ease: 'Sine.easeInOut',
+        duration: 20000,
+        yoyo: true,
+        repeat: -1
+    });
+    //end path
+
+}
 
 var delay = 1000;
 var lastClick = Date.now();
@@ -257,15 +297,16 @@ var delayBall = 4000;//spawn frequency of ball
 var lastBall = Date.now();
 
 function update() {
-	
-	player.setAngle(0);
-	
-	if(player.x <= 17){
-		player.x = 17;
-	}
-	if(player.x >= 980){
-		player.x = 980;
+
+    player.setAngle(0);
+
+    if (player.x <= 17) {
+        player.x = 17;
     }
+    if (player.x >= 980) {
+        player.x = 980;
+    }
+
 
     if (lastBall <= (Date.now() - delayBall)) {
 
@@ -302,7 +343,7 @@ function update() {
         //player.setVelocityY(-2);
         player.y -= 1;
         //player.setVelocityX(0);
-        
+
         //player.flipX = true;
         player.play('idle', true);
     }
@@ -310,7 +351,7 @@ function update() {
         //player.setVelocityY(2);
         player.y += 1;
         //player.setVelocityX(0);
-        
+
         //player.flipX = true;
         player.play('idle', true);
     }
@@ -332,6 +373,31 @@ function update() {
     }
     else {
         player.play('idle');
-		player.setVelocityX(0)
-	}
+        player.setVelocityX(0)
+    }
+
+
+
+    if (spawnAFireMonster) {
+        //this.graphics = this.add.graphics();
+        follower = { t: 0, vec: new Phaser.Math.Vector2() };
+        console.log("spawn fire monster");
+        this.tweens.add({
+            targets: follower,
+            t: 1,
+            ease: 'Sine.easeInOut',
+            duration: 20000,
+            yoyo: true,
+            repeat: -1
+        });
+        spawnAFireMonster = false;
+    }
+    //path:
+    this.graphics.clear();
+    this.graphics.lineStyle(2, 0xffffff, 1);
+    path.draw(this.graphics);
+    path.getPoint(follower.t, follower.vec);
+    this.graphics.fillStyle(0xff0000, 1);
+    this.graphics.fillCircle(follower.vec.x, follower.vec.y, 12);
+    //end path
 }
