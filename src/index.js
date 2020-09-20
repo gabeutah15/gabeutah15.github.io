@@ -206,6 +206,9 @@ function create() {
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
             playerTouchingGround = true;
         }
+        if ((bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'player')) {
+            playerTouchingGround = true;
+        }
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
             alert("you lost!!!");
@@ -250,6 +253,11 @@ function create() {
             playerTouchingLadder = false;
             console.log("stopped overlap with ladder");
         }
+        if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'player')) {
+            playerTouchingLadder = false;
+            console.log("stopped overlap with ladder");
+        }
+
 
         if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
             bodyB.gameObject.setIgnoreGravity(false);
@@ -299,6 +307,13 @@ var rand = Math.floor(Math.random() * 1000);
 var delayBall = 4000 + rand;//spawn frequency of ball
 var lastBall = Date.now();
 
+let playerDiedBool = false;
+
+function playerDied(){
+	alert("you lost!!!");
+	location.reload();
+}
+
 function update() {
 
     player.setAngle(0);
@@ -310,6 +325,9 @@ function update() {
         player.x = 980;
     }
 
+	if(playerDiedBool){
+		return;
+	}
 
     if (lastBall <= (Date.now() - delayBall)) {
 
@@ -440,10 +458,10 @@ function update() {
 
         fireSprites[i].setDepth(fireSprites[i].y);
 
-        var vecMaxX = vec.x + 1;
-        var vecMinX = vec.x - 1;
-        var vecMaxY = vec.y + 1;
-        var vecMinY = vec.y - 1;
+        var vecMaxX = vec.x + 30;
+        var vecMinX = vec.x - 30;
+        var vecMaxY = vec.y + 30;
+        var vecMinY = vec.y - 30;
 
         var playerX = player.x;
         var playerY = player.y;
@@ -451,8 +469,17 @@ function update() {
         if ((playerX > vecMinX) && (playerX < vecMaxX)) {
             if ((playerY > vecMinY) && (playerY < vecMaxY)) {
                 console.log("player overlap with fires sprite");
+				playerDiedBool = true;
+				playerDied();
             }
         }
+		
+		//if (rect1.x < rect2.x + rect2.width &&
+		//	rect1.x + rect1.width > rect2.x &&
+		//	rect1.y < rect2.y + rect2.height &&
+		//	rect1.y + rect1.height > rect2.y) {
+		//	// collision detected!
+		//}
 
     }
     //new
