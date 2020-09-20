@@ -64,7 +64,7 @@ function preload() {
 
 }
 
-//var music;
+var music;
 var deathSound;
 
 function create() {
@@ -75,10 +75,10 @@ function create() {
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
     //console.log(this.game);
-    this.music = this.sound.add('song');
+    music = this.sound.add('song');
     deathSound = this.sound.add('deathSound');
 
-    this.music.play();
+    music.play();
 
     this.bg = this.add.sprite(0, 0, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
@@ -221,6 +221,7 @@ function create() {
         }
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
+            music.stop();
             deathSound.play();
             alert("you lost!!!");
             location.reload();
@@ -320,7 +321,8 @@ var lastBall = Date.now();
 
 let playerDiedBool = false;
 
-function playerDied(){
+function playerDied() {
+    music.stop();
     deathSound.play();
     alert("you lost!!!");
 	location.reload();
