@@ -51,6 +51,8 @@ function preload() {
     this.load.image('ladder', 'src/assets/ladder.png');
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
 
+    this.load.audio('song', ['src/assets/sounds/backgroundsong2.mp3']);
+    this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
 
 
     this.load.spritesheet('player', 'src/assets/marioSmallspritesheet.png', {
@@ -62,12 +64,21 @@ function preload() {
 
 }
 
+//var music;
+var deathSound;
+
 function create() {
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+    //console.log(this.game);
+    this.music = this.sound.add('song');
+    deathSound = this.sound.add('deathSound');
+
+    this.music.play();
 
     this.bg = this.add.sprite(0, 0, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
@@ -211,6 +222,7 @@ function create() {
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
             alert("you lost!!!");
+            deathSound.play();
             location.reload();
         }
 
@@ -309,7 +321,8 @@ var lastBall = Date.now();
 let playerDiedBool = false;
 
 function playerDied(){
-	alert("you lost!!!");
+    alert("you lost!!!");
+    deathSound.play();
 	location.reload();
 }
 
@@ -457,17 +470,11 @@ function update() {
 
         fireSprites[i].setDepth(fireSprites[i].y);
 
-<<<<<<< HEAD
         var vecMaxX = vec.x + 30;
         var vecMinX = vec.x - 30;
         var vecMaxY = vec.y + 30;
         var vecMinY = vec.y - 30;
-=======
-        var vecMaxX = vec.x + 10;
-        var vecMinX = vec.x - 10;
-        var vecMaxY = vec.y + 10;
-        var vecMinY = vec.y - 10;
->>>>>>> 0e75b5bc237dc33e1374cd1b897d051cd4495da2
+
 
         var playerX = player.x;
         var playerY = player.y;
