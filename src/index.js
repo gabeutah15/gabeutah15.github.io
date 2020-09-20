@@ -29,6 +29,7 @@ let playerTouchingGround = false;
 let playerTouchingLadder = false;
 let playerHitByBall = false;
 let spawnAFireMonster = false;
+let playerHasHammer = false;
 //path
 var follower;
 var followers
@@ -50,9 +51,8 @@ function preload() {
     this.load.image('ball', 'src/assets/ball.png');
     this.load.image('ladder', 'src/assets/ladder.png');
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
+	this.load.image('hammer', 'src/assets/hammer.png');
 
-    this.load.audio('song', ['src/assets/sounds/backgroundsong2.mp3']);
-    this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
 
 
     this.load.spritesheet('player', 'src/assets/marioSmallspritesheet.png', {
@@ -64,21 +64,12 @@ function preload() {
 
 }
 
-var music;
-var deathSound;
-
 function create() {
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-    //console.log(this.game);
-    music = this.sound.add('song');
-    deathSound = this.sound.add('deathSound');
-
-    music.play();
 
     this.bg = this.add.sprite(0, 0, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
@@ -126,6 +117,10 @@ function create() {
     var DestroyBallBox = this.matter.add.image(50, 1170, 'DestroyBallBox', null, { isStatic: true });
     DestroyBallBox.setScale(.2, .2);
     DestroyBallBox.setSensor(true);
+
+	var hammer = this.matter.add.image(700, 960, 'hammer', null, { isStatic: true });
+		hammer.setScale(.25, .25);
+		hammer.setSensor(true);
 
     var ladder = this.matter.add.image(890, 1120, 'ladder', null, { isStatic: true });
     ladder.setScale(.25, .25);
@@ -183,6 +178,7 @@ function create() {
     //there has to be a smarter way to do this:
     WinBox.setCollisionCategory(this.cat1);
     DestroyBallBox.setCollisionCategory(this.cat1);
+    hammer.setCollisionCategory(this.cat1);
     ground.setCollisionCategory(this.cat1);
     ground2.setCollisionCategory(this.cat1);
 	ground2B.setCollisionCategory(this.cat1);
@@ -219,12 +215,26 @@ function create() {
         if ((bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'player')) {
             playerTouchingGround = true;
         }
+		
+		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'hammer')) {
+            console.log('stop, hammertime');
+			playerHasHammer = true;
+			bodyB.gameObject.setActive(false).setVisible(false);
+			console.log('test');
+            bodyB.destroy();
+		}
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
-            music.stop();
-            deathSound.play();
-            alert("you lost!!!");
-            location.reload();
+            if(playerHasHammer){
+				console.log('player rekt barrel')
+				bodyB.gameObject.setActive(false).setVisible(false);
+				bodyB.destroy();
+			}
+			else{
+				alert("you lost!!!");
+				location.reload();				
+			}
+
         }
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
@@ -319,12 +329,12 @@ var rand = Math.floor(Math.random() * 1000);
 var delayBall = 4000 + rand;//spawn frequency of ball
 var lastBall = Date.now();
 
+var hammerTime = Date.now();
+
 let playerDiedBool = false;
 
-function playerDied() {
-    music.stop();
-    deathSound.play();
-    alert("you lost!!!");
+function playerDied(){
+	alert("you lost!!!");
 	location.reload();
 }
 
@@ -341,6 +351,10 @@ function update() {
 
 	if(playerDiedBool){
 		return;
+	}
+	
+	if(playerHasHammer && hammerTime + 10000 == Date.now()){
+		playerHasHammer == false;
 	}
 
     if (lastBall <= (Date.now() - delayBall)) {
@@ -483,10 +497,16 @@ function update() {
 
         if ((playerX > vecMinX) && (playerX < vecMaxX)) {
             if ((playerY > vecMinY) && (playerY < vecMaxY)) {
-                console.log("player overlap with fires sprite");
-				playerDiedBool = true;
-				playerDied();
-            }
+                if(playerHasHammer){
+					console.log("player has hammer - rekt the fire");
+					destroy(t);
+				}
+				else{
+					console.log("player overlap with fires sprite");
+					playerDiedBool = true;
+					playerDied();
+				}
+			}
         }
 		
 		//if (rect1.x < rect2.x + rect2.width &&
