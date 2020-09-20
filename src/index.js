@@ -31,6 +31,7 @@ let playerHitByBall = false;
 let spawnAFireMonster = false;
 //path
 var follower;
+var followers
 var path;
 var graphics;
 //end path
@@ -217,6 +218,7 @@ function create() {
         if ((bodyA.gameObject.texture.key == 'DestroyBallBox') && (bodyB.gameObject.texture.key == 'ball')) {
             //console.log("Ball Destroyed, fire monster spawned");
             spawnAFireMonster = true;
+            bodyB.gameObject.setActive(false).setVisible(false);
             bodyB.destroy();
         }
 
@@ -273,26 +275,30 @@ function create() {
     //});
 
     //path
-    this.graphics = this.add.graphics();
-
-    this.followers = this.add.group();
-    var fireSprite = this.followers.create(100, -30, 'firesprite');
-    fireSprite.setData('vector', new Phaser.Math.Vector2());
-
-    //follower = { t: 0, vec: new Phaser.Math.Vector2() };
-    //  Path starts at 100x100
+    graphics = this.add.graphics();
     path = new Phaser.Curves.Path(120, 1150);
     path.lineTo(900, 1150);
     path.lineTo(900, 1080);
     path.lineTo(100, 980);
-    this.tweens.add({
-        targets: fireSprite,
-        t: 1,
-        ease: 'Sine.easeInOut',
-        duration: 20000,
-        yoyo: true,
-        repeat: -1
-    });
+
+    followers = this.add.group();
+
+    //for (var i = 0; i < 3; i++)
+    //{
+    //    var fireSprite = followers.create(0, -50, 'firesprite');
+    //    fireSprite.setData('vector', new Phaser.Math.Vector2());
+
+    //    this.tweens.add({
+    //        targets: fireSprite,
+    //        z: 1,
+    //        ease: 'Sine.easeInOut',
+    //        duration: 20000,
+    //        yoyo: true,
+    //        repeat: -1
+    //    });
+
+    //}
+
     //end path
 
 }
@@ -389,13 +395,29 @@ function update() {
         //this.graphics = this.add.graphics();
         //follower = { t: 0, vec: new Phaser.Math.Vector2() };
 
-        var fireSprite = this.followers.create(0, -50, 'firesprite');
+        var fireSprite = followers.create(0, -50, 'firesprite');
+        //can't set these values like this, not sure how to set these values for a creategroup thing
+        //fireSprite.gameObject.setCircle();
+        //fireSprite.gameObject.setScale(.1);
+        //fireSprite.gameObject.setFriction(0);
+        //fireSprite.gameObject.setBounce(0.01);
+        //fireSprite.gameObject.setVelocity(0, 0);
+        //fireSprite.gameObject.setVelocityX(0);
+        //fireSprite.gameObject.setVelocityY(0);
+        //fireSprite.gameObject.setAngularVelocity(0.15);
+        //fireSprite.gameObject.setCollisionCategory(this.cat1);
+        //fireSprite.gameObject.label = "firesprite";
+
+        
         fireSprite.setData('vector', new Phaser.Math.Vector2());
+        //this works as in does not throw an error but not sure if it's the real label or just creates an ad hoc label key for the data manager:
+        fireSprite.setData('label', 'firesprite');
+
 
         console.log("spawn fire monster");
         this.tweens.add({
             targets: fireSprite,
-            t: 1,
+            z: 1,
             ease: 'Sine.easeInOut',
             duration: 20000,
             yoyo: true,
@@ -404,24 +426,24 @@ function update() {
         spawnAFireMonster = false;
     }
     //path:
-    this.graphics.clear();
-    this.graphics.lineStyle(2, 0xffffff, 1);
-    path.draw(this.graphics);
+    graphics.clear();
+    graphics.lineStyle(2, 0xffffff, 1);
+    path.draw(graphics);
 
     //new
     //it is successfylly spawning a new one on each dead ball but they aren't going anywhere
     //looks like their path.getpoint never changes?
-    var fireSprite = this.followers.getChildren();
-    for (var i = 0; i < fireSprite.length; i++) {
-        var t = fireSprite[i].z;
-        var vec = fireSprite[i].getData('vector');
+    var fireSprites = followers.getChildren();
+    for (var i = 0; i < fireSprites.length; i++) {
+        var t = fireSprites[i].z;
+        var vec = fireSprites[i].getData('vector');
 
         //  The vector is updated in-place
         path.getPoint(t, vec);
 
-        fireSprite[i].setPosition(vec.x, vec.y);
+        fireSprites[i].setPosition(vec.x, vec.y);
 
-        fireSprite[i].setDepth(fireSprite[i].y);
+        fireSprites[i].setDepth(fireSprites[i].y);
     }
     //new
 
