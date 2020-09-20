@@ -120,7 +120,11 @@ function create() {
     ladder.setScale(.25, .25);
     ladder.setSensor(true);
 
+<<<<<<< HEAD
     var ladder2 = this.matter.add.image(110, 925, 'ladder', null, { isStatic: true });
+=======
+    var ladder2 = this.matter.add.image(110, 920, 'ladder', null, { isStatic: true });
+>>>>>>> 663916ed845622bac722fd2fc909ff6c2b095344
     ladder2.setScale(.25, .25);
     ladder2.setSensor(true);
     //***
@@ -252,6 +256,11 @@ function create() {
             bodyB.gameObject.setIgnoreGravity(false);
             console.log("ball stopped hitting ladder");
         }
+        if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ladder')) {
+            bodyA.gameObject.setIgnoreGravity(false);
+            console.log("ball stopped hitting ladder");
+        }
+
     });
 
     //this.matter.world.on('overlapend', function (event, bodyA, bodyB) {
@@ -305,8 +314,9 @@ function create() {
 
 var delay = 1000;
 var lastClick = Date.now();
+var rand = Math.floor(Math.random() * 1000);
 
-var delayBall = 4000;//spawn frequency of ball
+var delayBall = 4000 + rand;//spawn frequency of ball
 var lastBall = Date.now();
 
 function update() {
