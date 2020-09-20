@@ -221,8 +221,8 @@ function create() {
         }
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
-            alert("you lost!!!");
             deathSound.play();
+            alert("you lost!!!");
             location.reload();
         }
 
@@ -321,8 +321,8 @@ var lastBall = Date.now();
 let playerDiedBool = false;
 
 function playerDied(){
-    alert("you lost!!!");
     deathSound.play();
+    alert("you lost!!!");
 	location.reload();
 }
 
