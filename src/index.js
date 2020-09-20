@@ -120,11 +120,10 @@ function create() {
     ladder.setScale(.25, .25);
     ladder.setSensor(true);
 
-<<<<<<< HEAD
+
     var ladder2 = this.matter.add.image(110, 925, 'ladder', null, { isStatic: true });
-=======
-    var ladder2 = this.matter.add.image(110, 920, 'ladder', null, { isStatic: true });
->>>>>>> 663916ed845622bac722fd2fc909ff6c2b095344
+
+    //var ladder2 = this.matter.add.image(110, 920, 'ladder', null, { isStatic: true });
     ladder2.setScale(.25, .25);
     ladder2.setSensor(true);
     //***
