@@ -122,8 +122,6 @@ function create() {
 
 
     var ladder2 = this.matter.add.image(110, 925, 'ladder', null, { isStatic: true });
-
-    //var ladder2 = this.matter.add.image(110, 920, 'ladder', null, { isStatic: true });
     ladder2.setScale(.25, .25);
     ladder2.setSensor(true);
     //***
@@ -167,20 +165,22 @@ function create() {
     ground7.setScale(.1, 2);
     ground7.setFriction(0);
 
-    var ground7 = this.matter.add.image(1000, 1100, 'ground', null, { isStatic: true });
-    ground7.setScale(.1, 2);
-    ground7.setFriction(0);
+    var ground8 = this.matter.add.image(1000, 1100, 'ground', null, { isStatic: true });
+    ground8.setScale(.1, 2);
+    ground8.setFriction(0);
 
     //there has to be a smarter way to do this:
     WinBox.setCollisionCategory(this.cat1);
     DestroyBallBox.setCollisionCategory(this.cat1);
     ground.setCollisionCategory(this.cat1);
     ground2.setCollisionCategory(this.cat1);
+	ground2B.setCollisionCategory(this.cat1);
     ground3.setCollisionCategory(this.cat1);
     ground4.setCollisionCategory(this.cat1);
     ground5.setCollisionCategory(this.cat1);
     ground6.setCollisionCategory(this.cat1);
     ground7.setCollisionCategory(this.cat1);
+    ground8.setCollisionCategory(this.cat1);
     ladder.setCollisionCategory(this.cat1);
     ladder2.setCollisionCategory(this.cat1);
     ladder3.setCollisionCategory(this.cat1);
@@ -261,26 +261,6 @@ function create() {
         }
 
     });
-
-    //this.matter.world.on('overlapend', function (event, bodyA, bodyB) {
-
-    //    if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
-    //        playerTouchingLadder = false;
-    //        console.log("overlap with ladder end");
-    //    }
-    //});
-    //this.matter.world.on('overlap', function (event, bodyA, bodyB) {
-    //    console.log(bodyB.gameObject.texture.key);
-    //    console.log(bodyA.gameObject.texture.key);
-
-    //    if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
-    //        playerTouchingLadder = true;
-    //    }
-    //});
-
-    //this.matter.world.on("collisionactive", (player, ground) => {
-    //    playerTouchingGround = true;
-    //});
 
     //path
     graphics = this.add.graphics();
