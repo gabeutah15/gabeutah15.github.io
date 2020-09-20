@@ -289,7 +289,8 @@ function create() {
     path.lineTo(900, 1080);
     path.lineTo(100, 980);
 
-    followers = this.add.group();
+    followers = this.add.group(); 
+    //followers = this.matter.add.group();
 
     //for (var i = 0; i < 3; i++)
     //{
@@ -403,8 +404,13 @@ function update() {
     if (spawnAFireMonster) {
         //this.graphics = this.add.graphics();
         //follower = { t: 0, vec: new Phaser.Math.Vector2() };
-
+        //this.matter.add.image
         var fireSprite = followers.create(0, -50, 'firesprite');
+        console.log(this.matter.world);
+        //this.physics.matter.world.enable(fireSprite);
+        //this.matter.add(fireSprite);
+        //fireSprite.body.setCircle(1);
+
         //can't set these values like this, not sure how to set these values for a creategroup thing
         //fireSprite.gameObject.setCircle();
         //fireSprite.gameObject.setScale(.1);
@@ -453,6 +459,21 @@ function update() {
         fireSprites[i].setPosition(vec.x, vec.y);
 
         fireSprites[i].setDepth(fireSprites[i].y);
+
+        var vecMaxX = vec.x + 1;
+        var vecMinX = vec.x - 1;
+        var vecMaxY = vec.y + 1;
+        var vecMinY = vec.y - 1;
+
+        var playerX = player.x;
+        var playerY = player.y;
+
+        if ((playerX > vecMinX) && (playerX < vecMaxX)) {
+            if ((playerY > vecMinY) && (playerY < vecMaxY)) {
+                console.log("player overlap with fires sprite");
+            }
+        }
+
     }
     //new
 
