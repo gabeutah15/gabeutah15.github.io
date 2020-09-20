@@ -186,7 +186,6 @@ function create() {
     ladder3.setCollisionCategory(this.cat1);
 
 
-
     ball = this.matter.add.image(50, 50, 'ball');
     ball.setCircle();
     ball.setScale(.1);
@@ -440,10 +439,10 @@ function update() {
 
         fireSprites[i].setDepth(fireSprites[i].y);
 
-        var vecMaxX = vec.x + 1;
-        var vecMinX = vec.x - 1;
-        var vecMaxY = vec.y + 1;
-        var vecMinY = vec.y - 1;
+        var vecMaxX = vec.x + 10;
+        var vecMinX = vec.x - 10;
+        var vecMaxY = vec.y + 10;
+        var vecMinY = vec.y - 10;
 
         var playerX = player.x;
         var playerY = player.y;
