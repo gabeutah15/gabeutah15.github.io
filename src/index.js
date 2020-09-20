@@ -112,7 +112,7 @@ function create() {
     WinBox.setScale(.25, .25);
     WinBox.setSensor(true);
 
-    var DestroyBallBox = this.matter.add.image(50, 1150, 'DestroyBallBox', null, { isStatic: true });
+    var DestroyBallBox = this.matter.add.image(50, 1170, 'DestroyBallBox', null, { isStatic: true });
     DestroyBallBox.setScale(.2, .2);
     DestroyBallBox.setSensor(true);
 
@@ -120,15 +120,15 @@ function create() {
     ladder.setScale(.25, .25);
     ladder.setSensor(true);
 
-    var ladder2 = this.matter.add.image(110, 950, 'ladder', null, { isStatic: true });
-    ladder2.setScale(.25, .4);
+    var ladder2 = this.matter.add.image(110, 925, 'ladder', null, { isStatic: true });
+    ladder2.setScale(.25, .25);
     ladder2.setSensor(true);
     //***
     var ladder3 = this.matter.add.image(465, 720, 'ladder', null, { isStatic: true });
     ladder3.setScale(.25, .55);
     ladder3.setSensor(true);
     //***
-    var ground = this.matter.add.image(500, 1200, 'ground', null, { isStatic: true });
+    var ground = this.matter.add.image(500, 1250, 'ground', null, { isStatic: true });
     ground.setScale(2.5, 0.7);
     ground.setAngle(-3);
     ground.setFriction(0);
