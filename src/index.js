@@ -205,30 +205,36 @@ function create() {
     ball.setCollisionCategory(this.cat1);
     ball.label = "ball";
 
+    var SkipRest = false;
+
     this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
         //console.log(bodyB.gameObject.texture.key);
         //console.log(bodyA.gameObject.texture.key);
 
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
             playerTouchingGround = true;
         }
-        if ((bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'player')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'player')) {
             playerTouchingGround = true;
         }
 		
-		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'hammer')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'hammer')) {
             console.log('stop, hammertime');
 			playerHasHammer = true;
 			bodyB.gameObject.setActive(false).setVisible(false);
 			console.log('test');
             bodyB.destroy();
+            SkipRest = true;
+            //continue;
 		}
 
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
             if(playerHasHammer){
 				console.log('player rekt barrel')
 				bodyB.gameObject.setActive(false).setVisible(false);
-				bodyB.destroy();
+                bodyB.destroy();
+                SkipRest = true;
+
 			}
 			else{
 				alert("you lost!!!");
@@ -237,24 +243,26 @@ function create() {
 
         }
 
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
             alert("YOU WIN!!!");
             
             location.reload();
         }
 
-        if ((bodyA.gameObject.texture.key == 'DestroyBallBox') && (bodyB.gameObject.texture.key == 'ball')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'DestroyBallBox') && (bodyB.gameObject.texture.key == 'ball')) {
             //console.log("Ball Destroyed, fire monster spawned");
             spawnAFireMonster = true;
             bodyB.gameObject.setActive(false).setVisible(false);
             bodyB.destroy();
+            SkipRest = true;
+
         }
 
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
             playerTouchingLadder = true;
             console.log("overlap with ladder");
         }
-        if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
             var r = Math.floor(Math.random() * 10);
             if (r > 4) {
                 //ball.setVelocityY(0);
@@ -267,25 +275,25 @@ function create() {
     });
 
     this.matter.world.on('collisionend', function (event, bodyA, bodyB) {
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
             playerTouchingGround = false;
         }
 
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
             playerTouchingLadder = false;
             console.log("stopped overlap with ladder");
         }
-        if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'player')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'player')) {
             playerTouchingLadder = false;
             console.log("stopped overlap with ladder");
         }
 
 
-        if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
             bodyB.gameObject.setIgnoreGravity(false);
             console.log("ball stopped hitting ladder");
         }
-        if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ladder')) {
+        if (!SkipRest && (bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ladder')) {
             bodyA.gameObject.setIgnoreGravity(false);
             console.log("ball stopped hitting ladder");
         }
