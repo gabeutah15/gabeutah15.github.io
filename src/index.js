@@ -387,11 +387,11 @@ function update() {
         player.setIgnoreGravity(false);
     }
 
-    if (this.keySpace.isDown && playerTouchingGround && (lastClick <= (Date.now() - delay))) {
+    if (this.keySpace.isDown && playerTouchingGround && (lastClick <= (Date.now() - delay) && !playerHasHammer)) {
         player.setVelocityY(-7);
         lastClick = Date.now();
     }
-    if (this.keyW.isDown && playerTouchingLadder) {
+    if (this.keyW.isDown && playerTouchingLadder && !playerHasHammer) {
         //console.log('W is pressed');
         //player.setVelocityY(-2);
         player.y -= 1;
@@ -400,7 +400,7 @@ function update() {
         //player.flipX = true;
         player.play('idle', true);
     }
-    else if (this.keyS.isDown && playerTouchingLadder) {
+    else if (this.keyS.isDown && playerTouchingLadder && !playerHasHammer) {
         //player.setVelocityY(2);
         player.y += 1;
         //player.setVelocityX(0);
