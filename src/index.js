@@ -219,6 +219,7 @@ function create() {
 		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'hammer')) {
             console.log('stop, hammertime');
 			playerHasHammer = true;
+			hammerTime = Date.now();
 			bodyB.gameObject.setActive(false).setVisible(false);
 			console.log('test');
             //bodyB.destroy();
@@ -353,8 +354,11 @@ function update() {
 		return;
 	}
 	
-	if(playerHasHammer && hammerTime + 10000 == Date.now()){
-		playerHasHammer == false;
+	if(playerHasHammer && hammerTime <= (Date.now() - 10000)){
+		console.log(hammerTime);
+		console.log(Date.now());
+		playerHasHammer = false;
+		console.log("end of hammerTime");
 	}
 
     if (lastBall <= (Date.now() - delayBall)) {
@@ -499,7 +503,8 @@ function update() {
             if ((playerY > vecMinY) && (playerY < vecMaxY)) {
                 if(playerHasHammer){
 					console.log("player has hammer - rekt the fire");
-					destroy(t);
+					fireSprites[i].destroy();
+					return;
 				}
 				else{
 					console.log("player overlap with fires sprite");
