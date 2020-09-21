@@ -215,28 +215,6 @@ function create() {
         if ((bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'player')) {
             playerTouchingGround = true;
         }
-		
-		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'hammer')) {
-            console.log('stop, hammertime');
-			playerHasHammer = true;
-			hammerTime = Date.now();
-			bodyB.gameObject.setActive(false).setVisible(false);
-			console.log('test');
-            //bodyB.destroy();
-		}
-
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
-            if(playerHasHammer){
-				console.log('player rekt barrel')
-				bodyB.gameObject.setActive(false).setVisible(false);
-				bodyB.destroy();
-			}
-			else{
-				alert("you lost!!!");
-				location.reload();				
-			}
-
-        }
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
             alert("YOU WIN!!!");
@@ -264,11 +242,33 @@ function create() {
             }
             console.log("Ball hit ladder " + r);
         }
+		
+		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
+            if(playerHasHammer){
+				console.log('player rekt barrel')
+				bodyB.gameObject.setActive(false).setVisible(false);
+				bodyB.destroy();
+			}
+			else{
+				alert("you lost!!!");
+				location.reload();				
+			}
+        }
+		
+		if ((bodyA.gameObject.texture.key == 'player') && !playerHasHammer && (bodyB.gameObject.texture.key == 'hammer')) {
+            console.log('stop, hammertime');
+			playerHasHammer = true;
+			hammerTime = Date.now();
+			bodyB.gameObject.setActive(false).setVisible(false);
+			console.log('test');
+            bodyB.destroy();
+		}
 
     });
 
     this.matter.world.on('collisionend', function (event, bodyA, bodyB) {
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
+        if(!playerHasHammer){
+		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
             playerTouchingGround = false;
         }
 
@@ -290,7 +290,7 @@ function create() {
             bodyA.gameObject.setIgnoreGravity(false);
             console.log("ball stopped hitting ladder");
         }
-
+		}
     });
 
     //path
