@@ -46,7 +46,8 @@ function preload() {
     this.load.image("WinBox", 'src/assets/logo.png');
     this.load.image("DestroyBallBox", 'src/assets/DestroyBallBox.png');
     this.load.image("enemy", 'src/assets/donkeykong.jpg');
-    this.load.image("ground", 'src/assets/donkeykongplatform.jpg');
+    this.load.image("ground", 'src/assets/BackgroundAssets/BG_Base.png');
+	this.load.image("platform", 'src/assets/BackgroundAssets/BG_Platform01.png');
     this.load.image("block", 'src/assets/tile43.png');
     this.load.image('ball', 'src/assets/ball.png');
     this.load.image('ladder', 'src/assets/ladder.png');
@@ -122,12 +123,12 @@ function create() {
 		hammer.setScale(.25, .25);
 		hammer.setSensor(true);
 
-    var ladder = this.matter.add.image(890, 1120, 'ladder', null, { isStatic: true });
+    var ladder = this.matter.add.image(890, 1125, 'ladder', null, { isStatic: true });
     ladder.setScale(.25, .25);
     ladder.setSensor(true);
 
 
-    var ladder2 = this.matter.add.image(110, 925, 'ladder', null, { isStatic: true });
+    var ladder2 = this.matter.add.image(110, 920, 'ladder', null, { isStatic: true });
     ladder2.setScale(.25, .25);
     ladder2.setSensor(true);
     //***
@@ -135,44 +136,43 @@ function create() {
     ladder3.setScale(.25, .55);
     ladder3.setSensor(true);
     //***
-    var ground = this.matter.add.image(500, 1250, 'ground', null, { isStatic: true });
-    ground.setScale(2.5, 0.7);
+    var ground = this.matter.add.image(500, 1280, 'ground', null, { isStatic: true });
+    ground.setScale(1, 1.5);
     ground.setAngle(-3);
-    ground.setFriction(0);
-
-    var ground2 = this.matter.add.image(220, 620, 'ground', null, { isStatic: true });
-    ground2.setScale(.9, 0.3);
+  
+    var ground2 = this.matter.add.image(220, 620, 'platform', null, { isStatic: true });
+    ground2.setScale(1, .7);
     ground2.setAngle(7);
-    //ground2.setFriction(100000000000);
+    ground2.setFriction(100000000000);
 
-    var ground2B = this.matter.add.image(690, 680, 'ground', null, { isStatic: true });
-    ground2B.setScale(.8, 0.3);
+    var ground2B = this.matter.add.image(690, 680, 'platform', null, { isStatic: true });
+    ground2B.setScale(.9, 0.7);
     ground2B.setAngle(7);
 
-    var ground3 = this.matter.add.image(550, 850, 'ground', null, { isStatic: true });
-    ground3.setScale(1.8, 0.3);
+    var ground3 = this.matter.add.image(550, 850, 'platform', null, { isStatic: true });
+    ground3.setScale(1.9, 1);
     ground3.setAngle(-7);
     //ground3.setFriction(100000000000);	
 
-    var ground4 = this.matter.add.image(450, 1050, 'ground', null, { isStatic: true });
-    ground4.setScale(1.8, 0.3);
+    var ground4 = this.matter.add.image(450, 1050, 'platform', null, { isStatic: true });
+    ground4.setScale(1.9, .8);
     ground4.setAngle(7);
     //ground4.setFriction(100000000000);	
 
-    var ground5 = this.matter.add.image(400, 300, 'ground', null, { isStatic: true });
+    var ground5 = this.matter.add.image(400, 300, 'platform', null, { isStatic: true });
     ground5.setScale(.7, 0.3);
     ground5.setFriction(0);
 
-    var ground6 = this.matter.add.image(1000, 720, 'ground', null, { isStatic: true });
-    ground6.setScale(.1, 2);
+    var ground6 = this.matter.add.image(1000, 720, 'platform', null, { isStatic: true });
+    ground6.setScale(.2, 3.5);
     ground6.setFriction(0);
 
-    var ground7 = this.matter.add.image(10, 900, 'ground', null, { isStatic: true });
-    ground7.setScale(.1, 2);
+    var ground7 = this.matter.add.image(10, 920, 'platform', null, { isStatic: true });
+    ground7.setScale(.1, 3.7);
     ground7.setFriction(0);
 
-    var ground8 = this.matter.add.image(1000, 1100, 'ground', null, { isStatic: true });
-    ground8.setScale(.1, 2);
+    var ground8 = this.matter.add.image(1000, 1120, 'platform', null, { isStatic: true });
+    ground8.setScale(.1, 3.5);
     ground8.setFriction(0);
 
     //there has to be a smarter way to do this:
@@ -215,6 +215,13 @@ function create() {
         if ((bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'player')) {
             playerTouchingGround = true;
         }
+        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'platform')) {
+            playerTouchingGround = true;
+        }
+        if ((bodyA.gameObject.texture.key == 'platform') && (bodyB.gameObject.texture.key == 'player')) {
+            playerTouchingGround = true;
+        }
+
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
             alert("YOU WIN!!!");
@@ -238,6 +245,15 @@ function create() {
             if (r > 4) {
                 //ball.setVelocityY(0);
                 bodyB.gameObject.setIgnoreGravity(true);
+
+            }
+            console.log("Ball hit ladder " + r);
+        }
+        if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ladder')) {
+            var r = Math.floor(Math.random() * 10);
+            if (r > 4) {
+                //ball.setVelocityY(0);
+                bodyA.gameObject.setIgnoreGravity(true);
 
             }
             console.log("Ball hit ladder " + r);
@@ -269,6 +285,9 @@ function create() {
     this.matter.world.on('collisionend', function (event, bodyA, bodyB) {
         if(!playerHasHammer){
 		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
+            playerTouchingGround = false;
+        }
+		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'platform')) {
             playerTouchingGround = false;
         }
 
