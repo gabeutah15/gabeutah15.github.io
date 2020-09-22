@@ -12,7 +12,7 @@ var config = {
     physics: {
         default: 'matter',
         matter: {
-            gravity: { x: 0, y: 1 },
+            gravity: { x: 0, y: .15 },
             debug: true
         },
     },
@@ -369,7 +369,7 @@ function create() {
 
 }
 
-var delay = 500;
+var delay = 1000;
 var lastClick = Date.now();
 var rand = Math.floor(Math.random() * 1000);
 
@@ -388,9 +388,9 @@ function playerDied() {
 }
 
 function update() {
-	player.setIgnoreGravity(true);
-    player.setVelocityY(.27);
-    player.setVelocityX(0);
+	//player.setIgnoreGravity(true);
+    //player.setVelocityY(.27);
+    //player.setVelocityX(0);
 
     player.setAngle(0);
 
@@ -439,7 +439,7 @@ function update() {
     }
 
     if (this.keySpace.isDown /*&& playerTouchingGround*/ && (lastClick <= (Date.now() - delay) && !playerHasHammer)) {
-        player.setVelocityY(-20);
+        player.setVelocityY(-3);
         lastClick = Date.now();
     }
     if (this.keyW.isDown && playerTouchingLadder && !playerHasHammer) {
@@ -480,7 +480,12 @@ function update() {
         player.setVelocityX(0)
     }
 
-
+	var bodies = this.matter.world.localWorld.bodies;
+	bodies.forEach(body => { 
+		if(body.gameObject.texture.key == 'ball'){
+			body.gameObject.setVelocityY(.5) 
+		}
+	});
 
     if (spawnAFireMonster) {
         //this.graphics = this.add.graphics();
