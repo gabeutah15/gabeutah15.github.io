@@ -388,6 +388,9 @@ function playerDied() {
 
 function update() {
 
+   
+
+
     player.setAngle(0);
 
     if (player.x <= 17) {
