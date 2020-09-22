@@ -236,19 +236,19 @@ function create() {
 
 
         //ball touching ground
-        if (bodyA.gameObject != null && bodyB.gameObject != null) {
-            if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ground')) {
-                bodyA.gameObject.label = 'ballGrounded';
-                console.log("lable set to ballGrounded")
-            }
+        if (/*bodyA.gameObject != null && */bodyB.gameObject != null) {
+            //if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ground')) {
+            //    bodyA.gameObject.label = 'ballGrounded';
+            //    console.log("lable set to ballGrounded")
+            //}
             if ((bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'ball')) {
                 bodyB.gameObject.label = 'ballGrounded';
                 console.log("lable set to ballGrounded")
             }
-            if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'platform')) {
-                bodyA.gameObject.label = 'ballGrounded';
-                console.log("lable set to ballGrounded")
-            }
+            //if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'platform')) {
+            //    bodyA.gameObject.label = 'ballGrounded';
+            //    console.log("lable set to ballGrounded")
+            //}
             if ((bodyA.gameObject.texture.key == 'platform') && (bodyB.gameObject.texture.key == 'ball')) {
                 bodyB.gameObject.label = 'ballGrounded';
                 console.log("lable set to ballGrounded")
@@ -340,21 +340,21 @@ function create() {
 
 
         //ball touching ground
-        if (bodyA.gameObject != null && bodyB.gameObject != null) {
-            if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ground')) {
-                bodyA.gameObject.label = 'ball';
-                console.log("lable set back to ball")
-            }
+        if (/*bodyA.gameObject != null && */bodyB.gameObject != null) {
+            //if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ground')) {
+            //    bodyA.gameObject.label = 'ball';
+            //    console.log("lable set back to ball")
+            //}
             if ((bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'ball')) {
                 bodyB.gameObject.label = 'ball';
                 console.log("lable set back to ball")
 
             }
-            if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'platform')) {
-                bodyA.gameObject.label = 'ball';
-                console.log("lable set back to ball")
+            //if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'platform')) {
+            //    bodyA.gameObject.label = 'ball';
+            //    console.log("lable set back to ball")
 
-            }
+            //}
             if ((bodyA.gameObject.texture.key == 'platform') && (bodyB.gameObject.texture.key == 'ball')) {
                 bodyB.gameObject.label = 'ball';
                 console.log("lable set back to ball")
