@@ -12,7 +12,7 @@ var config = {
     physics: {
         default: 'matter',
         matter: {
-            gravity: { x: 0, y: .15 },
+            gravity: { x: 0, y: 1 },
             debug: true
         },
     },
@@ -368,7 +368,7 @@ function create() {
 
 }
 
-var delay = 1000;
+var delay = 700;
 var lastClick = Date.now();
 var rand = Math.floor(Math.random() * 1000);
 
@@ -387,9 +387,9 @@ function playerDied() {
 }
 
 function update() {
-
-   
-
+	player.setIgnoreGravity(true);
+    player.setVelocityY(0);
+    player.setVelocityX(0);
 
     player.setAngle(0);
 
@@ -438,7 +438,7 @@ function update() {
     }
 
     if (this.keySpace.isDown /*&& playerTouchingGround*/ && (lastClick <= (Date.now() - delay) && !playerHasHammer)) {
-        player.setVelocityY(-3);
+        player.setVelocityY(-30);
         lastClick = Date.now();
     }
     if (this.keyW.isDown && playerTouchingLadder && !playerHasHammer) {
