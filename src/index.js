@@ -320,7 +320,7 @@ function create() {
                 console.log("ball came off ground B");
             }
         }
-    });
+    });//comment
 
     //path
     graphics = this.add.graphics();
