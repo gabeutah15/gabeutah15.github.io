@@ -12,7 +12,7 @@ var config = {
     physics: {
         default: 'matter',
         matter: {
-            gravity: { x: 0, y: 1 },
+            gravity: { x: 0, y: .15 },
             debug: true
         },
     },
@@ -54,6 +54,8 @@ function preload() {
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
     this.load.image('hammer', 'src/assets/hammer.png');
 
+    this.load.audio('song', ['src/assets/sounds/backgroundsong2.mp3']);
+    this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
 
 
     this.load.spritesheet('player', 'src/assets/marioSmallspritesheet.png', {
@@ -65,12 +67,20 @@ function preload() {
 
 }
 
+var music;
+var deathSound;
+
 function create() {
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+    music = this.sound.add('song');
+    music.stop();
+    music.play();
+    deathSound = this.sound.add('deathSound');
 
     this.bg = this.add.sprite(0, 0, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
@@ -225,7 +235,7 @@ function create() {
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
             alert("YOU WIN!!!");
-
+            music.stop();
             location.reload();
         }
 
@@ -266,6 +276,8 @@ function create() {
                 bodyB.destroy();
             }
             else {
+                music.stop();
+                deathSound.play();
                 alert("you lost!!!");
                 location.reload();
             }
@@ -324,10 +336,14 @@ function create() {
 
     //path
     graphics = this.add.graphics();
-    path = new Phaser.Curves.Path(120, 1150);
-    path.lineTo(900, 1150);
-    path.lineTo(900, 1080);
-    path.lineTo(100, 980);
+    path = new Phaser.Curves.Path(120, 1080);
+    path.lineTo(950, 1150);
+    path.lineTo(950, 1020);
+    path.lineTo(50, 930);
+    path.lineTo(50, 820);
+    path.lineTo(900, 700);
+
+
 
     followers = this.add.group();
     //followers = this.matter.add.group();
@@ -364,6 +380,8 @@ var hammerTime = Date.now();
 let playerDiedBool = false;
 
 function playerDied() {
+    music.stop();
+    deathSound.play();
     alert("you lost!!!");
     location.reload();
 }
@@ -416,8 +434,8 @@ function update() {
         player.setIgnoreGravity(false);
     }
 
-    if (this.keySpace.isDown && playerTouchingGround && (lastClick <= (Date.now() - delay) && !playerHasHammer)) {
-        player.setVelocityY(-7);
+    if (this.keySpace.isDown /*&& playerTouchingGround*/ && (lastClick <= (Date.now() - delay) && !playerHasHammer)) {
+        player.setVelocityY(-3);
         lastClick = Date.now();
     }
     if (this.keyW.isDown && playerTouchingLadder && !playerHasHammer) {
@@ -502,7 +520,7 @@ function update() {
     //path:
     graphics.clear();
     graphics.lineStyle(2, 0xffffff, 1);
-    path.draw(graphics);
+    //path.draw(graphics);
 
     //new
     //it is successfylly spawning a new one on each dead ball but they aren't going anywhere
