@@ -93,7 +93,7 @@ function create() {
     player = this.matter.add.sprite(100, 1110, 'player', 0);
     player.label = "player1";
     player.setFriction(10);
-	player.setScale(.5, .5);
+	player.setScale(.4, .4);
     player.setCollidesWith([this.cat1]);
     //player.setOverlapsWith([cat2]);    
 
@@ -369,7 +369,7 @@ function create() {
 
 }
 
-var delay = 550;
+var delay = 500;
 var lastClick = Date.now();
 var rand = Math.floor(Math.random() * 1000);
 
@@ -439,7 +439,7 @@ function update() {
     }
 
     if (this.keySpace.isDown /*&& playerTouchingGround*/ && (lastClick <= (Date.now() - delay) && !playerHasHammer)) {
-        player.setVelocityY(-37);
+        player.setVelocityY(-20);
         lastClick = Date.now();
     }
     if (this.keyW.isDown && playerTouchingLadder && !playerHasHammer) {
