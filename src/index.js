@@ -139,16 +139,16 @@ function create() {
     hammer.setSensor(true);
 
     var ladder = this.matter.add.image(890, 1120, 'ladder', null, { isStatic: true });
-    ladder.setScale(.01, .25);
+    ladder.setScale(.01, .25).setVisible(false);
     ladder.setSensor(true);
 
 
     var ladder2 = this.matter.add.image(110, 915, 'ladder', null, { isStatic: true });
-    ladder2.setScale(.01, .25);
+    ladder2.setScale(.01, .25).setVisible(false);
     ladder2.setSensor(true);
     //***
     var ladder3 = this.matter.add.image(465, 720, 'ladder', null, { isStatic: true });
-    ladder3.setScale(.01, .55);
+    ladder3.setScale(.01, .55).setVisible(false);
     ladder3.setSensor(true);
 
 
