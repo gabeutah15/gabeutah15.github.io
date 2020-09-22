@@ -368,7 +368,7 @@ function create() {
 
 }
 
-var delay = 700;
+var delay = 550;
 var lastClick = Date.now();
 var rand = Math.floor(Math.random() * 1000);
 
@@ -388,7 +388,7 @@ function playerDied() {
 
 function update() {
 	player.setIgnoreGravity(true);
-    player.setVelocityY(0);
+    player.setVelocityY(.27);
     player.setVelocityX(0);
 
     player.setAngle(0);
@@ -438,7 +438,7 @@ function update() {
     }
 
     if (this.keySpace.isDown /*&& playerTouchingGround*/ && (lastClick <= (Date.now() - delay) && !playerHasHammer)) {
-        player.setVelocityY(-30);
+        player.setVelocityY(-37);
         lastClick = Date.now();
     }
     if (this.keyW.isDown && playerTouchingLadder && !playerHasHammer) {
