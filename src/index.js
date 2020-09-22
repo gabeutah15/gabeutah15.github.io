@@ -146,7 +146,7 @@ function create() {
     ladder2.setSensor(true);
     //***
     var ladder3 = this.matter.add.image(465, 720, 'ladder', null, { isStatic: true });
-    ladder3.setScale(.25, .55);
+    ladder3.setScale(.01, .55);
     ladder3.setSensor(true);
     //***
     var ground = this.matter.add.image(500, 1280, 'ground', null, { isStatic: true });
@@ -281,6 +281,11 @@ function create() {
         if (bodyB.gameObject != null) {
             if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
                 var r = Math.floor(Math.random() * 10);
+                bodyB.gameObject.setVelocityY(5)
+                bodyB.gameObject.setVelocityX(0)
+
+                //bodyB.gameObject.applyForce(new Phaser.Math.Vector2(100, 100))
+
                 if (r > 4) {
                     //ball.setVelocityY(0);
                     bodyB.gameObject.setIgnoreGravity(true);
@@ -292,6 +297,11 @@ function create() {
         if (bodyA.gameObject != null) {
             if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ladder')) {
                 var r = Math.floor(Math.random() * 10);
+                bodyA.gameObject.setVelocityY(5)
+                bodyA.gameObject.setVelocityX(0)
+
+                //bodyA.gameObject.applyForce(new Phaser.Math.Vector2(100,100))
+
                 if (r > 4) {
                     //ball.setVelocityY(0);
                     bodyA.gameObject.setIgnoreGravity(true);
