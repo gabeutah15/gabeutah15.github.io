@@ -138,12 +138,12 @@ function create() {
     hammer.setScale(.25, .25);
     hammer.setSensor(true);
 
-    var ladder = this.matter.add.image(890, 1120, 'ladder', null, { isStatic: true });
+    var ladder = this.matter.add.image(900, 1120, 'ladder', null, { isStatic: true });
     ladder.setScale(.01, .25).setVisible(false);
     ladder.setSensor(true);
 
 
-    var ladder2 = this.matter.add.image(110, 915, 'ladder', null, { isStatic: true });
+    var ladder2 = this.matter.add.image(100, 915, 'ladder', null, { isStatic: true });
     ladder2.setScale(.01, .25).setVisible(false);
     ladder2.setSensor(true);
     //***
