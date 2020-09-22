@@ -281,13 +281,13 @@ function create() {
         if (bodyB.gameObject != null) {
             if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
                 var r = Math.floor(Math.random() * 10);
-                bodyB.gameObject.setVelocityY(5)
-                bodyB.gameObject.setVelocityX(0)
 
                 //bodyB.gameObject.applyForce(new Phaser.Math.Vector2(100, 100))
 
                 if (r > 4) {
                     //ball.setVelocityY(0);
+                    bodyB.gameObject.setVelocityY(5)
+                    bodyB.gameObject.setVelocityX(0)
                     bodyB.gameObject.setIgnoreGravity(true);
 
                 }
@@ -297,13 +297,13 @@ function create() {
         if (bodyA.gameObject != null) {
             if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ladder')) {
                 var r = Math.floor(Math.random() * 10);
-                bodyA.gameObject.setVelocityY(5)
-                bodyA.gameObject.setVelocityX(0)
 
                 //bodyA.gameObject.applyForce(new Phaser.Math.Vector2(100,100))
 
                 if (r > 4) {
                     //ball.setVelocityY(0);
+                    bodyA.gameObject.setVelocityY(5)
+                    bodyA.gameObject.setVelocityX(0)
                     bodyA.gameObject.setIgnoreGravity(true);
 
                 }
