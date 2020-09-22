@@ -53,6 +53,8 @@ function preload() {
     this.load.image("block", 'src/assets/tile43.png');
     this.load.image('ball', 'src/assets/ball.png');
     this.load.image('ladder', 'src/assets/ladder.png');
+    this.load.image('ladderImage', 'src/assets/ladder.png');
+
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
     this.load.image('hammer', 'src/assets/hammer.png');
 
@@ -136,18 +138,32 @@ function create() {
     hammer.setScale(.25, .25);
     hammer.setSensor(true);
 
-    var ladder = this.matter.add.image(890, 1125, 'ladder', null, { isStatic: true });
+    var ladder = this.matter.add.image(890, 1120, 'ladder', null, { isStatic: true });
     ladder.setScale(.01, .25);
     ladder.setSensor(true);
 
 
-    var ladder2 = this.matter.add.image(110, 920, 'ladder', null, { isStatic: true });
+    var ladder2 = this.matter.add.image(110, 915, 'ladder', null, { isStatic: true });
     ladder2.setScale(.01, .25);
     ladder2.setSensor(true);
     //***
     var ladder3 = this.matter.add.image(465, 720, 'ladder', null, { isStatic: true });
     ladder3.setScale(.01, .55);
     ladder3.setSensor(true);
+
+
+    //ladder images only
+    var ladderI = this.add.image(890, 1125, 'ladderImage', null, { isStatic: true });
+    ladderI.setScale(.25, .25);
+
+
+    var ladder2I = this.add.image(110, 920, 'ladderImage', null, { isStatic: true });
+    ladder2I.setScale(.25, .25);
+    //***
+    var ladder3I = this.add.image(465, 720, 'ladderImage', null, { isStatic: true });
+    ladder3I.setScale(.25, .55);
+    //end ladder images only
+
     //***
     var ground = this.matter.add.image(500, 1280, 'ground', null, { isStatic: true });
     ground.setScale(1, 1.5);
