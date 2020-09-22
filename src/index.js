@@ -48,6 +48,8 @@ function preload() {
     this.load.image("enemy", 'src/assets/donkeykong.jpg');
     this.load.image("ground", 'src/assets/BackgroundAssets/BG_Base.png');
     this.load.image("platform", 'src/assets/BackgroundAssets/BG_Platform01.png');
+    this.load.image("platform2", 'src/assets/BackgroundAssets/BG_Platform01.png');
+
     this.load.image("block", 'src/assets/tile43.png');
     this.load.image('ball', 'src/assets/ball.png');
     this.load.image('ladder', 'src/assets/ladder.png');
@@ -79,7 +81,7 @@ function create() {
 
     music = this.sound.add('song');
     music.stop();
-    music.play();
+    //music.play();
     deathSound = this.sound.add('deathSound');
 
     this.bg = this.add.sprite(0, 0, 'background');
@@ -174,15 +176,15 @@ function create() {
     ground5.setScale(.7, 0.3);
     ground5.setFriction(0);
 
-    var ground6 = this.matter.add.image(1000, 720, 'platform', null, { isStatic: true });
+    var ground6 = this.matter.add.image(1000, 720, 'platform2', null, { isStatic: true });
     ground6.setScale(.2, 3.5);
     ground6.setFriction(0);
 
-    var ground7 = this.matter.add.image(10, 920, 'platform', null, { isStatic: true });
+    var ground7 = this.matter.add.image(10, 920, 'platform2', null, { isStatic: true });
     ground7.setScale(.1, 3.7);
     ground7.setFriction(0);
 
-    var ground8 = this.matter.add.image(1000, 1120, 'platform', null, { isStatic: true });
+    var ground8 = this.matter.add.image(1000, 1120, 'platform2', null, { isStatic: true });
     ground8.setScale(.1, 3.5);
     ground8.setFriction(0);
 
@@ -275,39 +277,44 @@ function create() {
             playerTouchingLadder = true;
             console.log("overlap with ladder");
         }
-        if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
-            var r = Math.floor(Math.random() * 10);
-            if (r > 4) {
-                //ball.setVelocityY(0);
-                bodyB.gameObject.setIgnoreGravity(true);
 
-            }
-            console.log("Ball hit ladder " + r);
-        }
-        if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ladder')) {
-            var r = Math.floor(Math.random() * 10);
-            if (r > 4) {
-                //ball.setVelocityY(0);
-                bodyA.gameObject.setIgnoreGravity(true);
+        if (bodyB.gameObject != null) {
+            if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
+                var r = Math.floor(Math.random() * 10);
+                if (r > 4) {
+                    //ball.setVelocityY(0);
+                    bodyB.gameObject.setIgnoreGravity(true);
 
-            }
-            console.log("Ball hit ladder " + r);
-        }
-
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
-            if (playerHasHammer) {
-                console.log('player rekt barrel')
-                bodyB.gameObject.setActive(false).setVisible(false);
-                bodyB.destroy();
-            }
-            else {
-                music.stop();
-                deathSound.play();
-                alert("you lost!!!");
-                location.reload();
+                }
+                console.log("Ball hit ladder " + r);
             }
         }
+        if (bodyA.gameObject != null) {
+            if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ladder')) {
+                var r = Math.floor(Math.random() * 10);
+                if (r > 4) {
+                    //ball.setVelocityY(0);
+                    bodyA.gameObject.setIgnoreGravity(true);
 
+                }
+                console.log("Ball hit ladder " + r);
+            }
+        }
+        if (bodyB.gameObject != null) {
+            if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
+                if (playerHasHammer) {
+                    console.log('player rekt barrel')
+                    bodyB.gameObject.setActive(false).setVisible(false);
+                    bodyB.destroy();
+                }
+                else {
+                    music.stop();
+                    deathSound.play();
+                    alert("you lost!!!");
+                    location.reload();
+                }
+            }
+        }
         if ((bodyA.gameObject.texture.key == 'player') && !playerHasHammer && (bodyB.gameObject.texture.key == 'hammer')) {
             console.log('stop, hammertime');
             playerHasHammer = true;
@@ -364,25 +371,30 @@ function create() {
         //end ball touching ground
 
 
-
-        if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
-            bodyB.gameObject.setIgnoreGravity(false);
-            console.log("ball stopped hitting ladder");
-        }
-        if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ladder')) {
-            bodyA.gameObject.setIgnoreGravity(false);
-            console.log("ball stopped hitting ladder");
-        }
-
-        if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ground')) {
-            bodyA.gameObject.setVelocityX(0);
-            console.log("ball came off ground");
-        }
-
         if (bodyB.gameObject != null) {
-            if ((bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'ball')) {
-                bodyB.gameObject.setVelocityX(0);
-                console.log("ball came off ground B");
+            if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
+                bodyB.gameObject.setIgnoreGravity(false);
+                console.log("ball stopped hitting ladder");
+            }
+        }
+        if (bodyA.gameObject != null) {
+            if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ladder')) {
+                bodyA.gameObject.setIgnoreGravity(false);
+                console.log("ball stopped hitting ladder");
+            }
+        }
+        if (bodyA.gameObject != null) {
+            if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ground')) {
+                bodyA.gameObject.setVelocityX(0);
+                console.log("ball came off ground");
+            }
+        }
+        if (bodyB.gameObject != null) {
+            if (bodyB.gameObject != null) {
+                if ((bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'ball')) {
+                    bodyB.gameObject.setVelocityX(0);
+                    console.log("ball came off ground B");
+                }
             }
         }
     });//comment
