@@ -47,12 +47,12 @@ function preload() {
     this.load.image("DestroyBallBox", 'src/assets/DestroyBallBox.png');
     this.load.image("enemy", 'src/assets/donkeykong.jpg');
     this.load.image("ground", 'src/assets/BackgroundAssets/BG_Base.png');
-	this.load.image("platform", 'src/assets/BackgroundAssets/BG_Platform01.png');
+    this.load.image("platform", 'src/assets/BackgroundAssets/BG_Platform01.png');
     this.load.image("block", 'src/assets/tile43.png');
     this.load.image('ball', 'src/assets/ball.png');
     this.load.image('ladder', 'src/assets/ladder.png');
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
-	this.load.image('hammer', 'src/assets/hammer.png');
+    this.load.image('hammer', 'src/assets/hammer.png');
 
 
 
@@ -119,9 +119,9 @@ function create() {
     DestroyBallBox.setScale(.2, .2);
     DestroyBallBox.setSensor(true);
 
-	var hammer = this.matter.add.image(700, 960, 'hammer', null, { isStatic: true });
-		hammer.setScale(.25, .25);
-		hammer.setSensor(true);
+    var hammer = this.matter.add.image(700, 960, 'hammer', null, { isStatic: true });
+    hammer.setScale(.25, .25);
+    hammer.setSensor(true);
 
     var ladder = this.matter.add.image(890, 1125, 'ladder', null, { isStatic: true });
     ladder.setScale(.25, .25);
@@ -139,7 +139,7 @@ function create() {
     var ground = this.matter.add.image(500, 1280, 'ground', null, { isStatic: true });
     ground.setScale(1, 1.5);
     ground.setAngle(-3);
-  
+
     var ground2 = this.matter.add.image(220, 620, 'platform', null, { isStatic: true });
     ground2.setScale(1, .7);
     ground2.setAngle(7);
@@ -181,7 +181,7 @@ function create() {
     hammer.setCollisionCategory(this.cat1);
     ground.setCollisionCategory(this.cat1);
     ground2.setCollisionCategory(this.cat1);
-	ground2B.setCollisionCategory(this.cat1);
+    ground2B.setCollisionCategory(this.cat1);
     ground3.setCollisionCategory(this.cat1);
     ground4.setCollisionCategory(this.cat1);
     ground5.setCollisionCategory(this.cat1);
@@ -225,7 +225,7 @@ function create() {
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
             alert("YOU WIN!!!");
-            
+
             location.reload();
         }
 
@@ -258,49 +258,48 @@ function create() {
             }
             console.log("Ball hit ladder " + r);
         }
-		
-		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
-            if(playerHasHammer){
-				console.log('player rekt barrel')
-				bodyB.gameObject.setActive(false).setVisible(false);
-				bodyB.destroy();
-			}
-			else{
-				alert("you lost!!!");
-				location.reload();				
-			}
+
+        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
+            if (playerHasHammer) {
+                console.log('player rekt barrel')
+                bodyB.gameObject.setActive(false).setVisible(false);
+                bodyB.destroy();
+            }
+            else {
+                alert("you lost!!!");
+                location.reload();
+            }
         }
-		
-		if ((bodyA.gameObject.texture.key == 'player') && !playerHasHammer && (bodyB.gameObject.texture.key == 'hammer')) {
+
+        if ((bodyA.gameObject.texture.key == 'player') && !playerHasHammer && (bodyB.gameObject.texture.key == 'hammer')) {
             console.log('stop, hammertime');
-			playerHasHammer = true;
-			hammerTime = Date.now();
-			bodyB.gameObject.setActive(false).setVisible(false);
-			console.log('test');
+            playerHasHammer = true;
+            hammerTime = Date.now();
+            bodyB.gameObject.setActive(false).setVisible(false);
+            console.log('test');
             bodyB.destroy();
-		}
+        }
 
     });
 
     this.matter.world.on('collisionend', function (event, bodyA, bodyB) {
-        if(!playerHasHammer){
-		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
-            playerTouchingGround = false;
-        }
-		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'platform')) {
-            playerTouchingGround = false;
-        }
+        if (!playerHasHammer) {
+            if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ground')) {
+                playerTouchingGround = false;
+            }
+            if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'platform')) {
+                playerTouchingGround = false;
+            }
 
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
-            playerTouchingLadder = false;
-            console.log("stopped overlap with ladder");
+            if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
+                playerTouchingLadder = false;
+                console.log("stopped overlap with ladder");
+            }
+            if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'player')) {
+                playerTouchingLadder = false;
+                console.log("stopped overlap with ladder");
+            }
         }
-        if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'player')) {
-            playerTouchingLadder = false;
-            console.log("stopped overlap with ladder");
-        }
-
-
         if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
             bodyB.gameObject.setIgnoreGravity(false);
             console.log("ball stopped hitting ladder");
@@ -309,7 +308,18 @@ function create() {
             bodyA.gameObject.setIgnoreGravity(false);
             console.log("ball stopped hitting ladder");
         }
-		}
+
+        if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ground')) {
+            bodyA.gameObject.setVelocityX(0);
+            console.log("ball came off ground");
+        }
+
+        if (bodyB.gameObject != null) {
+            if ((bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'ball')) {
+                bodyB.gameObject.setVelocityX(0);
+                console.log("ball came off ground B");
+            }
+        }
     });
 
     //path
@@ -319,7 +329,7 @@ function create() {
     path.lineTo(900, 1080);
     path.lineTo(100, 980);
 
-    followers = this.add.group(); 
+    followers = this.add.group();
     //followers = this.matter.add.group();
 
     //for (var i = 0; i < 3; i++)
@@ -353,9 +363,9 @@ var hammerTime = Date.now();
 
 let playerDiedBool = false;
 
-function playerDied(){
-	alert("you lost!!!");
-	location.reload();
+function playerDied() {
+    alert("you lost!!!");
+    location.reload();
 }
 
 function update() {
@@ -369,16 +379,16 @@ function update() {
         player.x = 980;
     }
 
-	if(playerDiedBool){
-		return;
-	}
-	
-	if(playerHasHammer && hammerTime <= (Date.now() - 10000)){
-		console.log(hammerTime);
-		console.log(Date.now());
-		playerHasHammer = false;
-		console.log("end of hammerTime");
-	}
+    if (playerDiedBool) {
+        return;
+    }
+
+    if (playerHasHammer && hammerTime <= (Date.now() - 10000)) {
+        console.log(hammerTime);
+        console.log(Date.now());
+        playerHasHammer = false;
+        console.log("end of hammerTime");
+    }
 
     if (lastBall <= (Date.now() - delayBall)) {
 
@@ -472,7 +482,7 @@ function update() {
         //fireSprite.gameObject.setCollisionCategory(this.cat1);
         //fireSprite.gameObject.label = "firesprite";
 
-        
+
         fireSprite.setData('vector', new Phaser.Math.Vector2());
         //this works as in does not throw an error but not sure if it's the real label or just creates an ad hoc label key for the data manager:
         fireSprite.setData('label', 'firesprite');
@@ -520,32 +530,32 @@ function update() {
 
         if ((playerX > vecMinX) && (playerX < vecMaxX)) {
             if ((playerY > vecMinY) && (playerY < vecMaxY)) {
-                if(playerHasHammer){
-					console.log("player has hammer - rekt the fire");
-					fireSprites[i].destroy();
-					return;
-				}
-				else{
-					console.log("player overlap with fires sprite");
-					playerDiedBool = true;
-					playerDied();
-				}
-			}
+                if (playerHasHammer) {
+                    console.log("player has hammer - rekt the fire");
+                    fireSprites[i].destroy();
+                    return;
+                }
+                else {
+                    console.log("player overlap with fires sprite");
+                    playerDiedBool = true;
+                    playerDied();
+                }
+            }
         }
-		
-		//if (rect1.x < rect2.x + rect2.width &&
-		//	rect1.x + rect1.width > rect2.x &&
-		//	rect1.y < rect2.y + rect2.height &&
-		//	rect1.y + rect1.height > rect2.y) {
-		//	// collision detected!
-		//}
+
+        //if (rect1.x < rect2.x + rect2.width &&
+        //	rect1.x + rect1.width > rect2.x &&
+        //	rect1.y < rect2.y + rect2.height &&
+        //	rect1.y + rect1.height > rect2.y) {
+        //	// collision detected!
+        //}
 
     }
     //new
 
 
-   // path.getPoint(follower.t, follower.vec);
-   // this.graphics.fillStyle(0xff0000, 1);
-   // this.graphics.fillCircle(follower.vec.x, follower.vec.y, 12);
+    // path.getPoint(follower.t, follower.vec);
+    // this.graphics.fillStyle(0xff0000, 1);
+    // this.graphics.fillCircle(follower.vec.x, follower.vec.y, 12);
     //end path
 }
