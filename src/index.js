@@ -205,6 +205,7 @@ function create() {
 
 
     ball = this.matter.add.image(50, 50, 'ball');
+    console.log(ball);
     ball.setCircle();
     ball.setScale(.1);
     ball.setFriction(0);
@@ -232,6 +233,31 @@ function create() {
         if ((bodyA.gameObject.texture.key == 'platform') && (bodyB.gameObject.texture.key == 'player')) {
             playerTouchingGround = true;
         }
+
+
+        //ball touching ground
+        if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ground')) {
+            bodyA.gameObject.label = 'ballGrounded';
+            console.log("lable set to ballGrounded")
+
+        }
+        if ((bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'ball')) {
+            bodyB.gameObject.label = 'ballGrounded';
+            console.log("lable set to ballGrounded")
+
+        }
+        if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'platform')) {
+            bodyA.gameObject.label = 'ballGrounded';
+            console.log("lable set to ballGrounded")
+
+        }
+        if ((bodyA.gameObject.texture.key == 'platform') && (bodyB.gameObject.texture.key == 'ball')) {
+            bodyB.gameObject.label = 'ballGrounded';
+            console.log("lable set to ballGrounded")
+
+        }
+        //end ball touching ground
+
 
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
@@ -313,6 +339,32 @@ function create() {
                 console.log("stopped overlap with ladder");
             }
         }
+
+
+        //ball touching ground
+        if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ground')) {
+            bodyA.gameObject.label = 'ball';
+            console.log("lable set back to ball")
+        }
+        if ((bodyA.gameObject.texture.key == 'ground') && (bodyB.gameObject.texture.key == 'ball')) {
+            bodyB.gameObject.label = 'ball';
+            console.log("lable set back to ball")
+
+        }
+        if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'platform')) {
+            bodyA.gameObject.label = 'ball';
+            console.log("lable set back to ball")
+
+        }
+        if ((bodyA.gameObject.texture.key == 'platform') && (bodyB.gameObject.texture.key == 'ball')) {
+            bodyB.gameObject.label = 'ball';
+            console.log("lable set back to ball")
+
+        }
+        //end ball touching ground
+
+
+
         if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
             bodyB.gameObject.setIgnoreGravity(false);
             console.log("ball stopped hitting ladder");
@@ -482,8 +534,9 @@ function update() {
 
 	var bodies = this.matter.world.localWorld.bodies;
 	bodies.forEach(body => { 
-		if(body.gameObject.texture.key == 'ball'){
-			body.gameObject.setVelocityY(.5) 
+		//if(body.gameObject.texture.key == 'ball'){
+        if (body.gameObject.label == 'ballGrounded') {
+			body.gameObject.setVelocityY(1) 
 		}
 	});
 
