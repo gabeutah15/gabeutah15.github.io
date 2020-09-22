@@ -43,7 +43,7 @@ var game = new Phaser.Game(config);
 function preload() {
     console.log(this);
     this.load.image("background", 'src/assets/waterbg.jpg');
-    this.load.image("WinBox", 'src/assets/logo.png');
+    this.load.image("WinBox", 'src/assets/boat.png');
     this.load.image("DestroyBallBox", 'src/assets/DestroyBallBox.png');
     this.load.image("enemy", 'src/assets/donkeykong.jpg');
     this.load.image("ground", 'src/assets/BackgroundAssets/BG_Base.png');
@@ -57,13 +57,13 @@ function preload() {
     this.load.audio('song', ['src/assets/sounds/backgroundsong2.mp3']);
     this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
 
-
-    this.load.spritesheet('player', 'src/assets/marioSmallspritesheet.png', {
-        frameWidth: 32,
-        frameHeight: 32,
-        margin: 1,
-        spacing: 1
-    });
+	this.load.image('player', 'src/assets/shark.png');
+    //this.load.spritesheet('player', 'src/assets/marioSmallspritesheet.png', {
+    //    frameWidth: 32,
+    //    frameHeight: 32,
+    //    margin: 1,
+    //    spacing: 1
+    //});
 
 }
 
@@ -93,6 +93,7 @@ function create() {
     player = this.matter.add.sprite(100, 1110, 'player', 0);
     player.label = "player1";
     player.setFriction(10);
+	player.setScale(.5, .5);
     player.setCollidesWith([this.cat1]);
     //player.setOverlapsWith([cat2]);    
 
@@ -101,28 +102,28 @@ function create() {
     this.cameras.main.setBounds(0, 0, this.bg.width, this.bg.height);
     //this.cameras.main.startFollow(this.player);
 
-    this.anims.create({
-        key: 'walk',
-        repeat: -1,//infinite repeat
-        frameRate: 6,
-        frames: this.anims.generateFrameNames('player', { start: 4, end: 5 })
-    });
-    this.anims.create({
-        key: 'jump',
-        repeat: -1,//infinite repeat
-        frameRate: 6,
-        frames: this.anims.generateFrameNames('player', { start: 1, end: 1 })
-    });
-    this.anims.create({
-        key: 'idle',
-        repeat: -1,//infinite repeat
-        frameRate: 6,
-        frames: this.anims.generateFrameNames('player', { start: 0, end: 0 })
-    });
-    player.play('idle');
+    //this.anims.create({
+    //    key: 'walk',
+    //    repeat: -1,//infinite repeat
+    //    frameRate: 6,
+    //    frames: this.anims.generateFrameNames('player', { start: 4, end: 5 })
+    //});
+    //this.anims.create({
+    //    key: 'jump',
+    //    repeat: -1,//infinite repeat
+    //    frameRate: 6,
+    //    frames: this.anims.generateFrameNames('player', { start: 1, end: 1 })
+    //});
+    //this.anims.create({
+    //    key: 'idle',
+    //    repeat: -1,//infinite repeat
+    //    frameRate: 6,
+    //    frames: this.anims.generateFrameNames('player', { start: 0, end: 0 })
+    //});
+    //player.play('idle');
 
     var WinBox = this.matter.add.image(110, 550, 'WinBox', null, { isStatic: true });
-    WinBox.setScale(.25, .25);
+    WinBox.setScale(.8, .8);
     WinBox.setSensor(true);
 
     var DestroyBallBox = this.matter.add.image(50, 1170, 'DestroyBallBox', null, { isStatic: true });
@@ -448,7 +449,7 @@ function update() {
         //player.setVelocityX(0);
 
         //player.flipX = true;
-        player.play('idle', true);
+        //player.play('idle', true);
     }
     else if (this.keyS.isDown && playerTouchingLadder && !playerHasHammer) {
         //player.setVelocityY(2);
@@ -456,7 +457,7 @@ function update() {
         //player.setVelocityX(0);
 
         //player.flipX = true;
-        player.play('idle', true);
+        //player.play('idle', true);
     }
     //else if (playerTouchingLadder) {
     //    player.setVelocityY(0);
@@ -466,13 +467,13 @@ function update() {
         console.log('A is pressed');
         player.setVelocityX(-2);
         player.flipX = true;
-        player.play('walk', true);
+        //player.play('walk', true);
     }
     else if (this.keyD.isDown) {
         console.log('D is pressed');
         player.setVelocityX(2);
         player.flipX = false;
-        player.play('walk', true);
+        //player.play('walk', true);
     }
     else {
         player.play('idle');
