@@ -130,22 +130,13 @@ function create() {
     this.cat1 = this.matter.world.nextCategory();
     var cat2 = this.matter.world.nextCategory();
 
-<<<<<<< HEAD
-    player = this.matter.add.sprite(900, 1120, 'player', 0);
+    player = this.matter.add.sprite(900, 1110, 'player', 0);
 		player.label = "player1";
 		player.setFriction(10);
 		player.setScale(.8, .8);
 		player.setCollidesWith([this.cat1]);
+		console.log(player)
 		//player.setOverlapsWith([cat2]);    
-=======
-    player = this.matter.add.sprite(100, 1110, 'player', 0);
-    player.label = "player1";
-    player.setFriction(10);
-	player.setScale(.8, .8);
-    player.setCollidesWith([this.cat1]);
-    console.log(player)
-    //player.setOverlapsWith([cat2]);    
->>>>>>> 8cd9e17cbe8d85adb18362ef7263df11ac6697d0
 
     //this.cameras.main.setSize(this.bg.width, 730);
     this.cameras.main.setSize(1000, 1280);
