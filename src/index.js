@@ -68,7 +68,7 @@ function preload() {
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
     this.load.image('hammer', 'src/assets/hammer.png');
 
-    this.load.audio('song', ['src/assets/sounds/backgroundsong2.mp3']);
+    this.load.audio('song', ['src/assets/sounds/Baby Shark.mp3']);
     this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
 
 	//this.load.image('player', 'src/assets/shark.png');
@@ -106,7 +106,7 @@ function create() {
 
     music = this.sound.add('song');
     music.stop();
-    //music.play();
+    music.play();
     deathSound = this.sound.add('deathSound');
 
     this.bg = this.add.sprite(500, 900, 'background');
