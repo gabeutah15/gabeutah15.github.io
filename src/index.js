@@ -904,7 +904,7 @@ function update() {
             }
         }
 
-        if (vec.y < 120) {
+        if (vec.y < 160) {
             followers.remove(fireSprites[i], true, true);
         }
     }
