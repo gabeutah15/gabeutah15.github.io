@@ -152,7 +152,7 @@ function create() {
         key: 'sword',
         repeat: -1,//infinite repeat
         frameRate: 6,
-        frames: this.anims.generateFrameNames('player', { start: 5, end: 5 })
+        frames: this.anims.generateFrameNames('player', { start: 6, end: 8 })
     });
     player.play('idle');
     console.log(this.anims);
@@ -570,7 +570,7 @@ function update() {
         //player.setVelocityX(0);
 
         //player.flipX = true;
-        //player.play('idle', true);
+        player.play('idle', true);
     }
     else if (this.keyS.isDown && playerTouchingLadder && !playerHasHammer) {
         //player.setVelocityY(2);
@@ -588,16 +588,42 @@ function update() {
         console.log('A is pressed');
         player.setVelocityX(-2);
         player.flipX = true;
-        player.play('walk', true);
+
+        if (playerHasHammer) {
+            player.play('sword', true);
+
+        }
+        else {
+            player.play('walk', true);
+
+        }
     }
     else if (this.keyD.isDown) {
         console.log('D is pressed');
         player.setVelocityX(2);
         player.flipX = false;
-        player.play('walk', true);
+
+        if (playerHasHammer) {
+            player.play('sword', true);
+
+        }
+        else {
+            player.play('walk', true);
+
+        }
     }
     else {
-        player.play('idle', true);
+        //player.play('idle', true);
+
+        if (playerHasHammer) {
+            player.play('sword', true);
+
+        }
+        else {
+            player.play('idle', true);
+
+        }
+
         player.setVelocityX(0)
     }
 
