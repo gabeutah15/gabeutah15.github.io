@@ -68,6 +68,14 @@ function preload() {
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
     this.load.image('hammer', 'src/assets/sword.png');
 
+
+    this.load.spritesheet('goop', 'src/assets/GOOP.png', {
+        frameWidth: 36,//100 or 101 or 100.666
+        frameHeight: 51,
+        margin: 1,
+        spacing: 1
+    });
+
     this.load.audio('song', ['src/assets/sounds/Baby Shark.mp3']);
     this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
 
@@ -75,13 +83,6 @@ function preload() {
     this.load.spritesheet('player', 'src/assets/SharkSpriteSheet_3.png', {
         frameWidth: 119,//100 or 101 or 100.666
         frameHeight: 77,
-        margin: 1,
-        spacing: 1
-    });
-	
-	this.load.spritesheet('Goop', 'src/assets/GOOPSheet.png', {
-        frameWidth: 38,
-        frameHeight: 52,
         margin: 1,
         spacing: 1
     });
@@ -185,6 +186,13 @@ function create() {
         frameRate: 6,
         frames: this.anims.generateFrameNames('player', { start: 4, end: 4 })
     });
+    this.anims.create({
+        key: 'goopAnim',
+        repeat: -1,//infinite repeat
+        frameRate: 6,
+        frames: this.anims.generateFrameNames('goop', { start: 0, end: 4 })//maybe 5?
+    });
+
     player.play('idle');
     console.log(this.anims);
 
@@ -795,26 +803,20 @@ function update() {
     });
 
     if (spawnAFireMonster) {
+
         //this.graphics = this.add.graphics();
         //follower = { t: 0, vec: new Phaser.Math.Vector2() };
         //this.matter.add.image
-        var fireSprite = followers.create(0, -50, 'Goop');
-        console.log(this.matter.world);
-        //this.physics.matter.world.enable(fireSprite);
-        //this.matter.add(fireSprite);
-        //fireSprite.body.setCircle(1);
+        //var fireSprite = followers.create(0, -50, 'Goop');
 
-        //can't set these values like this, not sure how to set these values for a creategroup thing
-        //fireSprite.gameObject.setCircle();
-        //fireSprite.gameObject.setScale(.1);
-        //fireSprite.gameObject.setFriction(0);
-        //fireSprite.gameObject.setBounce(0.01);
-        //fireSprite.gameObject.setVelocity(0, 0);
-        //fireSprite.gameObject.setVelocityX(0);
-        //fireSprite.gameObject.setVelocityY(0);
-        //fireSprite.gameObject.setAngularVelocity(0.15);
-        //fireSprite.gameObject.setCollisionCategory(this.cat1);
-        //fireSprite.gameObject.label = "firesprite";
+       
+
+        //var fireSprite = followers.create(0, -50, 'firesprite');
+        var fireSprite = followers.create(0, -50, 'goop');
+        fireSprite.play('goopAnim');
+
+        console.log(this.matter.world);
+        
 
 
         fireSprite.setData('vector', new Phaser.Math.Vector2());
