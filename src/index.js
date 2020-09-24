@@ -710,6 +710,9 @@ var lastBall = Date.now();
 
 var hammerTime = Date.now();
 
+let setTime = false;
+var intialTime;
+
 let playerDiedBool = false;
 
 function playerDied() {
@@ -723,7 +726,6 @@ function playerDied() {
     location.reload();
 }
 
-var intialTime = 0;
 
 function playerWon() {
     player.play('win');
@@ -740,14 +742,16 @@ gameScene.update = function () {
     if (chainBitten) {
         endMine.y -= 1;
 
-        if (endMine.y <= -265) {
+        if (!setTime) {
             intialTime = Date.now();
-        }
+			console.log('asdfgh ' + intialTime);
+			setTime = true;
+ 1      }
 
         console.log('qwerty ' + Date.now());
-
-        if ((intialTime != 0) && (intialTime <= (Date.now() - 2000))) {
+        if (setTime && (intialTime <= (Date.now() - 3300))) {
             playerWon();
+			setTime = false;
         }
     }
 
