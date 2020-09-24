@@ -49,18 +49,18 @@ function preload() {
     this.load.image("ground", 'src/assets/BackgroundAssets/BG_Base.png');
     this.load.image("platform", 'src/assets/BackgroundAssets/BG_Platform01.png');
     this.load.image("platform2", 'src/assets/BackgroundAssets/BG_Platform02.png');
-	this.load.image("platform3", 'src/assets/BackgroundAssets/BG_Platform03.png');
+    this.load.image("platform3", 'src/assets/BackgroundAssets/BG_Platform03.png');
     this.load.image("platform4", 'src/assets/BackgroundAssets/BG_Platform04.png');
     this.load.image('ball', 'src/assets/BackgroundAssets/Asset_bomb.png');
     this.load.image('ladderImage', 'src/assets/BackgroundAssets/Asset_Bubbles.png');
     this.load.image('chain', 'src/assets/BackgroundAssets/Asset_Chain.png');
-	this.load.image('BGRocks', 'src/assets/BackgroundAssets/BG_BG01.png');
-	this.load.image('BGRocks2', 'src/assets/BackgroundAssets/BG_BG02.png');
-	this.load.image('rock', 'src/assets/BackgroundAssets/Bg_Rock01.png');
-	this.load.image('rock2', 'src/assets/BackgroundAssets/Bg_Rock02.png');
-	this.load.image('rock3', 'src/assets/BackgroundAssets/Bg_Rock03.png');
-	this.load.image('rock4', 'src/assets/BackgroundAssets/Bg_Rock04.png');
-	this.load.image('rock5', 'src/assets/BackgroundAssets/Bg_Rock05.png');
+    this.load.image('BGRocks', 'src/assets/BackgroundAssets/BG_BG01.png');
+    this.load.image('BGRocks2', 'src/assets/BackgroundAssets/BG_BG02.png');
+    this.load.image('rock', 'src/assets/BackgroundAssets/Bg_Rock01.png');
+    this.load.image('rock2', 'src/assets/BackgroundAssets/Bg_Rock02.png');
+    this.load.image('rock3', 'src/assets/BackgroundAssets/Bg_Rock03.png');
+    this.load.image('rock4', 'src/assets/BackgroundAssets/Bg_Rock04.png');
+    this.load.image('rock5', 'src/assets/BackgroundAssets/Bg_Rock05.png');
 
     //this.load.image("block", 'src/assets/tile43.png');
     this.load.image('ladder', 'src/assets/ladder.png');
@@ -71,7 +71,7 @@ function preload() {
     this.load.audio('song', ['src/assets/sounds/Baby Shark.mp3']);
     this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
 
-	//this.load.image('player', 'src/assets/shark.png');
+    //this.load.image('player', 'src/assets/shark.png');
     this.load.spritesheet('player', 'src/assets/SharkSpriteSheet_3.png', {
         frameWidth: 119,//100 or 101 or 100.666
         frameHeight: 77,
@@ -84,17 +84,17 @@ function preload() {
 var music;
 var deathSound;
 
-function bodyIsPlatform(body){
-	if( body.gameObject != null && ((body.gameObject.texture.key == 'ground') || 
-	   (body.gameObject.texture.key == 'platform') || 
-	   (body.gameObject.texture.key == 'platform2') ||
-	   (body.gameObject.texture.key == 'platform3') || 
-	   (body.gameObject.texture.key == 'platform4'))){
-		return true;
-	}
-	else{
-		return false;
-	}
+function bodyIsPlatform(body) {
+    if (body.gameObject != null && ((body.gameObject.texture.key == 'ground') ||
+        (body.gameObject.texture.key == 'platform') ||
+        (body.gameObject.texture.key == 'platform2') ||
+        (body.gameObject.texture.key == 'platform3') ||
+        (body.gameObject.texture.key == 'platform4'))) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 function create() {
@@ -113,31 +113,30 @@ function create() {
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
     //this.bg.setDisplaySize(1000, 1280);
     this.bg.setScale(2, 3);
-	
-	this.bgRock2 = this.add.sprite(500, 900, 'BGRocks2');
+
+    this.bgRock2 = this.add.sprite(500, 900, 'BGRocks2');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
     //this.bg.setDisplaySize(1000, 1280);
     this.bgRock2.setScale(1, 1.5);
-	this.bgRock2.tint = 0x00065e;
-		
-	this.bgRock1 = this.add.sprite(500, 900, 'BGRocks');
-	this.bgRock1.tint = 0x252da1;
+    this.bgRock2.tint = 0x00065e;
+
+    this.bgRock1 = this.add.sprite(500, 900, 'BGRocks');
+    this.bgRock1.tint = 0x252da1;
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
     //this.bg.setDisplaySize(1000, 1280);
-	
-	//this.bg = this.add.sprite(0, 0, 'background');
+
+    //this.bg = this.add.sprite(0, 0, 'background');
 
     this.cat1 = this.matter.world.nextCategory();
     var cat2 = this.matter.world.nextCategory();
 
 
     player = this.matter.add.sprite(900, 1120, 'player', 0);
-		player.label = "player";
-		player.setFriction(10);
-		player.setScale(.8, .8);
-		player.setCollidesWith([this.cat1]);
+    player.label = "player";
+    player.setFriction(10);
+    player.setScale(.4, .4);
+    player.setCollidesWith([this.cat1]);
 
-  
     //this.cameras.main.setSize(this.bg.width, 730);
     this.cameras.main.setSize(1000, 1280);
     this.cameras.main.setBounds(0, 0, this.bg.width, this.bg.height);
@@ -181,7 +180,6 @@ function create() {
     });
     player.play('idle');
     console.log(this.anims);
-
 
 
 	//platforms and ground
@@ -380,24 +378,24 @@ function create() {
 		WinBox.setSensor(true);
 
     ball = this.matter.add.image(50, 50, 'ball');
-		console.log(ball);
-		ball.setCircle();
-		ball.setScale(.2);
-		ball.setFriction(0);
-		ball.setBounce(0.01);
-		ball.setVelocity(0, 0);
-		ball.setVelocityX(0);
-		ball.setVelocityY(0);
-		ball.setAngularVelocity(0.15);
-		ball.setCollisionCategory(this.cat1);
-		ball.label = "ball";
+    console.log(ball);
+    ball.setCircle();
+    ball.setScale(.2);
+    ball.setFriction(0);
+    ball.setBounce(0.01);
+    ball.setVelocity(0, 0);
+    ball.setVelocityX(0);
+    ball.setVelocityY(0);
+    ball.setAngularVelocity(0.15);
+    ball.setCollisionCategory(this.cat1);
+    ball.label = "ball";
 
     this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
         //console.log(bodyB.gameObject.texture.key);
         //console.log(bodyA.gameObject.texture.key);
-	
-		let aIsPlatform = bodyIsPlatform(bodyA);
-		let bIsPlatform = bodyIsPlatform(bodyB);
+
+        let aIsPlatform = bodyIsPlatform(bodyA);
+        let bIsPlatform = bodyIsPlatform(bodyB);
 
         if ((bodyA.gameObject.texture.key == 'player') && bIsPlatform) {
             playerTouchingGround = true;
@@ -451,12 +449,12 @@ function create() {
         }
 
         if (bodyB.gameObject != null) {
-			
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
-            playerTouchingLadder = true;
-            console.log("overlap with ladder");
-        }
-			
+
+            if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
+                playerTouchingLadder = true;
+                console.log("overlap with ladder");
+            }
+
             if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
                 var r = Math.floor(Math.random() * 10);
 
@@ -512,14 +510,14 @@ function create() {
             console.log('test');
             bodyB.destroy();
         }
-       
+
 
     });
 
     this.matter.world.on('collisionend', function (event, bodyA, bodyB) {
-		let aIsPlatform = bodyIsPlatform(bodyA);
-		let bIsPlatform = bodyIsPlatform(bodyB);
-		
+        let aIsPlatform = bodyIsPlatform(bodyA);
+        let bIsPlatform = bodyIsPlatform(bodyB);
+
         if (!playerHasHammer) {
             if ((bodyA.gameObject.texture.key == 'player') && bIsPlatform) {
                 playerTouchingGround = false;
@@ -646,7 +644,7 @@ function playerDied() {
 }
 
 function update() {
-	//player.setIgnoreGravity(true);
+    //player.setIgnoreGravity(true);
     //player.setVelocityY(.27);
     //player.setVelocityX(0);
 
@@ -690,7 +688,7 @@ function update() {
     if (playerTouchingLadder) {
         player.setIgnoreGravity(true);
         player.setVelocityY(0);
-        player.setVelocityX(0);
+        //player.setVelocityX(0);
     }
     else {
         player.setIgnoreGravity(false);
@@ -715,6 +713,17 @@ function update() {
         //player.setVelocityX(0);
 
         //player.flipX = true;
+        player.play('idle', true);
+    }
+
+    else if (this.keyA.isDown && playerTouchingLadder && !playerHasHammer) {
+        player.x -= 1;
+        player.flipX = true;
+        player.play('idle', true);
+    }
+    else if (this.keyD.isDown && playerTouchingLadder && !playerHasHammer) {
+        player.x += 1;
+        player.flipX = false;
         player.play('idle', true);
     }
     //else if (playerTouchingLadder) {
@@ -764,13 +773,13 @@ function update() {
         player.setVelocityX(0)
     }
 
-	var bodies = this.matter.world.localWorld.bodies;
-	bodies.forEach(body => { 
-		//if(body.gameObject.texture.key == 'ball'){
+    var bodies = this.matter.world.localWorld.bodies;
+    bodies.forEach(body => {
+        //if(body.gameObject.texture.key == 'ball'){
         if (body.gameObject.label == 'ballGrounded') {
-			body.gameObject.setVelocityY(1) 
-		}
-	});
+            body.gameObject.setVelocityY(1)
+        }
+    });
 
     if (spawnAFireMonster) {
         //this.graphics = this.add.graphics();
