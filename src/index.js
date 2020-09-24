@@ -689,7 +689,7 @@ function update() {
     if (playerTouchingLadder) {
         player.setIgnoreGravity(true);
         player.setVelocityY(0);
-        //player.setVelocityX(0);
+        player.setVelocityX(0);
     }
     else {
         player.setIgnoreGravity(false);
