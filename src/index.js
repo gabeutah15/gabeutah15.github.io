@@ -13,7 +13,7 @@ var config = {
         default: 'matter',
         matter: {
             gravity: { x: 0, y: .15 },
-            debug: true
+            //debug: true
         },
     },
     scene: {
@@ -149,6 +149,9 @@ function create() {
     this.cameras.main.setSize(1000, 1280);
     this.cameras.main.setBounds(0, 0, this.bg.width, this.bg.height);
     this.cameras.main.startFollow(player);
+    //maybe try using the following in update:
+    //this.cameras.main.scrollX = this.cameraTargetSprite.x - 400;
+    //this.cameras.main.scrollY = this.cameraTargetSprite.y - 300;
 
     this.anims.create({
         key: 'walk',
@@ -731,7 +734,7 @@ function update() {
     if (this.keyW.isDown && playerTouchingLadder && !playerHasHammer) {
         //console.log('W is pressed');
         //player.setVelocityY(-2);
-        player.y -= 1;
+        player.y -= 1.5;
         //player.setVelocityX(0);
 
         //player.flipX = true;
@@ -739,7 +742,8 @@ function update() {
     }
     else if (this.keyS.isDown && playerTouchingLadder && !playerHasHammer) {
         //player.setVelocityY(2);
-        player.y += 1;
+        //player.y -= 1;
+        player.y += .5;
         //player.setVelocityX(0);
 
         //player.flipX = true;
@@ -748,12 +752,18 @@ function update() {
 
     else if (this.keyA.isDown && playerTouchingLadder && !playerHasHammer) {
         player.x -= 1;
+        player.y -= 1;
         player.flipX = true;
         player.play('idle', true);
     }
     else if (this.keyD.isDown && playerTouchingLadder && !playerHasHammer) {
         player.x += 1;
+        player.y -= 1;
         player.flipX = false;
+        player.play('idle', true);
+    }
+    else if (playerTouchingLadder && !playerHasHammer) {
+        player.y -= .5;
         player.play('idle', true);
     }
     //else if (playerTouchingLadder) {
