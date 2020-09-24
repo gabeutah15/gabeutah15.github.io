@@ -70,7 +70,7 @@ function preload() {
 
 
     this.load.spritesheet('goop', 'src/assets/GOOP.png', {
-        frameWidth: 36,//100 or 101 or 100.666
+        frameWidth: 34.5,//100 or 101 or 100.666
         frameHeight: 51,
         margin: 1,
         spacing: 1
@@ -613,33 +613,42 @@ function create() {
 
     //path
     graphics = this.add.graphics();
-    path = new Phaser.Curves.Path(120, 1080);
-    path.lineTo(950, 1150);
-    path.lineTo(950, 1020);
-    path.lineTo(50, 930);
-    path.lineTo(50, 820);
-    path.lineTo(900, 700);
+    path = new Phaser.Curves.Path(950, 1080);
+    path.lineTo(170, 1150);
+    path.lineTo(170, 1020);
+    path.lineTo(750, 900);
+    path.lineTo(750, 770);
+    path.lineTo(80, 700);
+    path.lineTo(80, 550);
+    path.lineTo(950, 500);
+    path.lineTo(950, 400);
+
+
+
 
 
 
     followers = this.add.group();
     //followers = this.matter.add.group();
 
+    //test goop section
     //for (var i = 0; i < 3; i++)
     //{
-    //    var fireSprite = followers.create(0, -50, 'firesprite');
+    //    var fireSprite = followers.create(0, -50, 'goop');
+    //    fireSprite.play('goopAnim');
     //    fireSprite.setData('vector', new Phaser.Math.Vector2());
 
     //    this.tweens.add({
     //        targets: fireSprite,
     //        z: 1,
     //        ease: 'Sine.easeInOut',
-    //        duration: 20000,
+    //        duration: 5000,
     //        yoyo: true,
     //        repeat: -1
     //    });
 
     //}
+    //end test goop section
 
     //end path
 
