@@ -276,8 +276,8 @@ function create() {
 		ladder3A.setScale(1.5, 2.2);
 		ladder3A.setSensor(true);
 		
-	var ladderT3A = this.matter.add.image(550, 680, 'ladder', null, { isStatic: true });
-		ladderT3A.setScale(.01, .25).setVisible(false);
+	var ladderT3A = this.matter.add.image(560, 655, 'ladder', null, { isStatic: true });
+		ladderT3A.setScale(.1, .62).setVisible(false);
 		ladderT3A.setSensor(true);
 		ladderT3A.setCollisionCategory(this.cat1);
 		
@@ -295,8 +295,8 @@ function create() {
 		ladder4A.setScale(1.5, 2.4);
 		ladder4A.setSensor(true);
 		
-	var ladderT4A = this.matter.add.image(350, 460, 'ladder', null, { isStatic: true });
-		ladderT4A.setScale(.01, .25).setVisible(false);
+	var ladderT4A = this.matter.add.image(335, 440, 'ladder', null, { isStatic: true });
+		ladderT4A.setScale(.1, .75).setVisible(false);
 		ladderT4A.setSensor(true);
 		ladderT4A.setCollisionCategory(this.cat1);
 			 
@@ -309,8 +309,8 @@ function create() {
 		ladder4B.setScale(1.5, 1.5);
 		ladder4B.setSensor(true);
 		
-	var ladderT4B = this.matter.add.image(880, 460, 'ladder', null, { isStatic: true });
-		ladderT4B.setScale(.01, .25).setVisible(false);
+	var ladderT4B = this.matter.add.image(870, 450, 'ladder', null, { isStatic: true });
+		ladderT4B.setScale(.1, .4).setVisible(false);
 		ladderT4B.setSensor(true);
 		ladderT4B.setCollisionCategory(this.cat1);
 
@@ -323,8 +323,8 @@ function create() {
 		ladder5A.setScale(1.5, 2.7);
 		ladder5A.setSensor(true);
 		
-	var ladderT5A = this.matter.add.image(700, 240, 'ladder', null, { isStatic: true });
-		ladderT5A.setScale(.01, .25).setVisible(false);
+	var ladderT5A = this.matter.add.image(160, 218, 'ladder', null, { isStatic: true });
+		ladderT5A.setScale(.1, .42).setVisible(false);
 		ladderT5A.setSensor(true);
 		ladderT5A.setCollisionCategory(this.cat1);
 			 
@@ -337,8 +337,8 @@ function create() {
 		ladder5B.setScale(1.5, 1.6);
 		ladder5B.setSensor(true);
 		
-	var ladderT5B = this.matter.add.image(150, 240, 'ladder', null, { isStatic: true });
-		ladderT5B.setScale(.01, .25).setVisible(false);
+	var ladderT5B = this.matter.add.image(710, 220, 'ladder', null, { isStatic: true });
+		ladderT5B.setScale(.1, .8).setVisible(false);
 		ladderT5B.setSensor(true);
 		ladderT5B.setCollisionCategory(this.cat1);
 
@@ -351,8 +351,8 @@ function create() {
 		ladder6A.setScale(1.5, 2);
 		ladder6A.setSensor(true);
 		
-	var ladderT6A = this.matter.add.image(300, 60, 'ladder', null, { isStatic: true });
-		ladderT6A.setScale(.01, .25).setVisible(false);
+	var ladderT6A = this.matter.add.image(290, 20, 'ladder', null, { isStatic: true });
+		ladderT6A.setScale(.1, .65).setVisible(false);
 		ladderT6A.setSensor(true);
 		ladderT6A.setCollisionCategory(this.cat1);
 			 
@@ -365,8 +365,8 @@ function create() {
 		ladder6B.setScale(1, 1.4);
 		ladder6B.setSensor(true);
 		
-	var ladderT6B = this.matter.add.image(850, 30, 'ladder', null, { isStatic: true });
-		ladderT6B.setScale(.01, .25).setVisible(false);
+	var ladderT6B = this.matter.add.image(845, 10, 'ladder', null, { isStatic: true });
+		ladderT6B.setScale(.1, .4).setVisible(false);
 		ladderT6B.setSensor(true);
 		ladderT6B.setCollisionCategory(this.cat1);
 
