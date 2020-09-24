@@ -486,7 +486,7 @@ function create() {
 
                 if (r > 4) {
                     //ball.setVelocityY(0);
-                    bodyB.gameObject.setVelocityY(5)
+                    bodyB.gameObject.setVelocityY(10)
                     bodyB.gameObject.setVelocityX(0)
                     bodyB.gameObject.setIgnoreGravity(true);
 
@@ -617,14 +617,18 @@ function create() {
     //path
     graphics = this.add.graphics();
     path = new Phaser.Curves.Path(950, 1080);
-    path.lineTo(170, 1150);
-    path.lineTo(170, 1020);
+    path.lineTo(175, 1120);
+    path.lineTo(175, 980);
     path.lineTo(750, 900);
-    path.lineTo(750, 770);
-    path.lineTo(80, 700);
-    path.lineTo(80, 550);
-    path.lineTo(950, 500);
-    path.lineTo(950, 400);
+    path.lineTo(750, 620);
+    path.lineTo(20, 680);
+    path.lineTo(20, 380);
+    path.lineTo(970, 450);
+    path.lineTo(970, 160);
+    path.lineTo(145, 230);
+    path.lineTo(145, 130);
+
+
 
 
 
@@ -645,7 +649,7 @@ function create() {
     //        targets: fireSprite,
     //        z: 1,
     //        ease: 'Sine.easeInOut',
-    //        duration: 5000,
+    //        duration: 60000,
     //        yoyo: true,
     //        repeat: -1
     //    });
@@ -834,6 +838,8 @@ function update() {
         var fireSprite = followers.create(0, -50, 'goop');
         fireSprite.play('goopAnim');
 
+        //followers.remove(followers[0], true, true);
+
         console.log(this.matter.world);
         
 
@@ -848,7 +854,7 @@ function update() {
             targets: fireSprite,
             z: 1,
             ease: 'Sine.easeInOut',
-            duration: 20000,
+            duration: 60000,
             yoyo: true,
             repeat: -1
         });
@@ -856,8 +862,8 @@ function update() {
     }
     //path:
     graphics.clear();
-    graphics.lineStyle(2, 0xffffff, 1);
-    //path.draw(graphics);
+    graphics.lineStyle(1, 0x5ff5c3, .5);
+    path.draw(graphics);
 
     //new
     //it is successfylly spawning a new one on each dead ball but they aren't going anywhere
@@ -896,6 +902,10 @@ function update() {
                     playerDied();
                 }
             }
+        }
+
+        if (vec.y < 120) {
+            followers.remove(fireSprites[i], true, true);
         }
     }
 }
