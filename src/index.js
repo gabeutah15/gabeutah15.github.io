@@ -44,7 +44,7 @@ function preload() {
     console.log(this);
     this.load.image("background", 'src/assets/BackgroundAssets/SharkBomberBackground.png');
     this.load.image("WinBox", 'src/assets/boat.png');
-    this.load.image("DestroyBallBox", 'src/assets/DestroyBallBox.png');
+    this.load.image("DestroyBallBox", 'src/assets/BritneySpearsBarrel.png');
     this.load.image("enemy", 'src/assets/donkeykong.jpg');
     this.load.image("ground", 'src/assets/BackgroundAssets/BG_Base.png');
     this.load.image("platform", 'src/assets/BackgroundAssets/BG_Platform01.png');
@@ -66,7 +66,7 @@ function preload() {
     this.load.image('ladder', 'src/assets/ladder.png');
 
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
-    this.load.image('hammer', 'src/assets/hammer.png');
+    this.load.image('hammer', 'src/assets/sword.png');
 
     this.load.audio('song', ['src/assets/sounds/Baby Shark.mp3']);
     this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
@@ -75,6 +75,13 @@ function preload() {
     this.load.spritesheet('player', 'src/assets/SharkSpriteSheet_3.png', {
         frameWidth: 119,//100 or 101 or 100.666
         frameHeight: 77,
+        margin: 1,
+        spacing: 1
+    });
+	
+	this.load.spritesheet('Goop', 'src/assets/GOOPSheet.png', {
+        frameWidth: 38,
+        frameHeight: 52,
         margin: 1,
         spacing: 1
     });
@@ -131,7 +138,7 @@ function create() {
     var cat2 = this.matter.world.nextCategory();
 
 
-    player = this.matter.add.sprite(900, 1120, 'player', 0);
+    player = this.matter.add.sprite(880, 1120, 'player', 0);
     player.label = "player";
     player.setFriction(10);
     player.setScale(.4, .4);
@@ -181,6 +188,12 @@ function create() {
     player.play('idle');
     console.log(this.anims);
 
+	this.anims.create({
+        key: 'GOOPAnim',
+        repeat: -1,//infinite repeat
+        frameRate: 5,
+        frames: this.anims.generateFrameNames('Goop', { start: 0, end: 4 })
+    });
 
 	//platforms and ground
     var ground = this.matter.add.image(500, 1280, 'ground', null, { isStatic: true });
@@ -365,12 +378,12 @@ function create() {
 		level7B.setCollisionCategory(this.cat1);
 		
 	var hammer = this.matter.add.image(70, 800, 'hammer', null, { isStatic: true });
-		hammer.setScale(.25, .25);
+		hammer.setScale(.7, .7);
 		hammer.setSensor(true);
 		hammer.setCollisionCategory(this.cat1);
 		
-	var DestroyBallBox = this.matter.add.image(900, 1170, 'DestroyBallBox', null, { isStatic: true });
-		DestroyBallBox.setScale(.2, .2);
+	var DestroyBallBox = this.matter.add.image(930, 1190, 'DestroyBallBox', null, { isStatic: true });
+		DestroyBallBox.setScale(1.7, 1.7);
 		DestroyBallBox.setSensor(true);
 
 	var WinBox = this.matter.add.image(150, -100, 'WinBox', null, { isStatic: true });
@@ -785,7 +798,7 @@ function update() {
         //this.graphics = this.add.graphics();
         //follower = { t: 0, vec: new Phaser.Math.Vector2() };
         //this.matter.add.image
-        var fireSprite = followers.create(0, -50, 'firesprite');
+        var fireSprite = followers.create(0, -50, 'Goop');
         console.log(this.matter.world);
         //this.physics.matter.world.enable(fireSprite);
         //this.matter.add(fireSprite);
