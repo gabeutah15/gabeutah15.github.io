@@ -132,7 +132,7 @@ function create() {
 
 
     player = this.matter.add.sprite(900, 1120, 'player', 0);
-	player.label = "player1";
+	player.label = "player";
 	player.setFriction(10);
 	player.setScale(.8, .8);
 	player.setCollidesWith([this.cat1]);
@@ -455,6 +455,7 @@ function create() {
             console.log('test');
             bodyB.destroy();
         }
+       
 
     });
 
