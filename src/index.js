@@ -558,6 +558,10 @@ gameScene.create = function () {
                     deathSound.play();
                     player.play('death');
                     alert("you lost!!!");
+                    //this.scene.restart();
+                    //game.scene.start('game');
+                    //game.scene.restart('game');
+                    //gameScene.restart();
                     location.reload();
                 }
             }
@@ -713,6 +717,9 @@ function playerDied() {
     deathSound.play();
     player.play('death');
     alert("you lost!!!");
+    //this.scene.restart();
+    //game.scene.start('game');
+    //gameScene.scene.restart();
     location.reload();
 }
 
