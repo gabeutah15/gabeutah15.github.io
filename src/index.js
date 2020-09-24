@@ -716,14 +716,33 @@ function playerDied() {
     location.reload();
 }
 
+var intialTime = 0;
+
+function playerWon() {
+    player.play('win');
+    alert("YOU WIN!!!");
+    music.stop();
+    location.reload();
+}
+
 gameScene.update = function () {
     //player.setIgnoreGravity(true);
     //player.setVelocityY(.27);
     //player.setVelocityX(0);
 	
-	if (chainBitten){
-		endMine.y -= 1;
-	}
+    if (chainBitten) {
+        endMine.y -= 1;
+
+        if (endMine.y <= -265) {
+            intialTime = Date.now();
+        }
+
+        console.log('qwerty ' + Date.now());
+
+        if ((intialTime != 0) && (intialTime <= (Date.now() - 2000))) {
+            playerWon();
+        }
+    }
 
     player.setAngle(0);
 
