@@ -132,10 +132,10 @@ function create() {
 
 
     player = this.matter.add.sprite(900, 1120, 'player', 0);
-	player.label = "player1";
-	player.setFriction(10);
-	player.setScale(.8, .8);
-	player.setCollidesWith([this.cat1]);
+		player.label = "player";
+		player.setFriction(10);
+		player.setScale(.8, .8);
+		player.setCollidesWith([this.cat1]);
   
     //this.cameras.main.setSize(this.bg.width, 730);
     this.cameras.main.setSize(1000, 1280);
@@ -196,7 +196,7 @@ function create() {
 	var ladder1B = this.matter.add.image(510, 1130, 'ladderImage', null, { isStatic: true });
 		ladder1B.setScale(1.8, 1.99);
 		ladder1B.setSensor(true);
-
+	
 	var level1C = this.matter.add.image(800, 1050, 'platform2', null, { isStatic: true });
 		level1C.setScale(1.5, 1);
 		level1C.setAngle(-4);
@@ -210,6 +210,7 @@ function create() {
 	var ladder2A = this.matter.add.image(250, 970, 'ladderImage', null, { isStatic: true });
 		ladder2A.setScale(1.2, 1.6);
 		ladder2A.setSensor(true);
+		
 		
 	var ladder2B = this.matter.add.image(720, 910, 'ladderImage', null, { isStatic: true });
 		ladder2B.setScale(1.8, 2.4);
@@ -301,6 +302,7 @@ function create() {
 	var hammer = this.matter.add.image(70, 800, 'hammer', null, { isStatic: true });
 		hammer.setScale(.25, .25);
 		hammer.setSensor(true);
+		hammer.setCollisionCategory(this.cat1);
 		
 	var DestroyBallBox = this.matter.add.image(900, 1170, 'DestroyBallBox', null, { isStatic: true });
 		DestroyBallBox.setScale(.2, .2);
