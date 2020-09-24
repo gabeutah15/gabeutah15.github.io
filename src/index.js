@@ -25,11 +25,13 @@ var config = {
 
 var player;
 var ball;
+var endMine;
 let playerTouchingGround = false;
 let playerTouchingLadder = false;
 let playerHitByBall = false;
 let spawnAFireMonster = false;
 let playerHasHammer = false;
+let chainBitten = false;
 //path
 var follower;
 var followers;
@@ -409,17 +411,17 @@ function create() {
 		Chain.setSensor(true);
 		Chain.setCollisionCategory(this.cat1);
 		
-	var endMine = this.matter.add.image(150, -265, 'ball', null, { isStatic: true });
+	endMine = this.matter.add.image(150, -265, 'ball', null, { isStatic: true });
 		endMine.setScale(.8, .8);
 		endMine.setSensor(true);
 		endMine.setCollisionCategory(this.cat1);
 		
 	var boat = this.matter.add.image(170, -550, 'Boat', null, { isStatic: true });
 		boat.setScale(1, 1);
-		boat.setSensor(true);
+		//boat.setSensor(true);
 		boat.setCollisionCategory(this.cat1);
 
-	this.cameras.main.startFollow(Chain);
+	//this.cameras.main.startFollow(Chain);
 
     ball = this.matter.add.image(70, -300, 'ball');
     console.log(ball);
@@ -476,13 +478,12 @@ function create() {
         }
         //end ball touching ground
 
-
-
-        if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
+       if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'Boat')) {
             player.play('win');
             alert("YOU WIN!!!");
             music.stop();
             location.reload();
+			bodyA.destroy();
         }
 
         if ((bodyA.gameObject.texture.key == 'DestroyBallBox') && (bodyB.gameObject.texture.key == 'ball')) {
@@ -491,6 +492,12 @@ function create() {
             bodyB.gameObject.setActive(false).setVisible(false);
             bodyB.destroy();
         }
+
+		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'Chain')) {
+            console.log("Chain bitten");
+			chainBitten = true;
+        }
+		
 
         if (bodyB.gameObject != null) {
 
@@ -704,6 +711,10 @@ function update() {
     //player.setIgnoreGravity(true);
     //player.setVelocityY(.27);
     //player.setVelocityX(0);
+	
+	if (chainBitten){
+		endMine.y -= 1;
+	}
 
     player.setAngle(0);
 
