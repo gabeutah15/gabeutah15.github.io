@@ -68,13 +68,13 @@ function preload() {
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
     this.load.image('hammer', 'src/assets/hammer.png');
 
-    this.load.audio('song', ['src/assets/sounds/backgroundsong2.mp3']);
+    this.load.audio('song', ['src/assets/sounds/Baby Shark.mp3']);
     this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
 
 	//this.load.image('player', 'src/assets/shark.png');
-    this.load.spritesheet('player', 'src/assets/SharkSpriteSheet_2.png', {
-        frameWidth: 92,//100 or 101 or 100.666
-        frameHeight: 82,
+    this.load.spritesheet('player', 'src/assets/SharkSpriteSheet_3.png', {
+        frameWidth: 119,//100 or 101 or 100.666
+        frameHeight: 77,
         margin: 1,
         spacing: 1
     });
@@ -106,7 +106,7 @@ function create() {
 
     music = this.sound.add('song');
     music.stop();
-    //music.play();
+    music.play();
     deathSound = this.sound.add('deathSound');
 
     this.bg = this.add.sprite(500, 900, 'background');
@@ -136,6 +136,7 @@ function create() {
 		player.setFriction(10);
 		player.setScale(.8, .8);
 		player.setCollidesWith([this.cat1]);
+
   
     //this.cameras.main.setSize(this.bg.width, 730);
     this.cameras.main.setSize(1000, 1280);
@@ -146,7 +147,7 @@ function create() {
         key: 'walk',
         repeat: -1,//infinite repeat
         frameRate: 8,
-        frames: this.anims.generateFrameNames('player', { start: 0, end: 3 })
+        frames: this.anims.generateFrameNames('player', { start: 0, end: 4 })
     });
     this.anims.create({
         key: 'idle',
@@ -164,7 +165,19 @@ function create() {
         key: 'sword',
         repeat: -1,//infinite repeat
         frameRate: 6,
-        frames: this.anims.generateFrameNames('player', { start: 6, end: 8 })
+        frames: this.anims.generateFrameNames('player', { start: 5, end: 7 })
+    });
+    this.anims.create({
+        key: 'death',
+        repeat: -1,//infinite repeat
+        frameRate: 6,
+        frames: this.anims.generateFrameNames('player', { start: 5, end: 5 })//not sure about frame numbers for win and death
+    });
+    this.anims.create({
+        key: 'win',
+        repeat: -1,//infinite repeat
+        frameRate: 6,
+        frames: this.anims.generateFrameNames('player', { start: 4, end: 4 })
     });
     player.play('idle');
     console.log(this.anims);
@@ -190,7 +203,6 @@ function create() {
 	var ladderT1A = this.matter.add.image(185, 1135, 'ladder', null, { isStatic: true });
 		ladderT1A.setScale(.01, .25).setVisible(false);
 		ladderT1A.setSensor(true);
-
 	
 	var level1B = this.matter.add.image(340, 1080, 'platform4', null, { isStatic: true });
 		level1B.setScale(2, 1.3);
@@ -415,6 +427,7 @@ function create() {
 
 
         if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'WinBox')) {
+            player.play('win');
             alert("YOU WIN!!!");
             music.stop();
             location.reload();
@@ -475,6 +488,7 @@ function create() {
                 else {
                     music.stop();
                     deathSound.play();
+                    player.play('death');
                     alert("you lost!!!");
                     location.reload();
                 }
@@ -488,6 +502,7 @@ function create() {
             console.log('test');
             bodyB.destroy();
         }
+       
 
     });
 
@@ -615,6 +630,7 @@ let playerDiedBool = false;
 function playerDied() {
     music.stop();
     deathSound.play();
+    player.play('death');
     alert("you lost!!!");
     location.reload();
 }
