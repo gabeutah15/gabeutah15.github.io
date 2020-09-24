@@ -42,18 +42,28 @@ var game = new Phaser.Game(config);
 
 function preload() {
     console.log(this);
-    this.load.image("background", 'src/assets/waterbg.jpg');
+    this.load.image("background", 'src/assets/BackgroundAssets/SharkBomberBackground.png');
     this.load.image("WinBox", 'src/assets/boat.png');
     this.load.image("DestroyBallBox", 'src/assets/DestroyBallBox.png');
     this.load.image("enemy", 'src/assets/donkeykong.jpg');
     this.load.image("ground", 'src/assets/BackgroundAssets/BG_Base.png');
     this.load.image("platform", 'src/assets/BackgroundAssets/BG_Platform01.png');
-    this.load.image("platform2", 'src/assets/BackgroundAssets/BG_Platform01.png');
+    this.load.image("platform2", 'src/assets/BackgroundAssets/BG_Platform02.png');
+	this.load.image("platform3", 'src/assets/BackgroundAssets/BG_Platform03.png');
+    this.load.image("platform4", 'src/assets/BackgroundAssets/BG_Platform04.png');
+    this.load.image('ball', 'src/assets/BackgroundAssets/Asset_bomb.png');
+    this.load.image('ladderImage', 'src/assets/BackgroundAssets/Asset_Bubbles.png');
+    this.load.image('chain', 'src/assets/BackgroundAssets/Asset_Chain.png');
+	this.load.image('BGRocks', 'src/assets/BackgroundAssets/BG_BG01.png');
+	this.load.image('BGRocks2', 'src/assets/BackgroundAssets/BG_BG02.png');
+	this.load.image('rock', 'src/assets/BackgroundAssets/Bg_Rock01.png');
+	this.load.image('rock2', 'src/assets/BackgroundAssets/Bg_Rock02.png');
+	this.load.image('rock3', 'src/assets/BackgroundAssets/Bg_Rock03.png');
+	this.load.image('rock4', 'src/assets/BackgroundAssets/Bg_Rock04.png');
+	this.load.image('rock5', 'src/assets/BackgroundAssets/Bg_Rock05.png');
 
     this.load.image("block", 'src/assets/tile43.png');
-    this.load.image('ball', 'src/assets/BackgroundAssets/Asset_bomb.png');
     this.load.image('ladder', 'src/assets/ladder.png');
-    this.load.image('ladderImage', 'src/assets/ladder.png');
 
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
     this.load.image('hammer', 'src/assets/hammer.png');
@@ -86,10 +96,23 @@ function create() {
     //music.play();
     deathSound = this.sound.add('deathSound');
 
-    this.bg = this.add.sprite(0, 0, 'background');
+    this.bg = this.add.sprite(500, 900, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
-    this.bg.setDisplaySize(1000, 1280);
-    this.bg.setScale(3, 2);
+    //this.bg.setDisplaySize(1000, 1280);
+    this.bg.setScale(2, 3);
+	
+	this.bgRock2 = this.add.sprite(500, 900, 'BGRocks2');
+    //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
+    //this.bg.setDisplaySize(1000, 1280);
+    this.bgRock2.setScale(1, 1.5);
+	this.bgRock2.tint = 0x00065e;
+		
+	this.bgRock1 = this.add.sprite(500, 900, 'BGRocks');
+	this.bgRock1.tint = 0x252da1;
+    //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
+    //this.bg.setDisplaySize(1000, 1280);
+	
+	//this.bg = this.add.sprite(0, 0, 'background');
 
     this.cat1 = this.matter.world.nextCategory();
     var cat2 = this.matter.world.nextCategory();
@@ -97,7 +120,7 @@ function create() {
     player = this.matter.add.sprite(100, 1110, 'player', 0);
     player.label = "player1";
     player.setFriction(10);
-	player.setScale(.4, .4);
+	player.setScale(.8, .8);
     player.setCollidesWith([this.cat1]);
     //player.setOverlapsWith([cat2]);    
 
@@ -154,14 +177,14 @@ function create() {
 
     //ladder images only
     var ladderI = this.add.image(890, 1125, 'ladderImage', null, { isStatic: true });
-    ladderI.setScale(.25, .25);
+    ladderI.setScale(1, 1);
 
 
     var ladder2I = this.add.image(110, 920, 'ladderImage', null, { isStatic: true });
-    ladder2I.setScale(.25, .25);
+    ladder2I.setScale(1, 1);
     //***
     var ladder3I = this.add.image(465, 720, 'ladderImage', null, { isStatic: true });
-    ladder3I.setScale(.25, .55);
+    ladder3I.setScale(1, 1);
     //end ladder images only
 
     //***
@@ -660,20 +683,5 @@ function update() {
                 }
             }
         }
-
-        //if (rect1.x < rect2.x + rect2.width &&
-        //	rect1.x + rect1.width > rect2.x &&
-        //	rect1.y < rect2.y + rect2.height &&
-        //	rect1.y + rect1.height > rect2.y) {
-        //	// collision detected!
-        //}
-
     }
-    //new
-
-
-    // path.getPoint(follower.t, follower.vec);
-    // this.graphics.fillStyle(0xff0000, 1);
-    // this.graphics.fillCircle(follower.vec.x, follower.vec.y, 12);
-    //end path
 }
