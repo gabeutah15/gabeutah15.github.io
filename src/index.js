@@ -142,7 +142,7 @@ function create() {
     player = this.matter.add.sprite(880, 1120, 'player', 0);
     player.label = "player";
     player.setFriction(10);
-    player.setScale(.4, .4);
+    player.setScale(.6, .6);
     player.setCollidesWith([this.cat1]);
 
     //this.cameras.main.setSize(this.bg.width, 730);
@@ -219,7 +219,7 @@ function create() {
 		ladder1A.setScale(1.2, 1.6);
 		ladder1A.setSensor(true);
 
-	var ladderT1A = this.matter.add.image(190, 1118, 'ladder', null, { isStatic: true });
+	var ladderT1A = this.matter.add.image(190, 1110, 'ladder', null, { isStatic: true });
 		ladderT1A.setScale(.1, .45).setVisible(false);
 		ladderT1A.setSensor(true);
 		ladderT1A.setCollisionCategory(this.cat1);
@@ -234,7 +234,7 @@ function create() {
 		ladder1B.setScale(1.8, 1.99);
 		ladder1B.setSensor(true);
 
-	var ladderT1B = this.matter.add.image(525, 1110, 'ladder', null, { isStatic: true });
+	var ladderT1B = this.matter.add.image(525, 1095, 'ladder', null, { isStatic: true });
 		ladderT1B.setScale(.1, .5).setVisible(false);
 		ladderT1B.setSensor(true);
 		ladderT1B.setCollisionCategory(this.cat1);
