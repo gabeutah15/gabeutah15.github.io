@@ -744,14 +744,14 @@ function update() {
 
         if (randBall == 0) {
             xChange = 50;//don't need this section explicitly
-            yChange = 50;
+            yChange = -180;
         }
         else if (randBall == 1) {
-            xChange = 300;
-            yChange = -150;
+            xChange = 350;
+            yChange = -180;
         } else if (randBall == 2) {
             xChange = 750;
-            yChange = -150;
+            yChange = -180;
         }
 
         ball = this.matter.add.image(xChange, yChange, 'ball');
