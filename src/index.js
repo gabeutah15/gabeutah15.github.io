@@ -386,7 +386,15 @@ gameScene.create = function () {
 		level7B.setScale(.7, 1);
 		level7B.setAngle(7);
 		level7B.setCollisionCategory(this.cat1);
+
+	var LBumper = this.matter.add.image(3, 1000, 'platform', null, { isStatic: true });
+		LBumper.setScale(.01, 1000);
+		LBumper.setCollisionCategory(this.cat1);
 		
+	var RBumper = this.matter.add.image(997, 1000, 'platform', null, { isStatic: true });
+		RBumper.setScale(.01, 1000);
+		RBumper.setCollisionCategory(this.cat1);
+
 	var hammer = this.matter.add.image(70, 800, 'hammer', null, { isStatic: true });
 		hammer.setScale(.7, .7);
 		hammer.setSensor(true);
@@ -913,7 +921,7 @@ gameScene.update = function () {
     bodies.forEach(body => {
         //if(body.gameObject.texture.key == 'ball'){
         if (body.gameObject.label == 'ballGrounded') {
-            body.gameObject.setVelocityY(1)
+            body.gameObject.setVelocityY(2)
         }
     });
 
