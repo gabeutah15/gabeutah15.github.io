@@ -197,7 +197,12 @@ function create() {
 	
 	var ladder1A = this.matter.add.image(185, 1135, 'ladderImage', null, { isStatic: true });
 		ladder1A.setScale(1.2, 1.6);
-		ladder1A.setSensor(true);
+        ladder1A.setSensor(true);
+
+    //var ladder1AC = this.matter.add.image(185, 1135, 'ladder', null, { isStatic: true });
+    //ladder1AC.setScale(.25, .25).setVisible(false);
+    //ladder1A.setSensor(true);
+
 	
 	var level1B = this.matter.add.image(340, 1080, 'platform4', null, { isStatic: true });
 		level1B.setScale(2, 1.3);
