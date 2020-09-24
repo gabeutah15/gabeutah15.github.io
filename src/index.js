@@ -148,6 +148,10 @@ function create() {
     this.cameras.main.setSize(1000, 730);
     this.cameras.main.setBounds(0, -1000, 1000, 10000);
     this.cameras.main.startFollow(player);
+    //var ball1 = this.add.image(50, 50, 'ball');
+    //var ball2 = this.add.image(300, -150, 'ball');
+    //var ball3 = this.add.image(750, -150, 'ball');
+
     //maybe try using the following in update:
     //this.cameras.main.scrollX = this.cameraTargetSprite.x - 400;
     //this.cameras.main.scrollY = this.cameraTargetSprite.y - 300;
@@ -707,7 +711,29 @@ function update() {
     if (lastBall <= (Date.now() - delayBall)) {
 
         console.log("spawned ball");
-        ball = this.matter.add.image(50, 50, 'ball');
+
+        var randBall = Math.floor(Math.random() * 3);//working
+
+        var xChange = 0;
+        var yChange = 0;
+
+        //var ball1 = this.add.image(50, 50, 'ball');
+        //var ball2 = this.add.image(300, -150, 'ball');
+        //var ball3 = this.add.image(750, -150, 'ball');
+
+        if (randBall == 0) {
+            xChange = 50;//don't need this section explicitly
+            yChange = 50;
+        }
+        else if (randBall == 1) {
+            xChange = 300;
+            yChange = -150;
+        } else if (randBall == 2) {
+            xChange = 750;
+            yChange = -150;
+        }
+
+        ball = this.matter.add.image(xChange, yChange, 'ball');
         ball.setCircle();
         ball.setScale(.3);
         ball.setFriction(0);
