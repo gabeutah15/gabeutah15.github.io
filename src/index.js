@@ -404,7 +404,7 @@ function create() {
     ball = this.matter.add.image(50, 50, 'ball');
     console.log(ball);
     ball.setCircle();
-    ball.setScale(.2);
+    ball.setScale(.3);
     ball.setFriction(0);
     ball.setBounce(0.01);
     ball.setVelocity(0, 0);
@@ -706,7 +706,7 @@ function update() {
         console.log("spawned ball");
         ball = this.matter.add.image(50, 50, 'ball');
         ball.setCircle();
-        ball.setScale(.2);
+        ball.setScale(.3);
         ball.setFriction(0);
         ball.setBounce(0.01);
         ball.setVelocity(0, 0);
@@ -752,18 +752,18 @@ function update() {
 
     else if (this.keyA.isDown && playerTouchingLadder && !playerHasHammer) {
         player.x -= 1;
-        player.y -= 1;
+        player.y -= .1;
         player.flipX = true;
         player.play('idle', true);
     }
     else if (this.keyD.isDown && playerTouchingLadder && !playerHasHammer) {
         player.x += 1;
-        player.y -= 1;
+        player.y -= .1;
         player.flipX = false;
         player.play('idle', true);
     }
     else if (playerTouchingLadder && !playerHasHammer) {
-        player.y -= .5;
+        player.y -= 1;
         player.play('idle', true);
     }
     //else if (playerTouchingLadder) {
