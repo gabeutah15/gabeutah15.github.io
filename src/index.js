@@ -2,26 +2,7 @@ import Phaser from "phaser";
 import logoImg from "./assets/logo.png";
 import mario from "./assets/mario.png";
 
-var config = {
-    type: Phaser.AUTO,
-    autoCenter: true,
-    width: 1000,
-    height: 730,
-    backgroundColor: '#1b1464',
-    parent: 'phaser-example',
-    physics: {
-        default: 'matter',
-        matter: {
-            gravity: { x: 0, y: .15 },
-            debug: true
-        },
-    },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};
+
 
 var player;
 var ball;
@@ -39,10 +20,11 @@ var path;
 var graphics;
 //end path
 
-var game = new Phaser.Game(config);
+var gameScene = new Phaser.Scene("game");
+var titleScene = new Phaser.Scene("title");
 //game.scene.add();
 
-function preload() {
+gameScene.preload = function() {
     console.log(this);
     this.load.image("background", 'src/assets/BackgroundAssets/SharkBomberBackground.png');
     this.load.image("Chain", 'src/assets/BackgroundAssets/Asset_chain.png');
@@ -55,6 +37,8 @@ function preload() {
     this.load.image("platform3", 'src/assets/BackgroundAssets/BG_Platform03.png');
     this.load.image("platform4", 'src/assets/BackgroundAssets/BG_Platform04.png');
     this.load.image('ball', 'src/assets/BackgroundAssets/Asset_bomb.png');
+    this.load.image('endMine', 'src/assets/BackgroundAssets/Asset_bomb_Lg.png');
+
     this.load.image('ladderImage', 'src/assets/BackgroundAssets/Asset_Bubbles.png');
     this.load.image('chain', 'src/assets/BackgroundAssets/Asset_Chain.png');
     this.load.image('BGRocks', 'src/assets/BackgroundAssets/BG_BG01.png');
@@ -115,12 +99,14 @@ function bodyIsPlatform(body) {
     }
 }
 
-function create() {
+gameScene.create = function () {
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    
+
 
     music = this.sound.add('song');
     music.stop();
@@ -146,10 +132,10 @@ function create() {
     //this.bg = this.add.sprite(0, 0, 'background');
 
     this.cat1 = this.matter.world.nextCategory();
-    var cat2 = this.matter.world.nextCategory();
+    this.cat2 = this.matter.world.nextCategory();
 
 
-    player = this.matter.add.sprite(880, 1120, 'player', 0);
+    player = this.matter.add.sprite(880 /*300*/, 1120 /*-300*/, 'player', 0);
     player.label = "player";
     player.setFriction(10);
     player.setScale(.6, .6);
@@ -415,10 +401,11 @@ function create() {
 		Chain.setSensor(true);
 		Chain.setCollisionCategory(this.cat1);
 		
-	endMine = this.matter.add.image(150, -265, 'ball', null, { isStatic: true });
+    endMine = this.matter.add.image(150, -265, 'endMine', null, { isStatic: true });
 		endMine.setScale(.8, .8);
-		endMine.setSensor(true);
+		//endMine.setSensor(true);
 		endMine.setCollisionCategory(this.cat1);
+    //endMine.setCollidesWith([this.cat2]);
 		
 	var boat = this.matter.add.image(170, -550, 'Boat', null, { isStatic: true });
 		boat.setScale(1, 1);
@@ -480,14 +467,32 @@ function create() {
                 console.log("lable set to ballGrounded")
             }
         }
-        //end ball touching ground
+        //end ball touching ground//b was endmine when A was player, boat was B when A was player
+        if (bodyA.gameObject.texture.key == 'endMine' || bodyB.gameObject.texture.key == 'endMine') {
+            console.log(bodyA.gameObject);
+            console.log(bodyB.gameObject);
 
-       if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'Boat')) {
+        }
+        if (bodyB.gameObject.texture.key == 'Boat' || bodyA.gameObject.texture.key == 'Boat') {
+            console.log(bodyA.gameObject);
+            console.log(bodyB.gameObject);
+
+        }
+
+        if ((bodyA.gameObject.texture.key == 'endMine') && (bodyB.gameObject.texture.key == 'Boat')) {
             player.play('win');
             alert("YOU WIN!!!");
             music.stop();
             location.reload();
-			bodyA.destroy();
+			//bodyA.destroy();
+        }
+
+        if ((bodyB.gameObject.texture.key == 'endMine') && (bodyA.gameObject.texture.key == 'Boat')) {
+            player.play('win');
+            alert("YOU WIN!!!");
+            music.stop();
+            location.reload();
+            //bodyB.destroy();
         }
 
         if ((bodyA.gameObject.texture.key == 'DestroyBallBox') && (bodyB.gameObject.texture.key == 'ball')) {
@@ -711,7 +716,7 @@ function playerDied() {
     location.reload();
 }
 
-function update() {
+gameScene.update = function () {
     //player.setIgnoreGravity(true);
     //player.setVelocityY(.27);
     //player.setVelocityX(0);
@@ -966,3 +971,58 @@ function update() {
         }
     }
 }
+
+titleScene.preload = function () {
+    //this.load.image('background', 'src/assets/mario.png');
+    this.load.image("background", 'src/assets/BackgroundAssets/SharkBomberBackground.png');
+};
+
+titleScene.create = function () {
+    this.bg = this.add.sprite(500, 900, 'background');
+    this.bg.setScale(3, 5.5);
+    this.bg.setOrigin(0, 0);//maybe?
+
+    this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+    //var bg = this.add.sprite(0, 0, 'background');
+
+    var text = this.add.text(100, 100, 'Angry Boat Man Game');
+    var text = this.add.text(100, 200, 'Press Enter To Start');
+
+};
+
+var startGame = false;
+
+titleScene.update = function () {
+
+    if (this.keyEnter.isDown && !startGame) {
+        startGame = true;
+        //game.scene.transition({ target: 'game', duration: 2000 });
+        game.scene.start('game');
+    }
+};
+
+var config = {
+    type: Phaser.AUTO,
+    autoCenter: true,
+    width: 1000,
+    height: 730,
+    backgroundColor: '#1b1464',
+    parent: 'phaser-example',
+    physics: {
+        default: 'matter',
+        matter: {
+            gravity: { x: 0, y: .15 },
+            debug: true
+        },
+    },
+    //scene: {
+    //    preload: preload,
+    //    create: create,
+    //    update: update
+    //}
+};
+var game = new Phaser.Game(config);
+game.scene.add('title', titleScene);
+game.scene.add("game", gameScene);
+
+game.scene.start('title');
