@@ -31,6 +31,7 @@ let playerTouchingLadder = false;
 let playerHitByBall = false;
 let spawnAFireMonster = false;
 let playerHasHammer = false;
+let playerBitChain = false;
 let chainBitten = false;
 //path
 var follower;
@@ -482,13 +483,6 @@ function create() {
         }
         //end ball touching ground
 
-       if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'Boat')) {
-            player.play('win');
-            alert("YOU WIN!!!");
-            music.stop();
-            location.reload();
-			bodyA.destroy();
-        }
 
         if ((bodyA.gameObject.texture.key == 'DestroyBallBox') && (bodyB.gameObject.texture.key == 'ball')) {
             //console.log("Ball Destroyed, fire monster spawned");
@@ -703,11 +697,20 @@ var hammerTime = Date.now();
 
 let playerDiedBool = false;
 
+var intialTime = 0;
+
 function playerDied() {
     music.stop();
     deathSound.play();
     player.play('death');
     alert("you lost!!!");
+    location.reload();
+}
+
+function playerWon() {
+    player.play('win');
+    alert("YOU WIN!!!");
+    music.stop();
     location.reload();
 }
 
@@ -718,6 +721,16 @@ function update() {
 	
 	if (chainBitten){
 		endMine.y -= 1;
+		
+		if(endMine.y <= -265){
+			intialTime = Date.now();
+		}
+		
+		console.log('qwerty ' + Date.now());
+		
+		if((intialTime != 0) && (intialTime <= (Date.now() - 2000))){
+			playerWon();
+		}
 	}
 
     player.setAngle(0);
