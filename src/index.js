@@ -51,7 +51,7 @@ function preload() {
     this.load.image("platform2", 'src/assets/BackgroundAssets/BG_Platform01.png');
 
     this.load.image("block", 'src/assets/tile43.png');
-    this.load.image('ball', 'src/assets/ball.png');
+    this.load.image('ball', 'src/assets/BackgroundAssets/Asset_bomb.png');
     this.load.image('ladder', 'src/assets/ladder.png');
     this.load.image('ladderImage', 'src/assets/ladder.png');
 
@@ -225,7 +225,7 @@ function create() {
     ball = this.matter.add.image(50, 50, 'ball');
     console.log(ball);
     ball.setCircle();
-    ball.setScale(.1);
+    ball.setScale(.2);
     ball.setFriction(0);
     ball.setBounce(0.01);
     ball.setVelocity(0, 0);
@@ -507,7 +507,7 @@ function update() {
         console.log("spawned ball");
         ball = this.matter.add.image(50, 50, 'ball');
         ball.setCircle();
-        ball.setScale(.1);
+        ball.setScale(.2);
         ball.setFriction(0);
         ball.setBounce(0.01);
         ball.setVelocity(0, 0);
