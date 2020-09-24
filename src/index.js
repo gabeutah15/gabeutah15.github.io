@@ -6,7 +6,7 @@ var config = {
     type: Phaser.AUTO,
     autoCenter: true,
     width: 1000,
-    height: 1280,
+    height: 730,
     backgroundColor: '#1b1464',
     parent: 'phaser-example',
     physics: {
@@ -32,7 +32,7 @@ let spawnAFireMonster = false;
 let playerHasHammer = false;
 //path
 var follower;
-var followers
+var followers;
 var path;
 var graphics;
 //end path
@@ -145,9 +145,8 @@ function create() {
     player.setScale(.6, .6);
     player.setCollidesWith([this.cat1]);
 
-    //this.cameras.main.setSize(this.bg.width, 730);
-    this.cameras.main.setSize(1000, 1280);
-    this.cameras.main.setBounds(0, 0, this.bg.width, this.bg.height);
+    this.cameras.main.setSize(1000, 730);
+    this.cameras.main.setBounds(0, -1000, 1000, 10000);
     this.cameras.main.startFollow(player);
     //maybe try using the following in update:
     //this.cameras.main.scrollX = this.cameraTargetSprite.x - 400;
