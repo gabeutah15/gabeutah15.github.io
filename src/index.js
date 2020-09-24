@@ -132,21 +132,11 @@ function create() {
 
 
     player = this.matter.add.sprite(900, 1120, 'player', 0);
-		player.label = "player1";
-		player.setFriction(10);
-		player.setScale(.8, .8);
-		player.setCollidesWith([this.cat1]);
-		//player.setOverlapsWith([cat2]);    
-
- //   player = this.matter.add.sprite(100, 1110, 'player', 0);
- //   player.label = "player1";
- //   player.setFriction(10);
-	//player.setScale(.8, .8);
- //   player.setCollidesWith([this.cat1]);
- //   console.log(player)
-    //player.setOverlapsWith([cat2]);    
-
-
+	player.label = "player1";
+	player.setFriction(10);
+	player.setScale(.8, .8);
+	player.setCollidesWith([this.cat1]);
+  
     //this.cameras.main.setSize(this.bg.width, 730);
     this.cameras.main.setSize(1000, 1280);
     this.cameras.main.setBounds(0, 0, this.bg.width, this.bg.height);
