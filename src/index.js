@@ -13,7 +13,7 @@ var config = {
         default: 'matter',
         matter: {
             gravity: { x: 0, y: .15 },
-            //debug: true
+            debug: true
         },
     },
     scene: {
@@ -43,7 +43,8 @@ var game = new Phaser.Game(config);
 function preload() {
     console.log(this);
     this.load.image("background", 'src/assets/BackgroundAssets/SharkBomberBackground.png');
-    this.load.image("WinBox", 'src/assets/boat.png');
+    this.load.image("Chain", 'src/assets/BackgroundAssets/Asset_chain.png');
+	this.load.image("Boat", 'src/assets/Boat_2.png');
     this.load.image("DestroyBallBox", 'src/assets/BritneySpearsBarrel.png');
     this.load.image("enemy", 'src/assets/donkeykong.jpg');
     this.load.image("ground", 'src/assets/BackgroundAssets/BG_Base.png');
@@ -68,6 +69,13 @@ function preload() {
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
     this.load.image('hammer', 'src/assets/sword.png');
 
+	//TODO: this prob needs to be edited
+    this.load.spritesheet('fishermen', 'src/assets/fishermenSheet.png', {
+        frameWidth: 34.5,//100 or 101 or 100.666
+        frameHeight: 51,
+        margin: 1,
+        spacing: 1
+    });
 
     this.load.spritesheet('goop', 'src/assets/GOOP.png', {
         frameWidth: 34.5,//100 or 101 or 100.666
@@ -120,7 +128,7 @@ function create() {
     this.bg = this.add.sprite(500, 900, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
     //this.bg.setDisplaySize(1000, 1280);
-    this.bg.setScale(2, 3);
+    this.bg.setScale(3, 5.5);
 
     this.bgRock2 = this.add.sprite(500, 900, 'BGRocks2');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
@@ -349,11 +357,11 @@ function create() {
 		level6A.setAngle(-5);
 		level6A.setCollisionCategory(this.cat1);
 		
-	var ladder6A = this.matter.add.image(300, 60, 'ladderImage', null, { isStatic: true });
-		ladder6A.setScale(1.5, 2);
+	var ladder6A = this.matter.add.image(455, 20, 'ladderImage', null, { isStatic: true });
+		ladder6A.setScale(1.5, 2.5);
 		ladder6A.setSensor(true);
 		
-	var ladderT6A = this.matter.add.image(290, 20, 'ladder', null, { isStatic: true });
+	var ladderT6A = this.matter.add.image(440, 0, 'ladder', null, { isStatic: true });
 		ladderT6A.setScale(.01, .65).setVisible(false);
 		ladderT6A.setSensor(true);
 		ladderT6A.setCollisionCategory(this.cat1);
@@ -377,13 +385,13 @@ function create() {
 		level6C.setAngle(-5);
 		level6C.setCollisionCategory(this.cat1);
 		
-	var level7A = this.matter.add.image(220, -60, 'platform', null, { isStatic: true });
-		level7A.setScale(.7, 1);
+	var level7A = this.matter.add.image(200, -100, 'platform', null, { isStatic: true });
+		level7A.setScale(.9, 1);
 		level7A.setAngle(7);
 		level7A.setCollisionCategory(this.cat1);
 			 
-	var level7B = this.matter.add.image(720, -10, 'platform3', null, { isStatic: true });
-		level7B.setScale(1, 1);
+	var level7B = this.matter.add.image(670, -40, 'platform', null, { isStatic: true });
+		level7B.setScale(.7, 1);
 		level7B.setAngle(7);
 		level7B.setCollisionCategory(this.cat1);
 		
@@ -396,11 +404,24 @@ function create() {
 		DestroyBallBox.setScale(1.7, 1.7);
 		DestroyBallBox.setSensor(true);
 
-	var WinBox = this.matter.add.image(150, -100, 'WinBox', null, { isStatic: true });
-		WinBox.setScale(.8, .8);
-		WinBox.setSensor(true);
+	var Chain = this.matter.add.image(150, -183, 'Chain', null, { isStatic: true });
+		Chain.setScale(.8, .8);
+		Chain.setSensor(true);
+		Chain.setCollisionCategory(this.cat1);
+		
+	var endMine = this.matter.add.image(150, -265, 'ball', null, { isStatic: true });
+		endMine.setScale(.8, .8);
+		endMine.setSensor(true);
+		endMine.setCollisionCategory(this.cat1);
+		
+	var boat = this.matter.add.image(170, -550, 'Boat', null, { isStatic: true });
+		boat.setScale(1, 1);
+		boat.setSensor(true);
+		boat.setCollisionCategory(this.cat1);
 
-    ball = this.matter.add.image(50, 50, 'ball');
+	this.cameras.main.startFollow(Chain);
+
+    ball = this.matter.add.image(70, -300, 'ball');
     console.log(ball);
     ball.setCircle();
     ball.setScale(.3);
@@ -707,7 +728,7 @@ function update() {
     if (lastBall <= (Date.now() - delayBall)) {
 
         console.log("spawned ball");
-        ball = this.matter.add.image(50, 50, 'ball');
+        ball = this.matter.add.image(70, -300, 'ball');
         ball.setCircle();
         ball.setScale(.3);
         ball.setFriction(0);
