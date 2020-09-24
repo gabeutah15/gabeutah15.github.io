@@ -71,13 +71,13 @@ function preload() {
     this.load.audio('song', ['src/assets/sounds/backgroundsong2.mp3']);
     this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
 
-	this.load.image('player', 'src/assets/shark.png');
-    //this.load.spritesheet('player', 'src/assets/marioSmallspritesheet.png', {
-    //    frameWidth: 32,
-    //    frameHeight: 32,
-    //    margin: 1,
-    //    spacing: 1
-    //});
+	//this.load.image('player', 'src/assets/shark.png');
+    this.load.spritesheet('player', 'src/assets/SharkSpriteSheet_2.png', {
+        frameWidth: 92,//100 or 101 or 100.666
+        frameHeight: 82,
+        margin: 1,
+        spacing: 1
+    });
 
 }
 
@@ -130,37 +130,54 @@ function create() {
     this.cat1 = this.matter.world.nextCategory();
     var cat2 = this.matter.world.nextCategory();
 
+<<<<<<< HEAD
     player = this.matter.add.sprite(900, 1120, 'player', 0);
 		player.label = "player1";
 		player.setFriction(10);
 		player.setScale(.8, .8);
 		player.setCollidesWith([this.cat1]);
 		//player.setOverlapsWith([cat2]);    
+=======
+    player = this.matter.add.sprite(100, 1110, 'player', 0);
+    player.label = "player1";
+    player.setFriction(10);
+	player.setScale(.8, .8);
+    player.setCollidesWith([this.cat1]);
+    console.log(player)
+    //player.setOverlapsWith([cat2]);    
+>>>>>>> 8cd9e17cbe8d85adb18362ef7263df11ac6697d0
 
     //this.cameras.main.setSize(this.bg.width, 730);
     this.cameras.main.setSize(1000, 1280);
     this.cameras.main.setBounds(0, 0, this.bg.width, this.bg.height);
     this.cameras.main.startFollow(player);
 
-    //this.anims.create({
-    //    key: 'walk',
-    //    repeat: -1,//infinite repeat
-    //    frameRate: 6,
-    //    frames: this.anims.generateFrameNames('player', { start: 4, end: 5 })
-    //});
-    //this.anims.create({
-    //    key: 'jump',
-    //    repeat: -1,//infinite repeat
-    //    frameRate: 6,
-    //    frames: this.anims.generateFrameNames('player', { start: 1, end: 1 })
-    //});
-    //this.anims.create({
-    //    key: 'idle',
-    //    repeat: -1,//infinite repeat
-    //    frameRate: 6,
-    //    frames: this.anims.generateFrameNames('player', { start: 0, end: 0 })
-    //});
-    //player.play('idle');
+    this.anims.create({
+        key: 'walk',
+        repeat: -1,//infinite repeat
+        frameRate: 8,
+        frames: this.anims.generateFrameNames('player', { start: 0, end: 3 })
+    });
+    this.anims.create({
+        key: 'idle',
+        repeat: -1,//infinite repeat
+        frameRate: 4,
+        frames: this.anims.generateFrameNames('player', { start: 0, end: 3 })
+    });
+    this.anims.create({//this is just also swimming?
+        key: 'jump',
+        repeat: -1,//infinite repeat
+        frameRate: 10,
+        frames: this.anims.generateFrameNames('player', { start: 0, end: 3 })
+    });
+    this.anims.create({
+        key: 'sword',
+        repeat: -1,//infinite repeat
+        frameRate: 6,
+        frames: this.anims.generateFrameNames('player', { start: 6, end: 8 })
+    });
+    player.play('idle');
+    console.log(this.anims);
 
 
 
@@ -627,7 +644,7 @@ function update() {
         //player.setVelocityX(0);
 
         //player.flipX = true;
-        //player.play('idle', true);
+        player.play('idle', true);
     }
     else if (this.keyS.isDown && playerTouchingLadder && !playerHasHammer) {
         //player.setVelocityY(2);
@@ -635,7 +652,7 @@ function update() {
         //player.setVelocityX(0);
 
         //player.flipX = true;
-        //player.play('idle', true);
+        player.play('idle', true);
     }
     //else if (playerTouchingLadder) {
     //    player.setVelocityY(0);
@@ -645,16 +662,42 @@ function update() {
         console.log('A is pressed');
         player.setVelocityX(-2);
         player.flipX = true;
-        //player.play('walk', true);
+
+        if (playerHasHammer) {
+            player.play('sword', true);
+
+        }
+        else {
+            player.play('walk', true);
+
+        }
     }
     else if (this.keyD.isDown) {
         console.log('D is pressed');
         player.setVelocityX(2);
         player.flipX = false;
-        //player.play('walk', true);
+
+        if (playerHasHammer) {
+            player.play('sword', true);
+
+        }
+        else {
+            player.play('walk', true);
+
+        }
     }
     else {
-        player.play('idle');
+        //player.play('idle', true);
+
+        if (playerHasHammer) {
+            player.play('sword', true);
+
+        }
+        else {
+            player.play('idle', true);
+
+        }
+
         player.setVelocityX(0)
     }
 
