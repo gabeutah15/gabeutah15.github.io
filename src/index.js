@@ -135,7 +135,7 @@ gameScene.create = function () {
     this.cat2 = this.matter.world.nextCategory();
 
 
-    player = this.matter.add.sprite(880 /*300*/, 1120 /*-300*/, 'player', 0);
+    player = this.matter.add.sprite(/*880*/ 300, /*1120*/-300, 'player', 0);
     player.label = "player";
     player.setFriction(10);
     player.setScale(1, 1);
@@ -426,9 +426,9 @@ gameScene.create = function () {
     ball = this.matter.add.image(70, -300, 'ball');
     console.log(ball);
     ball.setCircle();
-    ball.setScale(.3);
+    ball.setScale(.45);
     ball.setFriction(0);
-    ball.setBounce(0.01);
+    ball.setBounce(0.04);
     ball.setVelocity(0, 0);
     ball.setVelocityX(0);
     ball.setVelocityY(0);
@@ -772,6 +772,9 @@ gameScene.update = function () {
     if (player.x >= 980) {
         player.x = 980;
     }
+    if (player.y < -500) {
+        player.y = -500;
+    }
 
     if (playerDiedBool) {
         return;
@@ -788,32 +791,25 @@ gameScene.update = function () {
 
         console.log("spawned ball");
 
-        var randBall = Math.floor(Math.random() * 3);//working
+        var randBall = Math.floor(Math.random() * 2);//working
 
         var xChange = 0;
         var yChange = 0;
-
-        //var ball1 = this.add.image(50, 50, 'ball');
-        //var ball2 = this.add.image(300, -150, 'ball');
-        //var ball3 = this.add.image(750, -150, 'ball');
-
+      
         if (randBall == 0) {
-            xChange = 50;//don't need this section explicitly
-            yChange = -180;
+            xChange = 50;
+            yChange = -500;
         }
         else if (randBall == 1) {
-            xChange = 350;
-            yChange = -180;
-        } else if (randBall == 2) {
-            xChange = 750;
-            yChange = -180;
+            xChange = 660;
+            yChange = -500;
         }
 
         ball = this.matter.add.image(xChange, yChange, 'ball');
         ball.setCircle();
-        ball.setScale(.3);
+        ball.setScale(.45);
         ball.setFriction(0);
-        ball.setBounce(0.01);
+        ball.setBounce(0.04);
         ball.setVelocity(0, 0);
         ball.setVelocityX(0);
         ball.setVelocityY(0);
