@@ -138,7 +138,8 @@ gameScene.create = function () {
     player = this.matter.add.sprite(880 /*300*/, 1120 /*-300*/, 'player', 0);
     player.label = "player";
     player.setFriction(10);
-    player.setScale(.6, .6);
+    player.setScale(1, 1);
+    player.setCircle(35);
     player.setCollidesWith([this.cat1]);
 
     this.cameras.main.setSize(1000, 730);
