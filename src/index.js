@@ -1123,6 +1123,10 @@ var config = {
             debug: true
         },
     },
+    fps: {
+        target: 50,
+        forceSetTimeOut: false
+    },
     //scene: {
     //    preload: preload,
     //    create: create,
