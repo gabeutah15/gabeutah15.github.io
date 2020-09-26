@@ -122,6 +122,7 @@ gameScene.create = function () {
     music = this.sound.add('song');
     music.stop();
     music.play();
+    music.setVolume(.1);
     deathSound = this.sound.add('deathSound');
 
     this.bg = this.add.sprite(500, 900, 'background');
@@ -575,7 +576,7 @@ gameScene.create = function () {
 
                 if (r > 4) {
                     //ball.setVelocityY(0);
-                    bodyB.gameObject.setVelocityY(10)
+                    bodyB.gameObject.setVelocityY(5)
                     bodyB.gameObject.setVelocityX(0)
                     bodyB.gameObject.setIgnoreGravity(true);
 
@@ -591,7 +592,7 @@ gameScene.create = function () {
 
                 if (r > 4) {
                     //ball.setVelocityY(0);
-                    bodyA.gameObject.setVelocityY(5)
+                    bodyA.gameObject.setVelocityY(5)//this might not do anything
                     bodyA.gameObject.setVelocityX(0)
                     bodyA.gameObject.setIgnoreGravity(true);
 
@@ -720,12 +721,6 @@ gameScene.create = function () {
     path.lineTo(970, 160);
     path.lineTo(145, 230);
     path.lineTo(145, 130);
-
-
-
-
-
-
 
 
     followers = this.add.group();
@@ -973,7 +968,9 @@ gameScene.update = function () {
 
     var bodies = this.matter.world.localWorld.bodies;
     bodies.forEach(body => {
-        //if(body.gameObject.texture.key == 'ball'){
+        if (body.gameObject.texture.key == 'ball') {
+            body.gameObject.setVelocityY(2)
+        }
         if (body.gameObject.label == 'ballGrounded') {
             body.gameObject.setVelocityY(2)
         }
