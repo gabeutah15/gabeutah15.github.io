@@ -17,6 +17,7 @@ let chainBitten = false;
 //path
 var follower;
 var followers;
+var balls;
 var path;
 var graphics;
 //end path
@@ -104,6 +105,7 @@ function bodyIsPlatform(body) {
     if (body.gameObject != null && ((body.gameObject.texture.key == 'ground') ||
         (body.gameObject.texture.key == 'platform') ||
         (body.gameObject.texture.key == 'platform2') ||
+        (body.gameObject.texture.key == 'ladder') ||
         (body.gameObject.texture.key == 'platform3') ||
         (body.gameObject.texture.key == 'platform4'))) {
         return true;
@@ -459,18 +461,19 @@ gameScene.create = function () {
 
 	//this.cameras.main.startFollow(Chain);
 
-    ball = this.matter.add.image(70, -300, 'ball');
-    console.log(ball);
-    ball.setCircle();
-    ball.setScale(.45);
-    ball.setFriction(0);
-    ball.setBounce(0.04);
-    ball.setVelocity(0, 0);
-    ball.setVelocityX(0);
-    ball.setVelocityY(0);
-    ball.setAngularVelocity(0.15);
-    ball.setCollisionCategory(this.cat1);
-    ball.label = "ball";
+    //ball = this.matter.add.image(70, -300, 'ball');
+    //console.log(ball);
+    //ball.setCircle();
+    //ball.setScale(.45);
+    //ball.setFriction(0);
+    //ball.setBounce(0.04);
+    //ball.setVelocity(0, 0);
+    //ball.setVelocityX(0);
+    //ball.setVelocityY(0);
+    //ball.setAngularVelocity(0.15);
+    //ball.setCollisionCategory(this.cat1);
+    //ball.label = "ball";
+    //balls.add(ball);
 
     this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
         //console.log(bodyB.gameObject.texture.key);
@@ -731,7 +734,7 @@ gameScene.create = function () {
 
 
 
-
+    balls = this.add.group();
 
     followers = this.add.group();
     //followers = this.matter.add.group();
@@ -880,6 +883,7 @@ gameScene.update = function () {
         ball.setAngularVelocity(0.15);
         ball.setCollisionCategory(this.cat1);
         ball.label = "ball";
+        balls.add(ball);
         lastBall = Date.now();
     }
 
