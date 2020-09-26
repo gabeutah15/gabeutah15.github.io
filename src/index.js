@@ -1071,7 +1071,7 @@ gameScene.update = function () {
             }
         }
 
-        if (vec.y < -1000) {
+        if (vec.y < -200) {
             followers.remove(fireSprites[i], true, true);
         }
     }
