@@ -121,8 +121,9 @@ gameScene.create = function () {
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    
 
+    var text = this.add.text(800, 1100, game.loop.actualFps);
+    text.setDepth(100);
 
     music = this.sound.add('song');
     music.stop();
@@ -153,12 +154,12 @@ gameScene.create = function () {
     this.cat2 = this.matter.world.nextCategory();
 
     //final pos:
-    //var playerX = 880;
-    //var playerY = 1120;
+    var playerX = 880;
+    var playerY = 1120;
 
     //test pos
-    var playerX = 300;
-    var playerY = -300;
+    //var playerX = 300;
+    //var playerY = -300;
 
     player = this.matter.add.sprite(playerX, playerY, 'player', 0);
     player.label = "player";
@@ -1092,6 +1093,8 @@ titleScene.create = function () {
 
     var text = this.add.text(100, 100, 'Angry Boat Man Game');
     var text = this.add.text(100, 200, 'Press Enter To Start');
+    var text = this.add.text(100, 300, game.loop.actualFps);
+    text.setDepth(100);
 
 };
 
