@@ -76,6 +76,8 @@ gameScene.preload = function() {
 
     this.load.audio('song', ['src/assets/sounds/Baby Shark.mp3']);
     this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
+    this.load.audio('explosionSound', ['src/assets/sounds/explosionsound.mp3']);
+
 
     //this.load.image('player', 'src/assets/shark.png');
     this.load.spritesheet('player', 'src/assets/SharkSpriteSheet_3.png', {
@@ -96,6 +98,7 @@ gameScene.preload = function() {
 
 var music;
 var deathSound;
+var explosionSound;
 
 function bodyIsPlatform(body) {
     if (body.gameObject != null && ((body.gameObject.texture.key == 'ground') ||
@@ -124,6 +127,7 @@ gameScene.create = function () {
     music.play();
     music.setVolume(.1);
     deathSound = this.sound.add('deathSound');
+    explosionSound = this.sound.add('explosionSound');
 
     this.bg = this.add.sprite(500, 900, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
@@ -788,13 +792,15 @@ function boooooom() {
 	    player.play('win');
         explosion.setVisible(true);
         explosion.play('explode');
+        explosionSound.play();
+        music.stop();
         hasPlayedBoom = true;
     }
 }
 
 function playerWon() {
     alert("YOU WIN!!!");
-    music.stop();
+    
     location.reload();
 }
 
