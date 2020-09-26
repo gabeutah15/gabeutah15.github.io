@@ -154,12 +154,12 @@ gameScene.create = function () {
     this.cat2 = this.matter.world.nextCategory();
 
     //final pos:
-    //var playerX = 880;
-    //var playerY = 1120;
+    var playerX = 880;
+    var playerY = 1120;
 
     //test pos
-    var playerX = 300;
-    var playerY = -300;
+    //var playerX = 300;
+    //var playerY = -300;
 
     player = this.matter.add.sprite(playerX, playerY, 'player', 0);
     player.label = "player";
