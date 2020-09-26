@@ -461,20 +461,99 @@ gameScene.create = function () {
 		boat.setCollisionCategory(this.cat1);
 
 	//this.cameras.main.startFollow(Chain);
+    //ADD BEGINNING BALLS
+    ball = this.matter.add.image(700, -200, 'ball');
+    console.log(ball);
+    ball.setCircle();
+    ball.setScale(.45);
+    ball.setFriction(0);
+    ball.setBounce(0.04);
+    ball.setVelocity(0, 0);
+    ball.setVelocityX(0);
+    ball.setVelocityY(0);
+    ball.setAngularVelocity(0.15);
+    ball.setCollisionCategory(this.cat1);
+    ball.label = "ball";
 
-    //ball = this.matter.add.image(70, -300, 'ball');
-    //console.log(ball);
-    //ball.setCircle();
-    //ball.setScale(.45);
-    //ball.setFriction(0);
-    //ball.setBounce(0.04);
-    //ball.setVelocity(0, 0);
-    //ball.setVelocityX(0);
-    //ball.setVelocityY(0);
-    //ball.setAngularVelocity(0.15);
-    //ball.setCollisionCategory(this.cat1);
-    //ball.label = "ball";
-    //balls.add(ball);
+    ball = this.matter.add.image(70, -100, 'ball');
+    console.log(ball);
+    ball.setCircle();
+    ball.setScale(.45);
+    ball.setFriction(0);
+    ball.setBounce(0.04);
+    ball.setVelocity(0, 0);
+    ball.setVelocityX(0);
+    ball.setVelocityY(0);
+    ball.setAngularVelocity(0.15);
+    ball.setCollisionCategory(this.cat1);
+    ball.label = "ball";
+
+
+    ball = this.matter.add.image(70, 100, 'ball');
+    console.log(ball);
+    ball.setCircle();
+    ball.setScale(.45);
+    ball.setFriction(0);
+    ball.setBounce(0.04);
+    ball.setVelocity(0, 0);
+    ball.setVelocityX(0);
+    ball.setVelocityY(0);
+    ball.setAngularVelocity(0.15);
+    ball.setCollisionCategory(this.cat1);
+    ball.label = "ball";
+
+    ball = this.matter.add.image(700, 200, 'ball');
+    console.log(ball);
+    ball.setCircle();
+    ball.setScale(.45);
+    ball.setFriction(0);
+    ball.setBounce(0.04);
+    ball.setVelocity(0, 0);
+    ball.setVelocityX(0);
+    ball.setVelocityY(0);
+    ball.setAngularVelocity(0.15);
+    ball.setCollisionCategory(this.cat1);
+    ball.label = "ball";
+
+    ball = this.matter.add.image(70, 300, 'ball');
+    console.log(ball);
+    ball.setCircle();
+    ball.setScale(.45);
+    ball.setFriction(0);
+    ball.setBounce(0.04);
+    ball.setVelocity(0, 0);
+    ball.setVelocityX(0);
+    ball.setVelocityY(0);
+    ball.setAngularVelocity(0.15);
+    ball.setCollisionCategory(this.cat1);
+    ball.label = "ball";
+
+    ball = this.matter.add.image(700, 400, 'ball');
+    console.log(ball);
+    ball.setCircle();
+    ball.setScale(.45);
+    ball.setFriction(0);
+    ball.setBounce(0.04);
+    ball.setVelocity(0, 0);
+    ball.setVelocityX(0);
+    ball.setVelocityY(0);
+    ball.setAngularVelocity(0.15);
+    ball.setCollisionCategory(this.cat1);
+    ball.label = "ball";
+
+    ball = this.matter.add.image(70, 500, 'ball');
+    console.log(ball);
+    ball.setCircle();
+    ball.setScale(.45);
+    ball.setFriction(0);
+    ball.setBounce(0.04);
+    ball.setVelocity(0, 0);
+    ball.setVelocityX(0);
+    ball.setVelocityY(0);
+    ball.setAngularVelocity(0.15);
+    ball.setCollisionCategory(this.cat1);
+    ball.label = "ball";
+    //END ADD BEGINNING BALLS
 
     this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
         //console.log(bodyB.gameObject.texture.key);
