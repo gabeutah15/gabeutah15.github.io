@@ -720,7 +720,13 @@ gameScene.create = function () {
     path.lineTo(970, 450);
     path.lineTo(970, 160);
     path.lineTo(145, 230);
-    path.lineTo(145, 130);
+    path.lineTo(145, -50);
+    path.lineTo(970, 50);
+    path.lineTo(970, -150);
+    path.lineTo(170, -250);
+
+
+
 
 
     followers = this.add.group();
