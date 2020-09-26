@@ -122,8 +122,8 @@ gameScene.create = function () {
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-    var text = this.add.text(800, 1100, game.loop.actualFps);
-    text.setDepth(100);
+    //var text = this.add.text(800, 1100, game.loop.actualFps);
+    //text.setDepth(100);
 
     music = this.sound.add('song');
     music.stop();
@@ -154,12 +154,12 @@ gameScene.create = function () {
     this.cat2 = this.matter.world.nextCategory();
 
     //final pos:
-    var playerX = 880;
-    var playerY = 1120;
+    //var playerX = 880;
+    //var playerY = 1120;
 
     //test pos
-    //var playerX = 300;
-    //var playerY = -300;
+    var playerX = 300;
+    var playerY = -300;
 
     player = this.matter.add.sprite(playerX, playerY, 'player', 0);
     player.label = "player";
@@ -236,7 +236,7 @@ gameScene.create = function () {
     });
     //explosion.play('explode');
     player.play('idle');
-    console.log(this.anims);
+    //console.log(this.anims);
 
 	this.anims.create({
         key: 'GOOPAnim',
@@ -475,8 +475,8 @@ gameScene.create = function () {
     ball.setCollisionCategory(this.cat1);
     ball.label = "ball";
 
-    ball = this.matter.add.image(70, -100, 'ball');
-    console.log(ball);
+    ball = this.matter.add.image(170, -100, 'ball');
+    //console.log(ball);
     ball.setCircle();
     ball.setScale(.45);
     ball.setFriction(0);
@@ -489,8 +489,8 @@ gameScene.create = function () {
     ball.label = "ball";
 
 
-    ball = this.matter.add.image(70, 100, 'ball');
-    console.log(ball);
+    ball = this.matter.add.image(170, 100, 'ball');
+    //console.log(ball);
     ball.setCircle();
     ball.setScale(.45);
     ball.setFriction(0);
@@ -503,7 +503,7 @@ gameScene.create = function () {
     ball.label = "ball";
 
     ball = this.matter.add.image(700, 200, 'ball');
-    console.log(ball);
+    //console.log(ball);
     ball.setCircle();
     ball.setScale(.45);
     ball.setFriction(0);
@@ -516,7 +516,7 @@ gameScene.create = function () {
     ball.label = "ball";
 
     ball = this.matter.add.image(70, 300, 'ball');
-    console.log(ball);
+    //console.log(ball);
     ball.setCircle();
     ball.setScale(.45);
     ball.setFriction(0);
@@ -529,7 +529,7 @@ gameScene.create = function () {
     ball.label = "ball";
 
     ball = this.matter.add.image(700, 400, 'ball');
-    console.log(ball);
+    //console.log(ball);
     ball.setCircle();
     ball.setScale(.45);
     ball.setFriction(0);
@@ -542,7 +542,7 @@ gameScene.create = function () {
     ball.label = "ball";
 
     ball = this.matter.add.image(70, 500, 'ball');
-    console.log(ball);
+    //console.log(ball);
     ball.setCircle();
     ball.setScale(.45);
     ball.setFriction(0);
@@ -584,7 +584,7 @@ gameScene.create = function () {
             //}
             if (bIsPlatform && (bodyB.gameObject.texture.key == 'ball')) {
                 bodyB.gameObject.label = 'ballGrounded';
-                console.log("lable set to ballGrounded")
+                //console.log("lable set to ballGrounded")
             }
             //if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'platform')) {
             //    bodyA.gameObject.label = 'ballGrounded';
@@ -592,18 +592,18 @@ gameScene.create = function () {
             //}
             if (aIsPlatform && (bodyB.gameObject.texture.key == 'ball')) {
                 bodyB.gameObject.label = 'ballGrounded';
-                console.log("lable set to ballGrounded")
+                //console.log("lable set to ballGrounded")
             }
         }
         //end ball touching ground//b was endmine when A was player, boat was B when A was player
         if (bodyA.gameObject.texture.key == 'endMine' || bodyB.gameObject.texture.key == 'endMine') {
-            console.log(bodyA.gameObject);
-            console.log(bodyB.gameObject);
+            //console.log(bodyA.gameObject);
+           // console.log(bodyB.gameObject);
 
         }
         if (bodyB.gameObject.texture.key == 'Boat' || bodyA.gameObject.texture.key == 'Boat') {
-            console.log(bodyA.gameObject);
-            console.log(bodyB.gameObject);
+           // console.log(bodyA.gameObject);
+           // console.log(bodyB.gameObject);
 
         }
 
@@ -644,7 +644,7 @@ gameScene.create = function () {
         }
 
 		if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'Chain')) {
-            console.log("Chain bitten");
+           // console.log("Chain bitten");
 			chainBitten = true;
         }
 		
@@ -653,7 +653,7 @@ gameScene.create = function () {
 
             if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
                 playerTouchingLadder = true;
-                console.log("overlap with ladder");
+               // console.log("overlap with ladder");
             }
 
             if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
@@ -668,7 +668,7 @@ gameScene.create = function () {
                     bodyB.gameObject.setIgnoreGravity(true);
 
                 }
-                console.log("Ball hit ladder " + r);
+               // console.log("Ball hit ladder " + r);
             }
         }
         if (bodyA.gameObject != null) {
@@ -684,13 +684,13 @@ gameScene.create = function () {
                     bodyA.gameObject.setIgnoreGravity(true);
 
                 }
-                console.log("Ball hit ladder " + r);
+              //  console.log("Ball hit ladder " + r);
             }
         }
         if (bodyB.gameObject != null) {
             if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ball')) {
                 if (playerHasHammer) {
-                    console.log('player rekt barrel')
+                   // console.log('player rekt barrel')
                     bodyB.gameObject.setActive(false).setVisible(false);
                     bodyB.destroy();
                 }
@@ -708,11 +708,11 @@ gameScene.create = function () {
             }
         }
         if ((bodyA.gameObject.texture.key == 'player') && !playerHasHammer && (bodyB.gameObject.texture.key == 'hammer')) {
-            console.log('stop, hammertime');
+           // console.log('stop, hammertime');
             playerHasHammer = true;
             hammerTime = Date.now();
             bodyB.gameObject.setActive(false).setVisible(false);
-            console.log('test');
+          //  console.log('test');
             bodyB.destroy();
         }
 
@@ -733,11 +733,11 @@ gameScene.create = function () {
 
             if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
                 playerTouchingLadder = false;
-                console.log("stopped overlap with ladder");
+               // console.log("stopped overlap with ladder");
             }
             if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'player')) {
                 playerTouchingLadder = false;
-                console.log("stopped overlap with ladder");
+               // console.log("stopped overlap with ladder");
             }
         }
 
@@ -750,7 +750,7 @@ gameScene.create = function () {
             //}
             if (aIsPlatform && (bodyB.gameObject.texture.key == 'ball')) {
                 bodyB.gameObject.label = 'ball';
-                console.log("lable set back to ball")
+               // console.log("lable set back to ball")
 
             }
             //if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'platform')) {
@@ -760,7 +760,7 @@ gameScene.create = function () {
             //}
             if (aIsPlatform && (bodyB.gameObject.texture.key == 'ball')) {
                 bodyB.gameObject.label = 'ball';
-                console.log("lable set back to ball")
+               // console.log("lable set back to ball")
 
             }
         }
@@ -770,26 +770,26 @@ gameScene.create = function () {
         if (bodyB.gameObject != null) {
             if ((bodyA.gameObject.texture.key == 'ladder') && (bodyB.gameObject.texture.key == 'ball')) {
                 bodyB.gameObject.setIgnoreGravity(false);
-                console.log("ball stopped hitting ladder");
+               // console.log("ball stopped hitting ladder");
             }
         }
         if (bodyA.gameObject != null) {
             if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ladder')) {
                 bodyA.gameObject.setIgnoreGravity(false);
-                console.log("ball stopped hitting ladder");
+              //  console.log("ball stopped hitting ladder");
             }
         }
         if (bodyA.gameObject != null) {
             if ((bodyA.gameObject.texture.key == 'ball') && bIsPlatform) {
                 bodyA.gameObject.setVelocityX(0);
-                console.log("ball came off ground");
+               // console.log("ball came off ground");
             }
         }
         if (bodyB.gameObject != null) {
             if (bodyB.gameObject != null) {
                 if (aIsPlatform && (bodyB.gameObject.texture.key == 'ball')) {
                     bodyB.gameObject.setVelocityX(0);
-                    console.log("ball came off ground B");
+                   // console.log("ball came off ground B");
                 }
             }
         }
@@ -808,9 +808,9 @@ gameScene.create = function () {
     path.lineTo(970, 160);
     path.lineTo(145, 230);
     path.lineTo(145, -50);
-    path.lineTo(970, 50);
-    path.lineTo(970, -150);
-    path.lineTo(170, -250);
+    //path.lineTo(970, 50);
+    //path.lineTo(970, -150);
+    //path.lineTo(170, -250);
 
 
 
@@ -928,15 +928,15 @@ gameScene.update = function () {
     }
 
     if (playerHasHammer && hammerTime <= (Date.now() - 10000)) {
-        console.log(hammerTime);
-        console.log(Date.now());
+       // console.log(hammerTime);
+      // console.log(Date.now());
         playerHasHammer = false;
-        console.log("end of hammerTime");
+       // console.log("end of hammerTime");
     }
 
     if (lastBall <= (Date.now() - delayBall)) {
 
-        console.log("spawned ball");
+       // console.log("spawned ball");
 
         var randBall = Math.floor(Math.random() * 2);//working
 
@@ -1020,7 +1020,7 @@ gameScene.update = function () {
     //    player.play('idle', true);
     //}
     else if (this.keyA.isDown) {
-        console.log('A is pressed');
+      //  console.log('A is pressed');
         player.setVelocityX(-2);
         player.flipX = true;
 
@@ -1034,7 +1034,7 @@ gameScene.update = function () {
         }
     }
     else if (this.keyD.isDown) {
-        console.log('D is pressed');
+      //  console.log('D is pressed');
         player.setVelocityX(2);
         player.flipX = false;
 
@@ -1087,7 +1087,7 @@ gameScene.update = function () {
 
         //followers.remove(followers[0], true, true);
 
-        console.log(this.matter.world);
+       // console.log(this.matter.world);
         
 
 
@@ -1096,7 +1096,7 @@ gameScene.update = function () {
         fireSprite.setData('label', 'firesprite');
 
 
-        console.log("spawn fire monster");
+     //   console.log("spawn fire monster");
         this.tweens.add({
             targets: fireSprite,
             z: 1,
@@ -1139,19 +1139,19 @@ gameScene.update = function () {
         if ((playerX > vecMinX) && (playerX < vecMaxX)) {
             if ((playerY > vecMinY) && (playerY < vecMaxY)) {
                 if (playerHasHammer) {
-                    console.log("player has hammer - rekt the fire");
+                 //   console.log("player has hammer - rekt the fire");
                     fireSprites[i].destroy();
                     return;
                 }
                 else {
-                    console.log("player overlap with fires sprite");
+                   // console.log("player overlap with fires sprite");
                     playerDiedBool = true;
                     playerDied();
                 }
             }
         }
 
-        if (vec.y < -200) {
+        if (vec.y < -30) {
             followers.remove(fireSprites[i], true, true);
         }
     }
@@ -1172,8 +1172,8 @@ titleScene.create = function () {
 
     var text = this.add.text(100, 100, 'Angry Boat Man Game');
     var text = this.add.text(100, 200, 'Press Enter To Start');
-    var text = this.add.text(100, 300, game.loop.actualFps);
-    text.setDepth(100);
+    //var text = this.add.text(100, 300, game.loop.actualFps);
+    //text.setDepth(100);
 
 };
 
