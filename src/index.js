@@ -724,7 +724,7 @@ gameScene.create = function () {
     path.lineTo(750, 620);
     path.lineTo(20, 680);
     path.lineTo(20, 380);
-    path.lineTo(970, 450);
+    path.lineTo(970, 500);
     path.lineTo(970, 160);
     path.lineTo(145, 230);
     path.lineTo(145, -50);
@@ -1071,7 +1071,7 @@ gameScene.update = function () {
             }
         }
 
-        if (vec.y < 160) {
+        if (vec.y < -1000) {
             followers.remove(fireSprites[i], true, true);
         }
     }
