@@ -435,7 +435,7 @@ gameScene.create = function () {
 		RBumper.setScale(.01, 1000);
 		RBumper.setCollisionCategory(this.cat1);
 
-	var hammer = this.matter.add.image(70, 800, 'hammer', null, { isStatic: true });
+	var hammer = this.matter.add.image(400, 1200, 'hammer', null, { isStatic: true });
 		hammer.setScale(.7, .7);
 		hammer.setSensor(true);
 		hammer.setCollisionCategory(this.cat1);
@@ -723,7 +723,7 @@ gameScene.create = function () {
         let aIsPlatform = bodyIsPlatform(bodyA);
         let bIsPlatform = bodyIsPlatform(bodyB);
 
-        if (!playerHasHammer) {
+        if (bodyA.gameObject != null && bodyB.gameObject != null) {
             if ((bodyA.gameObject.texture.key == 'player') && bIsPlatform) {
                 playerTouchingGround = false;
             }
@@ -773,7 +773,7 @@ gameScene.create = function () {
                // console.log("ball stopped hitting ladder");
             }
         }
-        if (bodyA.gameObject != null) {
+        if (bodyA.gameObject != null && bodyB.gameObject != null) {
             if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ladder')) {
                 bodyA.gameObject.setIgnoreGravity(false);
               //  console.log("ball stopped hitting ladder");
@@ -980,7 +980,7 @@ gameScene.update = function () {
         player.setVelocityY(-3);
         lastClick = Date.now();
     }
-    if (this.keyW.isDown && playerTouchingLadder && !playerHasHammer) {
+    if (this.keyW.isDown && playerTouchingLadder) {
         //console.log('W is pressed');
         //player.setVelocityY(-2);
         player.y -= 1.5;
@@ -989,7 +989,7 @@ gameScene.update = function () {
         //player.flipX = true;
         player.play('idle', true);
     }
-    else if (this.keyS.isDown && playerTouchingLadder && !playerHasHammer) {
+    else if (this.keyS.isDown && playerTouchingLadder) {
         //player.setVelocityY(2);
         //player.y -= 1;
         player.y += .5;
@@ -999,13 +999,13 @@ gameScene.update = function () {
         player.play('idle', true);
     }
 
-    else if (this.keyA.isDown && playerTouchingLadder && !playerHasHammer) {
+    else if (this.keyA.isDown && playerTouchingLadder) {
         player.x -= 1;
         player.y -= .1;
         player.flipX = true;
         player.play('idle', true);
     }
-    else if (this.keyD.isDown && playerTouchingLadder && !playerHasHammer) {
+    else if (this.keyD.isDown && playerTouchingLadder) {
         player.x += 1;
         player.y -= .1;
         player.flipX = false;
@@ -1101,7 +1101,7 @@ gameScene.update = function () {
             targets: fireSprite,
             z: 1,
             ease: 'Sine.easeInOut',
-            duration: 60000,
+            duration: 40000,
             yoyo: true,
             repeat: -1
         });
