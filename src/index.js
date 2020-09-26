@@ -779,23 +779,16 @@ function playerDied() {
     location.reload();
 }
 
-
-function playerWon() {
-    player.play('win');
+function boooooom(){
+	player.play('win');
     explosion.setVisible(true);
     explosion.play('explode');
+}
 
-    if (intialTime <= (Date.now() - 7000)) {
-        //alert("YOU WIN!!!");
-        music.stop();
-        //location.reload();
-        
-    }
-
-    //setTimeout(function () {
-    //}, 2000);
-
-    //alert("YOU WIN!!!");
+function playerWon() {
+    alert("YOU WIN!!!");
+    music.stop();
+    location.reload();
 }
 
 gameScene.update = function () {
@@ -808,12 +801,14 @@ gameScene.update = function () {
 
         if (!setTime) {
             intialTime = Date.now();
-			console.log('asdfgh ' + intialTime);
 			setTime = true;
- 1      }
+       }
 
-        console.log('qwerty ' + Date.now());
         if (setTime && (intialTime <= (Date.now() - 3300))) {
+            boooooom();
+        }
+		
+		if (setTime && (intialTime <= (Date.now() - 5500))) {
             playerWon();
 			setTime = false;
         }
