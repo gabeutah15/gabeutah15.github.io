@@ -5,6 +5,7 @@ import mario from "./assets/mario.png";
 
 
 var player;
+var explosion;
 var ball;
 var endMine;
 let playerTouchingGround = false;
@@ -26,6 +27,9 @@ var titleScene = new Phaser.Scene("title");
 
 gameScene.preload = function() {
     console.log(this);
+
+   
+
     this.load.image("background", 'src/assets/BackgroundAssets/SharkBomberBackground.png');
     this.load.image("Chain", 'src/assets/BackgroundAssets/Asset_chain.png');
 	this.load.image("Boat", 'src/assets/Boat_2.png');
@@ -81,6 +85,13 @@ gameScene.preload = function() {
         spacing: 1
     });
 
+  
+    this.load.spritesheet('explosion', 'src/assets/explosion.png', {
+        frameWidth: 120,//127 these values all need adjusting
+        frameHeight: 115,//120
+        margin: 12,
+        spacing: 10
+    }); //39 frames?
 }
 
 var music;
@@ -134,13 +145,27 @@ gameScene.create = function () {
     this.cat1 = this.matter.world.nextCategory();
     this.cat2 = this.matter.world.nextCategory();
 
+    //final pos:
+    //var playerX = 880;
+    //var playerY = 1120;
 
-    player = this.matter.add.sprite(/*880*/ 300, /*1120*/-300, 'player', 0);
+    //test pos
+    var playerX = 300;
+    var playerY = -300;
+
+    player = this.matter.add.sprite(playerX, playerY, 'player', 0);
     player.label = "player";
     player.setFriction(10);
     player.setScale(1, 1);
     player.setCircle(35);
     player.setCollidesWith([this.cat1]);
+
+    explosion = this.matter.add.sprite(200, -500, 'explosion', 0); //600, 1100,
+    explosion.setSensor(true);
+    explosion.setIgnoreGravity(true);
+    explosion.setScale(3);
+    explosion.setDepth(100);
+    explosion.setVisible(false);
 
     this.cameras.main.setSize(1000, 730);
     this.cameras.main.setBounds(0, -1000, 1000, 10000);
@@ -195,7 +220,13 @@ gameScene.create = function () {
         frameRate: 6,
         frames: this.anims.generateFrameNames('goop', { start: 0, end: 4 })//maybe 5?
     });
-
+    this.anims.create({
+        key: 'explode',
+        repeat: -1,//infinite repeat
+        frameRate: 6,
+        frames: this.anims.generateFrameNames('explosion', { start: 0, end: 39 })//maybe 5?
+    });
+    //explosion.play('explode');
     player.play('idle');
     console.log(this.anims);
 
@@ -488,21 +519,34 @@ gameScene.create = function () {
 
         }
 
-        if ((bodyA.gameObject.texture.key == 'endMine') && (bodyB.gameObject.texture.key == 'Boat')) {
-            player.play('win');
-            alert("YOU WIN!!!");
-            music.stop();
-            location.reload();
-			//bodyA.destroy();
-        }
+   //     if ((bodyA.gameObject.texture.key == 'endMine') && (bodyB.gameObject.texture.key == 'Boat')) {
+   //         player.play('win');
+   //         explosion.play('explode');
 
-        if ((bodyB.gameObject.texture.key == 'endMine') && (bodyA.gameObject.texture.key == 'Boat')) {
-            player.play('win');
-            alert("YOU WIN!!!");
-            music.stop();
-            location.reload();
-            //bodyB.destroy();
-        }
+   //         setTimeout(function () {
+   //             alert("YOU WIN!!!");
+   //             music.stop();
+   //             location.reload();
+   //         }, 2000);
+
+   //         //alert("YOU WIN!!!");
+			////bodyA.destroy();
+   //     }
+
+        //if ((bodyB.gameObject.texture.key == 'endMine') && (bodyA.gameObject.texture.key == 'Boat')) {
+        //    player.play('win');
+        //    explosion.play('explode');
+
+        //    setTimeout(function () {
+        //        alert("YOU WIN!!!");
+        //        music.stop();
+        //        location.reload();
+        //    }, 2000);
+
+
+        //    //alert("YOU WIN!!!");
+        //    //bodyB.destroy();
+        //}
 
         if ((bodyA.gameObject.texture.key == 'DestroyBallBox') && (bodyB.gameObject.texture.key == 'ball')) {
             //console.log("Ball Destroyed, fire monster spawned");
@@ -738,9 +782,20 @@ function playerDied() {
 
 function playerWon() {
     player.play('win');
-    alert("YOU WIN!!!");
-    music.stop();
-    location.reload();
+    explosion.setVisible(true);
+    explosion.play('explode');
+
+    if (intialTime <= (Date.now() - 7000)) {
+        //alert("YOU WIN!!!");
+        music.stop();
+        //location.reload();
+        
+    }
+
+    //setTimeout(function () {
+    //}, 2000);
+
+    //alert("YOU WIN!!!");
 }
 
 gameScene.update = function () {
