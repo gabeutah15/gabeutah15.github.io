@@ -987,8 +987,13 @@ gameScene.update = function () {
         //player.setVelocityX(0);
 
         //player.flipX = true;
-        player.play('idle', true);
-    }
+		if(!playerHasHammer){
+			player.play('idle', true);
+		}
+		else{
+			player.play('sword', true);
+		}
+	}
     else if (this.keyS.isDown && playerTouchingLadder) {
         //player.setVelocityY(2);
         //player.y -= 1;
@@ -996,24 +1001,44 @@ gameScene.update = function () {
         //player.setVelocityX(0);
 
         //player.flipX = true;
-        player.play('idle', true);
+        if(!playerHasHammer){
+			player.play('idle', true);
+		}
+		else{
+			player.play('sword', true);
+		}
     }
 
     else if (this.keyA.isDown && playerTouchingLadder) {
         player.x -= 1;
         player.y -= .1;
         player.flipX = true;
-        player.play('idle', true);
+        if(!playerHasHammer){
+			player.play('idle', true);
+		}
+		else{
+			player.play('sword', true);
+		}
     }
     else if (this.keyD.isDown && playerTouchingLadder) {
         player.x += 1;
         player.y -= .1;
         player.flipX = false;
-        player.play('idle', true);
+        if(!playerHasHammer){
+			player.play('idle', true);
+		}
+		else{
+			player.play('sword', true);
+		}
     }
     else if (playerTouchingLadder && !playerHasHammer) {
         player.y -= 1;
-        player.play('idle', true);
+        if(!playerHasHammer){
+			player.play('idle', true);
+		}
+		else{
+			player.play('sword', true);
+		}
     }
     //else if (playerTouchingLadder) {
     //    player.setVelocityY(0);
