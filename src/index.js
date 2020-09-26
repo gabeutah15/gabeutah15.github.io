@@ -779,10 +779,16 @@ function playerDied() {
     location.reload();
 }
 
-function boooooom(){
-	player.play('win');
-    explosion.setVisible(true);
-    explosion.play('explode');
+var hasPlayedBoom = false;
+
+function boooooom() {
+
+    if (!hasPlayedBoom) {
+	    player.play('win');
+        explosion.setVisible(true);
+        explosion.play('explode');
+        hasPlayedBoom = true;
+    }
 }
 
 function playerWon() {
@@ -806,9 +812,10 @@ gameScene.update = function () {
 
         if (setTime && (intialTime <= (Date.now() - 3300))) {
             boooooom();
+            endMine.y += 1;
         }
 		
-		if (setTime && (intialTime <= (Date.now() - 5500))) {
+		if (setTime && (intialTime <= (Date.now() - 7500))) {
             playerWon();
 			setTime = false;
         }
