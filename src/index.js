@@ -333,8 +333,8 @@ gameScene.create = function () {
 		ladderT3A.setSensor(true);
 		ladderT3A.setCollisionCategory(this.cat1);
 		
-	var level3B = this.matter.add.image(900, 850, 'platform4', null, { isStatic: true });
-		level3B.setScale(2, 1);
+	var level3B = this.matter.add.image(880, 850, 'platform4', null, { isStatic: true });
+		level3B.setScale(3, 1);
 		level3B.setAngle(7);
 		level3B.setCollisionCategory(this.cat1);	
 	
