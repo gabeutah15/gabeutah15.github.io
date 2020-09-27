@@ -177,7 +177,7 @@ gameScene.create = function () {
     player.label = "player";
     player.setFriction(10);
     player.setScale(1, 1);
-    player.setCircle(35);
+    player.setCircle(30);
     player.setCollidesWith([this.cat1]);
 
     explosion = this.matter.add.sprite(200, -500, 'explosion', 0); //600, 1100,
