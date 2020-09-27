@@ -147,7 +147,7 @@ gameScene.create = function () {
     this.bg = this.add.sprite(500, 900, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
     //this.bg.setDisplaySize(1000, 1280);
-    this.bg.setScale(3, 5.5);
+    this.bg.setScale(5.5, 5.5);
 
     this.bgRock2 = this.add.sprite(500, 900, 'BGRocks2');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
