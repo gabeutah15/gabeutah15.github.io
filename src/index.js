@@ -79,6 +79,8 @@ gameScene.preload = function() {
     this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
     this.load.audio('explosionSound', ['src/assets/sounds/explosionsound.mp3']);
     this.load.audio('bubbleSound', ['src/assets/sounds/bubbles.wav']);
+    this.load.audio('waterSplashSound', ['src/assets/sounds/water swirl.wav']);
+
 
 
 
@@ -103,6 +105,7 @@ var music;
 var deathSound;
 var explosionSound;
 var bubbleSound;
+var waterSplashSound;
 
 function bodyIsPlatform(body) {
     if (body.gameObject != null && ((body.gameObject.texture.key == 'ground') ||
@@ -134,6 +137,9 @@ gameScene.create = function () {
     music.setVolume(.03);
     deathSound = this.sound.add('deathSound');
     bubbleSound = this.sound.add('bubbleSound');
+    waterSplashSound = this.sound.add('waterSplashSound');
+    waterSplashSound.setVolume(.5);
+
     explosionSound = this.sound.add('explosionSound');
 
     this.bg = this.add.sprite(500, 900, 'background');
@@ -983,6 +989,7 @@ gameScene.update = function () {
 
     if (this.keySpace.isDown /*&& playerTouchingGround*/ && (lastClick <= (Date.now() - delay) && !playerHasHammer)) {
         player.setVelocityY(-3);
+        waterSplashSound.play();
         lastClick = Date.now();
     }
     if (this.keyW.isDown && playerTouchingLadder) {
