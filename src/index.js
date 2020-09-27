@@ -102,6 +102,7 @@ gameScene.preload = function() {
 var music;
 var deathSound;
 var explosionSound;
+var bubbleSound;
 
 function bodyIsPlatform(body) {
     if (body.gameObject != null && ((body.gameObject.texture.key == 'ground') ||
@@ -130,8 +131,9 @@ gameScene.create = function () {
     music = this.sound.add('song');
     music.stop();
     music.play();
-    music.setVolume(.1);
+    music.setVolume(.03);
     deathSound = this.sound.add('deathSound');
+    bubbleSound = this.sound.add('bubbleSound');
     explosionSound = this.sound.add('explosionSound');
 
     this.bg = this.add.sprite(500, 900, 'background');
@@ -655,6 +657,7 @@ gameScene.create = function () {
 
             if ((bodyA.gameObject.texture.key == 'player') && (bodyB.gameObject.texture.key == 'ladder')) {
                 playerTouchingLadder = true;
+                bubbleSound.play();
                // console.log("overlap with ladder");
             }
 
