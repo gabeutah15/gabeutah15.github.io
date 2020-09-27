@@ -134,11 +134,13 @@ gameScene.create = function () {
     music = this.sound.add('song');
     music.stop();
     music.play();
-    music.setVolume(.03);
+    music.setVolume(.02);
     deathSound = this.sound.add('deathSound');
+	deathSound.setVolume(.3);
     bubbleSound = this.sound.add('bubbleSound');
-    waterSplashSound = this.sound.add('waterSplashSound');
-    waterSplashSound.setVolume(.5);
+    bubbleSound.setVolume(.6);
+	waterSplashSound = this.sound.add('waterSplashSound');
+    waterSplashSound.setVolume(.3);
 
     explosionSound = this.sound.add('explosionSound');
 
