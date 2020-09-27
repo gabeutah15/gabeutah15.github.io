@@ -78,6 +78,8 @@ gameScene.preload = function() {
     this.load.audio('song', ['src/assets/sounds/Baby Shark.mp3']);
     this.load.audio('deathSound', ['src/assets/sounds/deathsong.wav']);
     this.load.audio('explosionSound', ['src/assets/sounds/explosionsound.mp3']);
+    this.load.audio('bubbleSound', ['src/assets/sounds/bubbles.wav']);
+
 
 
     //this.load.image('player', 'src/assets/shark.png');
