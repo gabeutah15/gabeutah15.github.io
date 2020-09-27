@@ -450,8 +450,8 @@ gameScene.create = function () {
 		hammer.setSensor(true);
 		hammer.setCollisionCategory(this.cat1);
 		
-	var DestroyBallBox = this.matter.add.image(930, 1190, 'DestroyBallBox', null, { isStatic: true });
-		DestroyBallBox.setScale(1.7, 1.7);
+	var DestroyBallBox = this.matter.add.image(840, 1190, 'DestroyBallBox', null, { isStatic: true });
+		DestroyBallBox.setScale(1.5, 1.5);
 		DestroyBallBox.setSensor(true);
 
 	var Chain = this.matter.add.image(150, -183, 'Chain', null, { isStatic: true });
@@ -753,6 +753,8 @@ gameScene.create = function () {
         }
 
 
+
+
         //ball touching ground
         if (/*bodyA.gameObject != null && */bodyB.gameObject != null) {
             //if ((bodyA.gameObject.texture.key == 'ball') && (bodyB.gameObject.texture.key == 'ground')) {
@@ -803,6 +805,13 @@ gameScene.create = function () {
                    // console.log("ball came off ground B");
                 }
             }
+        }
+
+        if ((bodyA.gameObject.texture.key == 'DestroyBallBox') && (bodyB.gameObject.texture.key == 'ball')) {
+            //console.log("Ball Destroyed, fire monster spawned");
+            spawnAFireMonster = true;
+            bodyB.gameObject.setActive(false).setVisible(false);
+            bodyB.destroy();
         }
     });//comment
 
