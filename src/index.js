@@ -846,7 +846,7 @@ var delay = 1000;
 var lastClick = Date.now();
 var rand = Math.floor(Math.random() * 1000);
 
-var delayBall = 4000 + rand;//spawn frequency of ball
+var delayBall = 2000 + rand;//spawn frequency of ball
 var lastBall = Date.now();
 
 var hammerTime = Date.now();
