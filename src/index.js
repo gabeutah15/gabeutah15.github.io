@@ -310,11 +310,11 @@ gameScene.create = function () {
 		ladderT2A.setSensor(true);
 		ladderT2A.setCollisionCategory(this.cat1);
 		
-	var ladder2B = this.matter.add.image(720, 910, 'ladderImage', null, { isStatic: true });
+	var ladder2B = this.matter.add.image(690, 910, 'ladderImage', null, { isStatic: true });
 		ladder2B.setScale(1.8, 2.4);
 		ladder2B.setSensor(true);
 		
-	var ladderT2B = this.matter.add.image(710, 895, 'ladder', null, { isStatic: true });
+	var ladderT2B = this.matter.add.image(680, 895, 'ladder', null, { isStatic: true });
 		ladderT2B.setScale(.01, .7).setVisible(false);
 		ladderT2B.setSensor(true);
 		ladderT2B.setCollisionCategory(this.cat1);
