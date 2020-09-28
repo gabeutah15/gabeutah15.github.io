@@ -89,8 +89,8 @@ gameScene.preload = function() {
     this.load.spritesheet('player', 'src/assets/PinkSharkSpriteSheet.png', {
         frameWidth: 131,//131 
         frameHeight: 84,//86
-        margin: 1,
-        spacing: 1
+        margin: 0,
+        spacing: 0
     });
 
   
