@@ -72,8 +72,8 @@ gameScene.preload = function() {
     this.load.spritesheet('goop', 'src/assets/GOO.png', {
         frameWidth: 98,//98
         frameHeight: 115,//117
-        margin: 1,
-        spacing: 1
+        margin: 0,
+        spacing: 0
     });
 
     this.load.audio('song', ['src/assets/sounds/Baby Shark.mp3']);
