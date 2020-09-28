@@ -1229,19 +1229,19 @@ gameScene.update = function () {
 
 titleScene.preload = function () {
     //this.load.image('background', 'src/assets/mario.png');
-    this.load.image("background", 'src/assets/BackgroundAssets/SharkBomberBackground.png');
+    this.load.image("backgroundM", 'src/assets/menubackground.png');
 };
 
 titleScene.create = function () {
-    this.bg = this.add.sprite(500, 900, 'background');
-    this.bg.setScale(3, 5.5);
+    this.bg = this.add.sprite(-155, -16, 'backgroundM');
+    this.bg.setScale(1.13, 1.13);
     this.bg.setOrigin(0, 0);//maybe?
 
     this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     //var bg = this.add.sprite(0, 0, 'background');
 
-    var text = this.add.text(100, 100, 'Angry Boat Man Game');
-    var text = this.add.text(100, 200, 'Press Enter To Start');
+    //var text = this.add.text(100, 100, 'Angry Boat Man Game');
+    //var text = this.add.text(100, 200, 'Press Enter To Start');
     //var text = this.add.text(100, 300, game.loop.actualFps);
     //text.setDepth(100);
 
