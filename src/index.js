@@ -466,7 +466,7 @@ gameScene.create = function () {
 	var hammer = this.matter.add.image(400, 1200, 'hammer', null, { isStatic: true });
 		hammer.setScale(.7, .7);
 		hammer.setSensor(true);
-		hammer.setCollisionCategory(this.cat1);
+		hammer.setCollisionCategory(this.cat1);//comment
 		
 	var DestroyBallBox = this.matter.add.image(840, 1190, 'DestroyBallBox', null, { isStatic: true });
 		DestroyBallBox.setScale(1.5, 1.5);
