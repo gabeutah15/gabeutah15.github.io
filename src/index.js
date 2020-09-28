@@ -470,7 +470,11 @@ gameScene.create = function () {
 		
 	var DestroyBallBox = this.matter.add.image(840, 1190, 'DestroyBallBox', null, { isStatic: true });
 		DestroyBallBox.setScale(1.5, 1.5);
-		DestroyBallBox.setSensor(true);
+    DestroyBallBox.setSensor(true);
+
+    var DestroyBallBox2 = this.matter.add.image(1040, 1190, 'DestroyBallBox', null, { isStatic: true });
+    DestroyBallBox2.setScale(1.0, 1.0);
+    DestroyBallBox2.setSensor(true);
 
 	var Chain = this.matter.add.image(150, -183, 'Chain', null, { isStatic: true });
 		Chain.setScale(.8, .8);
@@ -1254,7 +1258,7 @@ var config = {
         default: 'matter',
         matter: {
             gravity: { x: 0, y: .15 },
-            //debug: true
+            debug: true
         },
     },
     fps: {
