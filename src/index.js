@@ -57,7 +57,7 @@ gameScene.preload = function() {
     this.load.image('ladder', 'src/assets/ladder.png');
 
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
-    this.load.image('hammer', 'src/assets/sword.png');
+    this.load.image('hammer', 'src/assets/SwordN.png');
 
 	//TODO: this prob needs to be edited
     this.load.spritesheet('fisherman', 'src/assets/FisherFella_SpriteSheet.png', {
