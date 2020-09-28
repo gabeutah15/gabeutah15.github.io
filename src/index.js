@@ -167,7 +167,7 @@ gameScene.create = function () {
 
     //final pos:
     var playerX = 880;
-    var playerY = 120;
+    var playerY = 1120;
 
     //test pos
     //var playerX = 300;
