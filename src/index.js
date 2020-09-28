@@ -31,7 +31,7 @@ gameScene.preload = function() {
    
 
     this.load.image("background", 'src/assets/BackgroundAssets/SharkBomberBackground.png');
-    this.load.image("Chain", 'src/assets/BackgroundAssets/Asset_chain.png');
+    this.load.image("Chain", 'src/assets/BackgroundAssets/Asset_Chain.png');
 	this.load.image("Boat", 'src/assets/Boat_2.png');
     this.load.image("DestroyBallBox", 'src/assets/BritneySpearsBarrel.png');
     this.load.image("enemy", 'src/assets/donkeykong.jpg');
