@@ -1220,12 +1220,41 @@ gameScene.update = function () {
 titleScene.preload = function () {
     //this.load.image('background', 'src/assets/mario.png');
     this.load.image("backgroundM", 'src/assets/menubackground.png');
+
+    this.load.image("movingSharks", 'src/assets/Title/movingsharks.png');
+    this.load.image("selector", 'src/assets/Title/selector.png');
+    this.load.image("pinkbg", 'src/assets/Title/pinkbg.png');
+    this.load.image("titlesprite", 'src/assets/Title/titlesprite.png');
+
+
 };
 
 titleScene.create = function () {
     this.bg = this.add.sprite(-155, -16, 'backgroundM');
     this.bg.setScale(1.13, 1.13);
     this.bg.setOrigin(0, 0);//maybe?
+
+    this.bg1 = this.add.sprite(-10, 0, 'movingSharks');
+    this.bg1.setScale(2.5, 2.5);
+    this.bg1.setOrigin(0, 0);//maybe?
+    this.bg1.setDepth(0.2);
+
+    this.bg2 = this.add.sprite(270, 500, 'selector');
+    this.bg2.setScale(1.13, 1.13);
+    this.bg2.setOrigin(0, 0);//maybe?
+    this.bg2.setDepth(0.5);
+
+    this.bg3 = this.add.sprite(-155, -16, 'pinkbg');
+    this.bg3.setScale(1.13, 1.13);
+    this.bg3.setOrigin(0, 0);//maybe?
+    this.bg3.setDepth(0.1);
+
+    this.bg4 = this.add.sprite(-180, -16, 'titlesprite');
+    this.bg4.setScale(1.13, 1.13);
+    this.bg4.setOrigin(0, 0);//maybe?
+    this.bg4.setDepth(0.4);
+
+
 
     this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     //var bg = this.add.sprite(0, 0, 'background');
@@ -1240,6 +1269,9 @@ titleScene.create = function () {
 var startGame = false;
 
 titleScene.update = function () {
+
+    this.bg1.x -= .3;
+
 
     if (this.keyEnter.isDown && !startGame) {
         startGame = true;
