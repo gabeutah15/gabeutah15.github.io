@@ -57,7 +57,7 @@ gameScene.preload = function() {
     this.load.image('ladder', 'src/assets/ladder.png');
 
     this.load.image('firesprite', 'src/assets/smallfiresprite.png');
-    this.load.image('hammer', 'src/assets/SwordN.png');
+    this.load.image('hammer', 'src/assets/Sword.png');
 
 	//TODO: this prob needs to be edited
     this.load.spritesheet('fisherman', 'src/assets/FisherFella_SpriteSheet.png', {
@@ -135,18 +135,19 @@ gameScene.create = function () {
     music.play();
     music.setVolume(.02);
     deathSound = this.sound.add('deathSound');
-	deathSound.setVolume(.3);
+	deathSound.setVolume(.2);
     bubbleSound = this.sound.add('bubbleSound');
     bubbleSound.setVolume(.6);
 	waterSplashSound = this.sound.add('waterSplashSound');
-    waterSplashSound.setVolume(.3);
+    waterSplashSound.setVolume(.2);
 
     explosionSound = this.sound.add('explosionSound');
+	explosionSound.setVolume(.6);
 
-    this.bg = this.add.sprite(500, 900, 'background');
+    this.bg = this.add.sprite(500, 800, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
     //this.bg.setDisplaySize(1000, 1280);
-    this.bg.setScale(2, 5.5);
+    this.bg.setScale(1, 1.47);
 
     this.bgRock2 = this.add.sprite(500, 900, 'BGRocks2');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
@@ -166,7 +167,7 @@ gameScene.create = function () {
 
     //final pos:
     var playerX = 880;
-    var playerY = 1120;
+    var playerY = 120;
 
     //test pos
     //var playerX = 300;
@@ -461,8 +462,8 @@ gameScene.create = function () {
 		RBumper.setScale(.01, 1000);
 		RBumper.setCollisionCategory(this.cat1);
 
-	var hammer = this.matter.add.image(400, 1200, 'hammer', null, { isStatic: true });
-		hammer.setScale(.7, .7);
+	var hammer = this.matter.add.image(390, 1190, 'hammer', null, { isStatic: true });
+		hammer.setScale(.9, .9);
 		hammer.setSensor(true);
 		hammer.setCollisionCategory(this.cat1);//comment
 		
