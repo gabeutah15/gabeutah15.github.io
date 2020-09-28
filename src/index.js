@@ -1144,37 +1144,22 @@ gameScene.update = function () {
 
     if (spawnAFireMonster) {
 
-        //this.graphics = this.add.graphics();
-        //follower = { t: 0, vec: new Phaser.Math.Vector2() };
-        //this.matter.add.image
-        //var fireSprite = followers.create(0, -50, 'Goop');
+        var r = Math.floor(Math.random() * 3);
 
-       
-
-        //var fireSprite = followers.create(0, -50, 'firesprite');
-        var fireSprite = followers.create(0, -50, 'goop');
-        fireSprite.play('goopAnim');
-
-        //followers.remove(followers[0], true, true);
-
-       // console.log(this.matter.world);
-        
-
-
-        fireSprite.setData('vector', new Phaser.Math.Vector2());
-        //this works as in does not throw an error but not sure if it's the real label or just creates an ad hoc label key for the data manager:
-        fireSprite.setData('label', 'firesprite');
-
-
-     //   console.log("spawn fire monster");
-        this.tweens.add({
-            targets: fireSprite,
-            z: 1,
-            ease: 'Sine.easeInOut',
-            duration: 40000,
-            yoyo: true,
-            repeat: -1
-        });
+        if (r > 1) {
+            var fireSprite = followers.create(0, -50, 'goop');
+            fireSprite.play('goopAnim');
+            fireSprite.setData('vector', new Phaser.Math.Vector2());
+            fireSprite.setData('label', 'firesprite');
+            this.tweens.add({
+                targets: fireSprite,
+                z: 1,
+                ease: 'Sine.easeInOut',
+                duration: 40000,
+                yoyo: true,
+                repeat: -1
+            });
+        }
         spawnAFireMonster = false;
     }
     //path:
