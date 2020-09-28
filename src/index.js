@@ -475,6 +475,8 @@ gameScene.create = function () {
     var DestroyBallBox2 = this.matter.add.image(1040, 1190, 'DestroyBallBox', null, { isStatic: true });
     DestroyBallBox2.setScale(1.0, 1.0);
     DestroyBallBox2.setSensor(true);
+    DestroyBallBox2.setVisible(false);
+
 
 	var Chain = this.matter.add.image(150, -183, 'Chain', null, { isStatic: true });
 		Chain.setScale(.8, .8);
