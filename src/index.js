@@ -167,12 +167,12 @@ gameScene.create = function () {
     this.cat2 = this.matter.world.nextCategory();
 
     //final pos:
-    //var playerX = 880;
-    //var playerY = 1120;
+    var playerX = 880;
+    var playerY = 1120;
 
     //test pos
-    var playerX = 300;
-    var playerY = -300;
+    //var playerX = 300;
+    //var playerY = -300;
 
     player = this.matter.add.sprite(playerX, playerY, 'player', 0);
     player.label = "player";
@@ -859,22 +859,22 @@ gameScene.create = function () {
     //followers = this.matter.add.group();
 
     //test goop section
-    for (var i = 0; i < 3; i++)
-    {
-        var fireSprite = followers.create(0, -50, 'goop');
-        fireSprite.play('goopAnim');
-        fireSprite.setData('vector', new Phaser.Math.Vector2());
+    //for (var i = 0; i < 3; i++)
+    //{
+    //    var fireSprite = followers.create(0, -50, 'goop');
+    //    fireSprite.play('goopAnim');
+    //    fireSprite.setData('vector', new Phaser.Math.Vector2());
 
-        this.tweens.add({
-            targets: fireSprite,
-            z: 1,
-            ease: 'Sine.easeInOut',
-            duration: 60000,
-            yoyo: true,
-            repeat: -1
-        });
+    //    this.tweens.add({
+    //        targets: fireSprite,
+    //        z: 1,
+    //        ease: 'Sine.easeInOut',
+    //        duration: 60000,
+    //        yoyo: true,
+    //        repeat: -1
+    //    });
 
-    }
+    //}
     //end test goop section
 
     //end path
