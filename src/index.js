@@ -144,10 +144,10 @@ gameScene.create = function () {
     explosionSound = this.sound.add('explosionSound');
 	explosionSound.setVolume(.6);
 
-    this.bg = this.add.sprite(500, 800, 'background');
+    this.bg = this.add.sprite(500, 670, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
     //this.bg.setDisplaySize(1000, 1280);
-    this.bg.setScale(1, 1.47);
+    this.bg.setScale(5.5, 5.5);
 
     this.bgRock2 = this.add.sprite(500, 900, 'BGRocks2');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
