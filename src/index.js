@@ -5,6 +5,7 @@ import mario from "./assets/mario.png";
 
 
 var player;
+var fisherman;
 var explosion;
 var ball;
 var endMine;
@@ -61,16 +62,16 @@ gameScene.preload = function() {
     this.load.image('hammer', 'src/assets/sword.png');
 
 	//TODO: this prob needs to be edited
-    this.load.spritesheet('fishermen', 'src/assets/fishermenSheet.png', {
-        frameWidth: 34.5,//100 or 101 or 100.666
-        frameHeight: 51,
+    this.load.spritesheet('fisherman', 'src/assets/FisherFella_SpriteSheet.png', {
+        frameWidth: 60,//62.6
+        frameHeight: 83,
         margin: 1,
         spacing: 1
     });
 
-    this.load.spritesheet('goop', 'src/assets/GOOP.png', {
-        frameWidth: 34.5,//100 or 101 or 100.666
-        frameHeight: 51,
+    this.load.spritesheet('goop', 'src/assets/GOO.png', {
+        frameWidth: 98,//98
+        frameHeight: 115,//117
         margin: 1,
         spacing: 1
     });
@@ -85,9 +86,9 @@ gameScene.preload = function() {
 
 
     //this.load.image('player', 'src/assets/shark.png');
-    this.load.spritesheet('player', 'src/assets/SharkSpriteSheet_3.png', {
-        frameWidth: 119,//100 or 101 or 100.666
-        frameHeight: 77,
+    this.load.spritesheet('player', 'src/assets/PinkSharkSpriteSheet.png', {
+        frameWidth: 131,//131 
+        frameHeight: 84,//86
         margin: 1,
         spacing: 1
     });
@@ -147,7 +148,7 @@ gameScene.create = function () {
     this.bg = this.add.sprite(500, 900, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
     //this.bg.setDisplaySize(1000, 1280);
-    this.bg.setScale(5.5, 5.5);
+    this.bg.setScale(2, 5.5);
 
     this.bgRock2 = this.add.sprite(500, 900, 'BGRocks2');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
@@ -166,12 +167,12 @@ gameScene.create = function () {
     this.cat2 = this.matter.world.nextCategory();
 
     //final pos:
-    var playerX = 880;
-    var playerY = 1120;
+    //var playerX = 880;
+    //var playerY = 1120;
 
     //test pos
-    //var playerX = 300;
-    //var playerY = -300;
+    var playerX = 300;
+    var playerY = -300;
 
     player = this.matter.add.sprite(playerX, playerY, 'player', 0);
     player.label = "player";
@@ -179,6 +180,12 @@ gameScene.create = function () {
     player.setScale(1, 1);
     player.setCircle(30);
     player.setCollidesWith([this.cat1]);
+
+    fisherman = this.matter.add.sprite(280, -585, 'fisherman', 0);
+
+    fisherman.setSensor(true);
+    fisherman.setIgnoreGravity(true);
+    fisherman.setDepth(.9);
 
     explosion = this.matter.add.sprite(200, -500, 'explosion', 0); //600, 1100,
     explosion.setSensor(true);
@@ -256,6 +263,15 @@ gameScene.create = function () {
         frameRate: 5,
         frames: this.anims.generateFrameNames('Goop', { start: 0, end: 4 })
     });
+
+    this.anims.create({
+        key: 'throw',
+        repeat: -1,//infinite repeat
+        frameRate: 5,
+        frames: this.anims.generateFrameNames('fisherman', { start: 0, end: 4 })
+    });
+
+    fisherman.play('throw');
 
 	//platforms and ground
     var ground = this.matter.add.image(500, 1280, 'ground', null, { isStatic: true });
@@ -470,7 +486,8 @@ gameScene.create = function () {
 	var boat = this.matter.add.image(170, -550, 'Boat', null, { isStatic: true });
 		boat.setScale(1, 1);
 		//boat.setSensor(true);
-		boat.setCollisionCategory(this.cat1);
+    boat.setCollisionCategory(this.cat1);
+    boat.setDepth(1);
 
 	//this.cameras.main.startFollow(Chain);
     //ADD BEGINNING BALLS
@@ -842,22 +859,22 @@ gameScene.create = function () {
     //followers = this.matter.add.group();
 
     //test goop section
-    //for (var i = 0; i < 3; i++)
-    //{
-    //    var fireSprite = followers.create(0, -50, 'goop');
-    //    fireSprite.play('goopAnim');
-    //    fireSprite.setData('vector', new Phaser.Math.Vector2());
+    for (var i = 0; i < 3; i++)
+    {
+        var fireSprite = followers.create(0, -50, 'goop');
+        fireSprite.play('goopAnim');
+        fireSprite.setData('vector', new Phaser.Math.Vector2());
 
-    //    this.tweens.add({
-    //        targets: fireSprite,
-    //        z: 1,
-    //        ease: 'Sine.easeInOut',
-    //        duration: 60000,
-    //        yoyo: true,
-    //        repeat: -1
-    //    });
+        this.tweens.add({
+            targets: fireSprite,
+            z: 1,
+            ease: 'Sine.easeInOut',
+            duration: 60000,
+            yoyo: true,
+            repeat: -1
+        });
 
-    //}
+    }
     //end test goop section
 
     //end path
@@ -925,6 +942,11 @@ gameScene.update = function () {
         if (setTime && (intialTime <= (Date.now() - 3300))) {
             boooooom();
             endMine.y += 1;
+            fisherman.setVelocityX(3);
+            //fisherman.setVelocityY();
+
+            fisherman.setSensor(false);
+            fisherman.setIgnoreGravity(false);
         }
 		
 		if (setTime && (intialTime <= (Date.now() - 7500))) {
