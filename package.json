@@ -1,12 +1,12 @@
 {
-
   "name": "phaser3-project-template",
   "version": "1.1.0",
   "description": "A Phaser 3 Project Template",
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --config webpack/prod.js ",
-    "start": "webpack-dev-server --config webpack/base.js --open"
+    "start": "webpack-dev-server --config webpack/base.js --open",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,4 @@
   "dependencies": {
     "phaser": "^3.20.1"
   }
-
-
 }
