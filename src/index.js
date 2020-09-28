@@ -1270,7 +1270,7 @@ var startGame = false;
 
 titleScene.update = function () {
 
-    this.bg1.x -= .3;
+    this.bg1.x -= .6;
 
 
     if (this.keyEnter.isDown && !startGame) {
