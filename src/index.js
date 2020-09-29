@@ -553,7 +553,8 @@ gameScene.create = function () {
 		hammer.setCollisionCategory(this.cat1);//comment
 		
 	var DestroyBallBox = this.matter.add.image(840, 1190, 'DestroyBallBox', null, { isStatic: true });
-		DestroyBallBox.setScale(1.5, 1.5);
+    DestroyBallBox.setDepth(0);
+		DestroyBallBox.setScale(1.8, 1.8);
     DestroyBallBox.setSensor(true);
 
     var DestroyBallBox2 = this.matter.add.image(1040, 1190, 'DestroyBallBox', null, { isStatic: true });
@@ -929,10 +930,10 @@ gameScene.create = function () {
     path = new Phaser.Curves.Path(950, 1080);
     path.lineTo(175, 1120);
     path.lineTo(175, 980);
-    path.lineTo(750, 900);
-    path.lineTo(750, 620);
-    path.lineTo(20, 680);
-    path.lineTo(20, 380);
+    path.lineTo(700, 900);
+    path.lineTo(700, 620);
+    path.lineTo(30, 680);
+    path.lineTo(30, 380);
     path.lineTo(970, 500);
     path.lineTo(970, 160);
     path.lineTo(145, 230);
