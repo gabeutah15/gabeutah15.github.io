@@ -112,9 +112,9 @@ gameScene.preload = function() {
     });
 
   
-    this.load.spritesheet('explosion', 'src/assets/BackgroundAssets/Asset_ExplosionSprite.png', {
-        frameWidth: 455.833333,//127 these values all need adjusting
-        frameHeight: 364,//120
+    this.load.spritesheet('explosion', 'src/assets/BackgroundAssets/Asset_ExplosionSprite02.png', {
+        frameWidth: 455.8,//455.8333
+        frameHeight: 364,//364
         margin: 0,
         spacing: 0
     }); //39 frames?
@@ -271,12 +271,13 @@ gameScene.create = function () {
     fisherman.setIgnoreGravity(true);
     fisherman.setDepth(.9);
 
-    explosion = this.matter.add.sprite(200, -700, 'explosion', 0); //600, 1100,
+    explosion = this.matter.add.sprite(230, -650, 'explosion', 0); //600, 1100,//200, -700,
     explosion.setSensor(true);
     explosion.setIgnoreGravity(true);
-    explosion.setScale(2.5);
+    explosion.setScale(2.1);
     explosion.setDepth(100);
-    explosion.setVisible(false);
+    explosion.setVisible(false);//back to false
+    
 
     this.cameras.main.setSize(1000, 730);
     this.cameras.main.setBounds(0, -1000, 1000, 10000);
@@ -334,11 +335,11 @@ gameScene.create = function () {
     });
     this.anims.create({
         key: 'explode',
-        //repeat: 0,//infinite repeat
+        //repeat: -1,//infinite repeat comment out
         frameRate: 6,
         frames: this.anims.generateFrameNames('explosion', { start: 0, end: 12 })//maybe 5?
     });
-    //explosion.play('explode');
+    //explosion.play('explode');// coment out
     player.play('idle');
     //console.log(this.anims);
 
@@ -1383,7 +1384,7 @@ var config = {
         default: 'matter',
         matter: {
             gravity: { x: 0, y: .15 },
-            debug: true
+            //debug: true
         },
     },
     fps: {
