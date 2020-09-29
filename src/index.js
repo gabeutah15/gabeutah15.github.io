@@ -1272,7 +1272,6 @@ titleScene.update = function () {
 
     this.bg1.x -= .6;
 
-
     if (this.keyEnter.isDown && !startGame) {
         startGame = true;
         //game.scene.transition({ target: 'game', duration: 2000 });
