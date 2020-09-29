@@ -176,6 +176,7 @@ gameScene.create = function () {
 
     //this.bg = this.add.sprite(0, 0, 'background');
 
+	//non-collidable rocks
 	this.rock = this.add.sprite(950, 1165, 'rock5');
 	this.rock2 = this.add.sprite(60, 1180, 'rock4');
 	this.rock3 = this.add.sprite(1010, 960, 'rock5');
@@ -184,19 +185,40 @@ gameScene.create = function () {
 	this.rock5 = this.add.sprite(20, 285, 'rock');
 		this.rock5.flipX =  true;
 	this.rock6 = this.add.sprite(750, 1015, 'rock2');
-	this.rock7 = this.add.sprite(408
-, 580, 'rock3');
+	this.rock7 = this.add.sprite(408, 580, 'rock3');
 		this.rock7.setScale(2, 2);
 
+	// walls
+
+
+	this.wallL = this.add.sprite(25, 1165, 'wallS');
+		this.wallL.setScale(1, .7);
+	this.wallL2 = this.add.sprite(25, 990, 'wallS');
+	this.wallL3 = this.add.sprite(25, 555, 'wallET');
+	this.wallL4 = this.add.sprite(25, 50, 'wallT');
+		this.wallL4.setScale(1, 1.1);
+	
+	this.wallR = this.add.sprite(975, 1145, 'wallM');
+		this.wallR.flipX =  true;
+	this.wallR2 = this.add.sprite(975, 945, 'wallS'); 
+		this.wallR2.flipX =  true;
+		this.wallR2.setScale(1, .9)
+	this.wallR3 = this.add.sprite(975, 705, 'wallT');
+		this.wallR3.flipX =  true;
+	this.wallR4 = this.add.sprite(975, 215, 'wallET');
+		this.wallR4.flipX =  true;
 
     this.cat1 = this.matter.world.nextCategory();
     this.cat2 = this.matter.world.nextCategory();
 
+	var wall = this.matter.add.image(200, 700, 'wall', null, { isStatic: true });
+		wall.setScale(1, .7);
+		wall.setCollisionCategory(this.cat1);
+
     //final pos:
     var playerX = 880;
-    //var playerY = 1120;
-	var playerY = 400;
-
+    var playerY = 1120;
+	
     //test pos
     //var playerX = 300;
     //var playerY = -300;
