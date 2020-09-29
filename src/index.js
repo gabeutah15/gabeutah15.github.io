@@ -33,6 +33,17 @@ gameScene.preload = function() {
     this.load.image("background", 'src/assets/BackgroundAssets/BG_Ocean.png');
     this.load.image("extraGround", 'src/assets/BackgroundAssets/BG_ExtraGround.png');
 
+    this.load.image("coral1", 'src/assets/BackgroundAssets/BG_Coral_01.png');
+    this.load.image("coral2", 'src/assets/BackgroundAssets/BG_Coral_02.png');
+    this.load.image("coral3", 'src/assets/BackgroundAssets/BG_Coral_03.png');
+    this.load.image("coral4", 'src/assets/BackgroundAssets/BG_Coral_04.png');
+    this.load.image("coral5", 'src/assets/BackgroundAssets/BG_Coral_05.png');
+    this.load.image("coral6", 'src/assets/BackgroundAssets/BG_Coral_06.png');
+    this.load.image("coral7", 'src/assets/BackgroundAssets/BG_Coral_07.png');
+    this.load.image("coral8", 'src/assets/BackgroundAssets/BG_Coral_08.png');
+    this.load.image("coral9", 'src/assets/BackgroundAssets/BG_Coral_09.png');
+
+
     this.load.image("Chain", 'src/assets/BackgroundAssets/Asset_Chain.png');
 	this.load.image("Boat", 'src/assets/Boat_2.png');
     this.load.image("DestroyBallBox", 'src/assets/BritneySpearsBarrel.png');
@@ -162,6 +173,28 @@ gameScene.create = function () {
     this.extraGround.setScale(2, 5);
     this.extraGround.setDepth(.5);
 
+    //coral
+    this.coral1 = this.add.sprite(170, -160, 'coral1');
+    this.coral2 = this.add.sprite(60, 148, 'coral2');
+    this.coral3 = this.add.sprite(55, 840, 'coral3');
+    this.coral3.setDepth(5);
+    this.coral4 = this.add.sprite(130, 1175, 'coral4');
+    this.coral4.setDepth(5);
+    this.coral5 = this.add.sprite(800, 1155, 'coral5');
+    this.coral5.setDepth(5);
+    this.coral6 = this.add.sprite(900, 985, 'coral6');
+    this.coral6.setDepth(5);
+    this.coral7 = this.add.sprite(900, 807, 'coral7');
+    this.coral7.setDepth(5);
+    this.coral8 = this.add.sprite(935, 505, 'coral8');
+    this.coral8.setDepth(5);
+    this.coral9 = this.add.sprite(945, 55, 'coral9');
+    this.coral8.setDepth(5);
+
+
+    //endcoral
+
+
 
     this.bgRock2 = this.add.sprite(500, 900, 'BGRocks2');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
@@ -193,13 +226,13 @@ gameScene.create = function () {
     this.cat2 = this.matter.world.nextCategory();
 
     //final pos:
-    var playerX = 880;
+    //var playerX = 880;
     //var playerY = 1120;
-	var playerY = 400;
+	//var playerY = 400;
 
     //test pos
-    //var playerX = 300;
-    //var playerY = -300;
+    var playerX = 300;
+    var playerY = -300;
 
     player = this.matter.add.sprite(playerX, playerY, 'player', 0);
     player.label = "player";
@@ -221,9 +254,10 @@ gameScene.create = function () {
     explosion.setDepth(100);
     explosion.setVisible(false);
 
-    this.cameras.main.setSize(1000, 730);
-    this.cameras.main.setBounds(0, -1000, 1000, 10000);
-    this.cameras.main.startFollow(player);
+    //this.cameras.main.setSize(1000, 730);
+    //this.cameras.main.setBounds(0, -1000, 1000, 10000);
+    //this.cameras.main.startFollow(player);
+    this.cameras.main.setZoom(.4)
     //var ball1 = this.add.image(50, 50, 'ball');
     //var ball2 = this.add.image(300, -150, 'ball');
     //var ball3 = this.add.image(750, -150, 'ball');
@@ -761,12 +795,12 @@ gameScene.create = function () {
                     music.stop();
                     deathSound.play();
                     player.play('death');
-                    alert("you lost!!!");
+                    //alert("you lost!!!");**re enable
                     //this.scene.restart();
                     //game.scene.start('game');
                     //game.scene.restart('game');
                     //gameScene.restart();
-                    location.reload();
+                    //location.reload();//***re enable
                 }
             }
         }
@@ -1335,4 +1369,5 @@ var game = new Phaser.Game(config);
 game.scene.add('title', titleScene);
 game.scene.add("game", gameScene);
 
-game.scene.start('title');
+//game.scene.start('title');
+game.scene.start('game');
