@@ -46,7 +46,7 @@ gameScene.preload = function() {
 
 
     this.load.image("Chain", 'src/assets/BackgroundAssets/Asset_chain.png');
-	this.load.image("Boat", 'src/assets/boat_2.png');
+	this.load.image("Boat", 'src/assets/BackgroundAssets/boat_2.png');
     this.load.image("DestroyBallBox", 'src/assets/BritneySpearsBarrel.png');
     //this.load.image("enemy", 'src/assets/donkeykong.jpg');
     this.load.image("ground", 'src/assets/BackgroundAssets/BG_Base.png');
@@ -59,7 +59,7 @@ gameScene.preload = function() {
     this.load.image('ladderImage', 'src/assets/BackgroundAssets/Asset_Bubbles.png');
 	this.load.image('ladderMImage', 'src/assets/BackgroundAssets/Asset_BubblesMedium.png');
 	this.load.image('ladderTImage', 'src/assets/BackgroundAssets/Asset_BubblesTall.png');
-    this.load.image('chain', 'src/assets/BackgroundAssets/Asset_chain.png');
+    //this.load.image('chain', 'src/assets/BackgroundAssets/Asset_chain.png');
     this.load.image('BGRocks', 'src/assets/BackgroundAssets/BG_BG01.png');
     this.load.image('BGRocks2', 'src/assets/BackgroundAssets/BG_BG02.png');
     this.load.image('rock', 'src/assets/BackgroundAssets/Bg_Rock01.png');
