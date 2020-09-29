@@ -244,12 +244,9 @@ gameScene.create = function () {
     this.cat1 = this.matter.world.nextCategory();
     this.cat2 = this.matter.world.nextCategory();
 
-	this.wall = this.add.sprite(200, 700, 'wall');
-		this.wall.setScale(1, .7);
-	var wallColl = this.matter.add.image(210, 700, 'ladder', null, { isStatic: true });
-		wallColl.setScale(.08, .3).setVisible(false);
-		wallColl.setCollisionCategory(this.cat1);
-
+	var wall = this.matter.add.image(200, 700, 'wall', null, { isStatic: true });
+		wall.setScale(1, .7);
+		wall.setCollisionCategory(this.cat1);
 
     //final pos:
     //var playerX = 880;
