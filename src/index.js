@@ -112,11 +112,11 @@ gameScene.preload = function() {
     });
 
   
-    this.load.spritesheet('explosion', 'src/assets/explosion.png', {
-        frameWidth: 120,//127 these values all need adjusting
-        frameHeight: 115,//120
-        margin: 12,
-        spacing: 10
+    this.load.spritesheet('explosion', 'src/assets/BackgroundAssets/Asset_ExplosionSprite.png', {
+        frameWidth: 455.833333,//127 these values all need adjusting
+        frameHeight: 364,//120
+        margin: 0,
+        spacing: 0
     }); //39 frames?
 }
 
@@ -191,8 +191,6 @@ gameScene.create = function () {
     this.coral8.setDepth(5);
     this.coral9 = this.add.sprite(945, 55, 'coral9');
     this.coral8.setDepth(5);
-
-
     //endcoral
 
 
@@ -252,18 +250,19 @@ gameScene.create = function () {
 		wallColl.setCollisionCategory(this.cat1);
 
     //final pos:
-    //var playerX = 880;
-    //var playerY = 1120;
+    var playerX = 880;
+    var playerY = 1120;
 
     //test pos
-    var playerX = 300;
-    var playerY = -300;
+    //var playerX = 300;
+    //var playerY = -300;
 
     player = this.matter.add.sprite(playerX, playerY, 'player', 0);
     player.label = "player";
     player.setFriction(10);
     player.setScale(1, 1);
     player.setCircle(30);
+	player.setDepth(5);
     player.setCollidesWith([this.cat1]);
 
     fisherman = this.matter.add.sprite(280, -585, 'fisherman', 0);
@@ -272,10 +271,10 @@ gameScene.create = function () {
     fisherman.setIgnoreGravity(true);
     fisherman.setDepth(.9);
 
-    explosion = this.matter.add.sprite(200, -500, 'explosion', 0); //600, 1100,
+    explosion = this.matter.add.sprite(200, -700, 'explosion', 0); //600, 1100,
     explosion.setSensor(true);
     explosion.setIgnoreGravity(true);
-    explosion.setScale(3);
+    explosion.setScale(2.5);
     explosion.setDepth(100);
     explosion.setVisible(false);
 
@@ -335,9 +334,9 @@ gameScene.create = function () {
     });
     this.anims.create({
         key: 'explode',
-        repeat: -1,//infinite repeat
+        //repeat: 0,//infinite repeat
         frameRate: 6,
-        frames: this.anims.generateFrameNames('explosion', { start: 0, end: 39 })//maybe 5?
+        frames: this.anims.generateFrameNames('explosion', { start: 0, end: 12 })//maybe 5?
     });
     //explosion.play('explode');
     player.play('idle');
@@ -1006,6 +1005,7 @@ function boooooom() {
     if (!hasPlayedBoom) {
 	    player.play('win');
         explosion.setVisible(true);
+		endMine.setVisible(false);
         explosion.play('explode');
         explosionSound.play();
         music.stop();
@@ -1047,7 +1047,7 @@ gameScene.update = function () {
             fisherman.setIgnoreGravity(false);
         }
 		
-		if (setTime && (intialTime <= (Date.now() - 7500))) {
+		if (setTime && (intialTime <= (Date.now() - 5400))) {
             playerWon();
 			setTime = false;
         }
