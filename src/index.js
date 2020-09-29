@@ -53,7 +53,7 @@ gameScene.preload = function() {
     this.load.image("platform2", 'src/assets/BackgroundAssets/BG_Platform02.png');
     this.load.image("platform3", 'src/assets/BackgroundAssets/BG_Platform03.png');
     this.load.image("platform4", 'src/assets/BackgroundAssets/BG_Platform04.png');
-    this.load.image('ball', 'src/assets/BackgroundAssets/Asset_Bomb_Throw.png');
+    this.load.image('ball', 'src/assets/BackgroundAssets/Asset_Bomb_Final.png');
     this.load.image('endMine', 'src/assets/BackgroundAssets/Asset_Bomb_Final.png');
     this.load.image('ladderImage', 'src/assets/BackgroundAssets/Asset_Bubbles.png');
 	this.load.image('ladderMImage', 'src/assets/BackgroundAssets/Asset_BubblesMedium.png');
