@@ -44,7 +44,6 @@ gameScene.preload = function() {
     this.load.image("platform4", 'src/assets/BackgroundAssets/BG_Platform04.png');
     this.load.image('ball', 'src/assets/BackgroundAssets/Asset_bomb.png');
     this.load.image('endMine', 'src/assets/BackgroundAssets/Asset_bomb_Lg.png');
-
     this.load.image('ladderImage', 'src/assets/BackgroundAssets/Asset_Bubbles.png');
 	this.load.image('ladderMImage', 'src/assets/BackgroundAssets/Asset_BubblesMedium.png');
 	this.load.image('ladderTImage', 'src/assets/BackgroundAssets/Asset_BubblesTall.png');
@@ -56,6 +55,11 @@ gameScene.preload = function() {
     this.load.image('rock3', 'src/assets/BackgroundAssets/Bg_Rock03.png');
     this.load.image('rock4', 'src/assets/BackgroundAssets/Bg_Rock04.png');
     this.load.image('rock5', 'src/assets/BackgroundAssets/Bg_Rock05.png');
+    this.load.image('wallS', 'src/assets/BackgroundAssets/Asset_WallShort.png');
+    this.load.image('wallM', 'src/assets/BackgroundAssets/Asset_WallMedium.png');
+    this.load.image('wallT', 'src/assets/BackgroundAssets/Asset_WallTall.png');
+    this.load.image('wallET', 'src/assets/BackgroundAssets/Asset_WallExtraTall.png');
+    this.load.image('wall', 'src/assets/BackgroundAssets/Asset_WallBlocker.png');
 
     //this.load.image("block", 'src/assets/tile43.png');
     this.load.image('ladder', 'src/assets/ladder.png');
@@ -172,12 +176,26 @@ gameScene.create = function () {
 
     //this.bg = this.add.sprite(0, 0, 'background');
 
+	this.rock = this.add.sprite(950, 1165, 'rock5');
+	this.rock2 = this.add.sprite(60, 1180, 'rock4');
+	this.rock3 = this.add.sprite(1010, 960, 'rock5');
+	this.rock4 = this.add.sprite(30, -150, 'rock');
+		this.rock4.setScale(1.3, 1.3);
+	this.rock5 = this.add.sprite(20, 285, 'rock');
+		this.rock5.flipX =  true;
+	this.rock6 = this.add.sprite(750, 1015, 'rock2');
+	this.rock7 = this.add.sprite(408
+, 580, 'rock3');
+		this.rock7.setScale(2, 2);
+
+
     this.cat1 = this.matter.world.nextCategory();
     this.cat2 = this.matter.world.nextCategory();
 
     //final pos:
     var playerX = 880;
-    var playerY = 1120;
+    //var playerY = 1120;
+	var playerY = 400;
 
     //test pos
     //var playerX = 300;
