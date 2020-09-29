@@ -20,6 +20,7 @@ var balls;
 var path;
 var graphics;
 //end path
+var boat;
 
 var gameScene = new Phaser.Scene("game");
 var titleScene = new Phaser.Scene("title");
@@ -251,13 +252,12 @@ gameScene.create = function () {
 		wallColl.setCollisionCategory(this.cat1);
 
     //final pos:
-    var playerX = 880;
-    var playerY = 1120;
-	//var playerY = 400;
+    //var playerX = 880;
+    //var playerY = 1120;
 
     //test pos
-    //var playerX = 300;
-    //var playerY = -300;
+    var playerX = 300;
+    var playerY = -300;
 
     player = this.matter.add.sprite(playerX, playerY, 'player', 0);
     player.label = "player";
@@ -576,7 +576,7 @@ gameScene.create = function () {
 		endMine.setCollisionCategory(this.cat1);
     //endMine.setCollidesWith([this.cat2]);
 		
-	var boat = this.matter.add.image(170, -550, 'Boat', null, { isStatic: true });
+	boat = this.matter.add.image(170, -550, 'Boat', null, { isStatic: true });
 		boat.setScale(1, 1);
 		//boat.setSensor(true);
     boat.setCollisionCategory(this.cat1);
@@ -1023,6 +1023,8 @@ gameScene.update = function () {
     //player.setIgnoreGravity(true);
     //player.setVelocityY(.27);
     //player.setVelocityX(0);
+
+    
 	
     if (chainBitten) {
         endMine.y -= 1;
@@ -1035,6 +1037,9 @@ gameScene.update = function () {
         if (setTime && (intialTime <= (Date.now() - 3300))) {
             boooooom();
             endMine.y += 1;
+            boat.angle -= .1;
+            boat.y += .8;
+
             fisherman.setVelocityX(3);
             //fisherman.setVelocityY();
 
