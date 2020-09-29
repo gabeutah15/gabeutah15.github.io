@@ -30,7 +30,9 @@ gameScene.preload = function() {
 
    
 
-    this.load.image("background", 'src/assets/BackgroundAssets/SharkBomberBackground.png');
+    this.load.image("background", 'src/assets/BackgroundAssets/BG_Ocean.png');
+    this.load.image("extraGround", 'src/assets/BackgroundAssets/BG_ExtraGround.png');
+
     this.load.image("Chain", 'src/assets/BackgroundAssets/Asset_Chain.png');
 	this.load.image("Boat", 'src/assets/Boat_2.png');
     this.load.image("DestroyBallBox", 'src/assets/BritneySpearsBarrel.png');
@@ -147,7 +149,13 @@ gameScene.create = function () {
     this.bg = this.add.sprite(500, 670, 'background');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
     //this.bg.setDisplaySize(1000, 1280);
-    this.bg.setScale(5.5, 5.5);
+    this.bg.setScale(.3, .3);//this scale seems to work but there might be a better one
+
+
+    this.extraGround = this.add.sprite(500, 1630, 'extraGround');
+    this.extraGround.setScale(2, 5);
+    this.extraGround.setDepth(.5);
+
 
     this.bgRock2 = this.add.sprite(500, 900, 'BGRocks2');
     //this.bg.setDisplaySize(this.bg.width*2, this.bg.height*3);
