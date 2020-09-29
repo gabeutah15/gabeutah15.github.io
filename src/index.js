@@ -36,7 +36,7 @@ gameScene.preload = function() {
     this.load.image("Chain", 'src/assets/BackgroundAssets/Asset_Chain.png');
 	this.load.image("Boat", 'src/assets/Boat_2.png');
     this.load.image("DestroyBallBox", 'src/assets/BritneySpearsBarrel.png');
-    this.load.image("enemy", 'src/assets/donkeykong.jpg');
+    //this.load.image("enemy", 'src/assets/donkeykong.jpg');
     this.load.image("ground", 'src/assets/BackgroundAssets/BG_Base.png');
     this.load.image("platform", 'src/assets/BackgroundAssets/BG_Platform01.png');
     this.load.image("platform2", 'src/assets/BackgroundAssets/BG_Platform02.png');
@@ -46,6 +46,8 @@ gameScene.preload = function() {
     this.load.image('endMine', 'src/assets/BackgroundAssets/Asset_bomb_Lg.png');
 
     this.load.image('ladderImage', 'src/assets/BackgroundAssets/Asset_Bubbles.png');
+	this.load.image('ladderMImage', 'src/assets/BackgroundAssets/Asset_BubblesMedium.png');
+	this.load.image('ladderTImage', 'src/assets/BackgroundAssets/Asset_BubblesTall.png');
     this.load.image('chain', 'src/assets/BackgroundAssets/Asset_Chain.png');
     this.load.image('BGRocks', 'src/assets/BackgroundAssets/BG_BG01.png');
     this.load.image('BGRocks2', 'src/assets/BackgroundAssets/BG_BG02.png');
@@ -292,8 +294,8 @@ gameScene.create = function () {
 		level1A.setAngle(-4);
 		level1A.setCollisionCategory(this.cat1);
 	
-	var ladder1A = this.matter.add.image(185, 1135, 'ladderImage', null, { isStatic: true });
-		ladder1A.setScale(1.2, 1.6);
+	var ladder1A = this.matter.add.image(185, 1135, 'ladderMImage', null, { isStatic: true });
+		ladder1A.setScale(1.2, 1.2);
 		ladder1A.setSensor(true);
 
 	var ladderT1A = this.matter.add.image(190, 1110, 'ladder', null, { isStatic: true });
@@ -307,8 +309,8 @@ gameScene.create = function () {
 		level1B.setAngle(-4);
 		level1B.setCollisionCategory(this.cat1);
 
-	var ladder1B = this.matter.add.image(510, 1130, 'ladderImage', null, { isStatic: true });
-		ladder1B.setScale(1.8, 1.99);
+	var ladder1B = this.matter.add.image(510, 1120, 'ladderMImage', null, { isStatic: true });
+		ladder1B.setScale(1.8, 1.5);
 		ladder1B.setSensor(true);
 
 	var ladderT1B = this.matter.add.image(525, 1095, 'ladder', null, { isStatic: true });
@@ -335,8 +337,8 @@ gameScene.create = function () {
 		ladderT2A.setSensor(true);
 		ladderT2A.setCollisionCategory(this.cat1);
 		
-	var ladder2B = this.matter.add.image(690, 910, 'ladderImage', null, { isStatic: true });
-		ladder2B.setScale(1.8, 2.4);
+	var ladder2B = this.matter.add.image(690, 910, 'ladderMImage', null, { isStatic: true });
+		ladder2B.setScale(1.8, 1.8);
 		ladder2B.setSensor(true);
 		
 	var ladderT2B = this.matter.add.image(680, 895, 'ladder', null, { isStatic: true });
@@ -349,8 +351,8 @@ gameScene.create = function () {
 		level3A.setAngle(7);
 		level3A.setCollisionCategory(this.cat1);
 
-	var ladder3A = this.matter.add.image(550, 680, 'ladderImage', null, { isStatic: true });
-		ladder3A.setScale(1.5, 2.2);
+	var ladder3A = this.matter.add.image(550, 680, 'ladderMImage', null, { isStatic: true });
+		ladder3A.setScale(1.5, 1.5);
 		ladder3A.setSensor(true);
 		
 	var ladderT3A = this.matter.add.image(560, 655, 'ladder', null, { isStatic: true });
@@ -368,8 +370,8 @@ gameScene.create = function () {
 		level4A.setAngle(-5);
 		level4A.setCollisionCategory(this.cat1);
 
-	var ladder4A = this.matter.add.image(350, 460, 'ladderImage', null, { isStatic: true });
-		ladder4A.setScale(1.5, 2.4);
+	var ladder4A = this.matter.add.image(350, 460, 'ladderTImage', null, { isStatic: true });
+		ladder4A.setScale(1.5, 1);
 		ladder4A.setSensor(true);
 		
 	var ladderT4A = this.matter.add.image(335, 440, 'ladder', null, { isStatic: true });
@@ -396,8 +398,8 @@ gameScene.create = function () {
 		level5A.setAngle(7);
 		level5A.setCollisionCategory(this.cat1);
 		
-	var ladder5A = this.matter.add.image(700, 240, 'ladderImage', null, { isStatic: true });
-		ladder5A.setScale(1.5, 2.7);
+	var ladder5A = this.matter.add.image(700, 240, 'ladderTImage', null, { isStatic: true });
+		ladder5A.setScale(1.5, 1.2);
 		ladder5A.setSensor(true);
 		
 	var ladderT5A = this.matter.add.image(160, 218, 'ladder', null, { isStatic: true });
@@ -410,8 +412,8 @@ gameScene.create = function () {
 		level5B.setAngle(7);
 		level5B.setCollisionCategory(this.cat1);
 
-	var ladder5B = this.matter.add.image(150, 240, 'ladderImage', null, { isStatic: true });
-		ladder5B.setScale(1.5, 1.6);
+	var ladder5B = this.matter.add.image(150, 240, 'ladderMImage', null, { isStatic: true });
+		ladder5B.setScale(1.5, 1);
 		ladder5B.setSensor(true);
 		
 	var ladderT5B = this.matter.add.image(710, 220, 'ladder', null, { isStatic: true });
@@ -424,8 +426,8 @@ gameScene.create = function () {
 		level6A.setAngle(-5);
 		level6A.setCollisionCategory(this.cat1);
 		
-	var ladder6A = this.matter.add.image(455, 20, 'ladderImage', null, { isStatic: true });
-		ladder6A.setScale(1.5, 2.5);
+	var ladder6A = this.matter.add.image(455, 20, 'ladderTImage', null, { isStatic: true });
+		ladder6A.setScale(1.5, 1);
 		ladder6A.setSensor(true);
 		
 	var ladderT6A = this.matter.add.image(440, 0, 'ladder', null, { isStatic: true });
