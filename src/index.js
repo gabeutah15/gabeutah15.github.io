@@ -249,13 +249,13 @@ gameScene.create = function () {
 		wall.setCollisionCategory(this.cat1);
 
     //final pos:
-    //var playerX = 880;
-    //var playerY = 1120;
+    var playerX = 880;
+    var playerY = 1120;
 	//var playerY = 400;
 
     //test pos
-    var playerX = 300;
-    var playerY = -300;
+    //var playerX = 300;
+    //var playerY = -300;
 
     player = this.matter.add.sprite(playerX, playerY, 'player', 0);
     player.label = "player";
@@ -277,10 +277,10 @@ gameScene.create = function () {
     explosion.setDepth(100);
     explosion.setVisible(false);
 
-    //this.cameras.main.setSize(1000, 730);
-    //this.cameras.main.setBounds(0, -1000, 1000, 10000);
-    //this.cameras.main.startFollow(player);
-    this.cameras.main.setZoom(.4)
+    this.cameras.main.setSize(1000, 730);
+    this.cameras.main.setBounds(0, -1000, 1000, 10000);
+    this.cameras.main.startFollow(player);
+    //this.cameras.main.setZoom(.4)
     //var ball1 = this.add.image(50, 50, 'ball');
     //var ball2 = this.add.image(300, -150, 'ball');
     //var ball3 = this.add.image(750, -150, 'ball');
@@ -819,12 +819,12 @@ gameScene.create = function () {
                     music.stop();
                     deathSound.play();
                     player.play('death');
-                    //alert("you lost!!!");**re enable
+                    alert("you lost!!!");
                     //this.scene.restart();
                     //game.scene.start('game');
                     //game.scene.restart('game');
                     //gameScene.restart();
-                    //location.reload();//***re enable
+                    location.reload();
                 }
             }
         }
@@ -1393,5 +1393,5 @@ var game = new Phaser.Game(config);
 game.scene.add('title', titleScene);
 game.scene.add("game", gameScene);
 
-//game.scene.start('title');
-game.scene.start('game');
+game.scene.start('title');
+//game.scene.start('game');
